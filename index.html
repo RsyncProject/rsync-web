@@ -74,8 +74,7 @@ function in util.c:
  					/* back up sanp one level */
 </pre>
 
-<p>This bug is fixed in the CVS version of rsync, and will be released in
-version 2.6.3 (it is currently in release-testing).
+<p>This bug-fix was released in version 2.6.3 of rsync.
 
 <p>One potential fix that doesn't require recompiling rsync is to set
 "use chroot = true" for all the modules in the rsyncd.conf file.
@@ -91,15 +90,8 @@ that could cause files to be transferred incorrectly.  This only affected a
 source right at the root of the filesystem, such as "/" or "/*" (using "."
 as the source after a chdir to "/" was not affected, however).
 
-<p>See the <a href="/ftp/rsync/rsync-2.6.2-NEWS">release NEWS</a> for the
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.2-NEWS">release NEWS</a> for the
 details of what else was fixed.
-
-<p>See the <a href="download.html">download page</a> for all the ways
-to grab the new version, or snag one of these: <b>
-<a href="/ftp/rsync/rsync-2.6.2.tar.gz">rsync-2.6.2.tar.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.2.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/rsync-2.6.1-2.6.2.diffs.gz">rsync-2.6.1-2.6.2.diffs.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.1-2.6.2.diffs.gz.asc">signature</a>)</b>.
 
 <h3>Rsync 2.6.1 released</h3>
 
@@ -125,9 +117,6 @@ of someone crafting an attack that could write a file outside of the module's
 "path" setting (where all its files should be stored).  Please either enable
 chroot or upgrade to 2.6.1.  People not running a daemon, running a read-only
 daemon, or running a chrooted daemon are totally unaffected.
-
-<p>See the <a href="download.html">download page</a> for all the ways
-to grab the new version.
 
 <h3>One Cygwin hang-problem resolved</h3>
 
