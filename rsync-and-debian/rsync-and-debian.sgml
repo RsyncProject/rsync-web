@@ -99,47 +99,6 @@
 	</p>
 	</sect1>
 
-      
-
-      <sect1>
-	<heading/librsync/
-
-	<p>
-	  <tt/librsync/ is a library that reimplements the rsync
-	  algorithm in a very flexible way, with the goal of allowing
-	  any reasonable mode of operation, and integration with any
-	  existing program.  rsync does not currently link to
-	  librsync, but it might do so in the long term.
-
-	<p>
-	  <tt/librsync/ currently uses an encoding
-	  format different to that of rsync 2.5, mostly because I did
-	  not want to be constrained by historical code.
-
-	<p>
-	  <tt/librsync/ is at version 0.9.5 and roughly as stable as
-	  the version number suggests: it is used by Intermezzo and
-	  some other projects, but is not yet really mature.  The
-	  <tt/librsync/ distribution comes with a tool <tt/rdiff/ that
-	  exposes the functionality as a Unix tool to shell scripts,
-	  etc.  <tt/librsync/ is LGPL'd.
-
-	<p>
-	  <tt/librsync/ is used in the rproxy program, which is a
-	  prototype of transparent integration of delta compression
-	  into HTTP.
-	</p>
-
-	<p>
-	  For example, you can imagine the server calculating and
-	  caching the checksums, or the client calculating the delta
-	  once and then sending it over UDP multicast to several
-	  destinations, or uuencoded in email.  Neither of these would
-	  be straightforward to implement in the rsync codebase, but
-	  all can be done with rdiff.
-
-      </sect1>
-
 
       
       <sect1>
@@ -213,6 +172,121 @@
 	</p>
       </sect1>
 
+
+      
+
+      <sect1>
+	<heading/librsync/
+
+	<p>
+	  <tt/librsync/ is a library that reimplements the rsync
+	  algorithm in a very flexible way, with the goal of allowing
+	  any reasonable mode of operation, and integration with any
+	  existing program.  rsync does not currently link to
+	  librsync, but it might do so in the long term.
+
+	<p>
+	  <tt/librsync/ currently uses an encoding
+	  format different to that of rsync 2.5, mostly because I did
+	  not want to be constrained by historical code.
+
+	<p>
+	  <tt/librsync/ is at version 0.9.5 and roughly as stable as
+	  the version number suggests: it is used by Intermezzo and
+	  some other projects, but is not yet really mature.  The
+	  <tt/librsync/ distribution comes with a tool <tt/rdiff/ that
+	  exposes the functionality as a Unix tool to shell scripts,
+	  etc.  <tt/librsync/ is LGPL'd.
+
+	<p>
+	  For example, you can imagine the server calculating and
+	  caching the checksums, or the client calculating the delta
+	  once and then sending it over UDP multicast to several
+	  destinations, or uuencoded in email.  Neither of these would
+	  be straightforward to implement in the rsync codebase, but
+	  all can be done with rdiff.
+
+      </sect1>
+
+
+
+      <sect1>
+	<heading/rproxy/
+
+	<p>
+	  <tt/librsync/ is used in the rproxy program, which is a
+	  prototype of transparent integration of delta compression
+	  into HTTP.
+	</p>
+
+	<p>
+	  rproxy implements delta compression of arbitrary HTTP
+	  content, whether dynamic or static.  For example, rproxy
+	  gives very good compression on repeated visits to portal
+	  sites such as Slashdot, since it can transmit only the
+	  sections of the page modified since last time it was
+	  viewed.  Regular HTTP caches, by contrast, must either hit
+	  on the whole page, or reload the whole page, and therefore
+	  do poorly on template-based dynamic content.
+
+	<p>
+	  rproxy adds compatible extensions to HTTP headers, and can
+	  pass through HTTP caches.  It requires upstream and
+	  downstream support, which at the moment means two
+	  installations of rproxy, but in the future could conceivably
+	  be integrated into Mozilla, Squid, Apache and similar
+	  programs.  
+
+	<p>
+	  rproxy is packaged in Debian and is moderately useful for
+	  people with slow links.
+
+	<p>
+	  rproxy is not HTML-specific, but HTML is by far the most
+	  common case of dynamic HTTP content that can be
+	  delta-compressed.  However, HTML documents tend to be fairly
+	  small, and as connectivity improves they're becoming of
+	  decreasing interest as a compression problem.
+
+	<p>
+	  (My personal interest in this project declined significantly
+	  when I went from a 56k6 modem to ADSL at home.  I realize
+	  many people in the world still have slow connections.)
+
+	<p>
+	  There are some Internet Drafts from Jeffrey Mogul and others
+	  that add similar delta compression based on the server
+	  storing all possible deltas.  Last time I looked, there did
+	  not seem much interest in wide adoption of these proposals.
+
+	<p>
+	  Documenting a protocol extension to the standard expected by
+	  an RFC can be a lot of work.  A beginning on this work has
+	  been made for rproxy, but more experiments with the
+	  implementation are needed before proposal as a standard.
+
+	<p>
+	  rproxy is not being actively developed at the moment.
+	  Obviously I cannot answer why every programmer in the world
+	  does not work on this.  Personally I think that developing
+	  rsync itself, and then librsync/rdiff, is likely to be more
+	  useful; I suspect other people interested in working in this
+	  area might have similar thoughts.  
+
+	<p>
+	  I don't think there are any problems in the code or project
+	  that would actively prevent anybody from working on it.  I'd
+	  be happy to hand over maintenance to somebody else.  Ben
+	  Elliston has expressed interest in looking after it in the
+	  last couple of months, and possibly it will be more active
+	  in the future.
+
+	<p>
+	  For more details see <tt>http://rproxy.samba.org/</tt>
+
+      </sect1>
+
+      
 
       <sect1>
 	<heading>Introduction to Debian</heading>
@@ -560,8 +634,7 @@
 
       
       <sect1>
-	<heading>
-	  Reduced network usage is not justified by increased CPU
+	<heading>Reduced network usage is not justified by increased CPU
 	  usage
 	</heading>
 
@@ -727,6 +800,9 @@
       
 <p><tscreen><verb>
 $Log$
+Revision 1.6  2002/04/12 00:43:06  mbp
+Fix revision history SGML stuff.
+
 Revision 1.5  2002/04/12 00:24:50  mbp
 Fix mailing list name.
 Add revision history.
