@@ -209,7 +209,6 @@
       </sect1>
 
 
-
       <sect1>
 	<heading/rproxy/
 
@@ -536,10 +535,36 @@
 	algorithm over HTTP Range requests/
 
 	<p>
-	  Goswin Brederlow has a nice proposal to use the reverse
-	  rsync algorithm over HTTP by storing checksums on the server
-	  and using HTTP Range requests.
+	  Goswin Brederlow has a nice proposal that allows rsync
+	  compression using a regular HTTP server.  It depends only
+	  upon rsyncable archives, and development of new client and
+	  support programs.
+
+	<p>
+	  The idea, as I understand it, is that the checksums for each
+	  package should be pre-calculated and stored on the HTTP
+	  server along with the files they describe.  (The checksum
+	  files should be on the order of a thousand times smaller
+	  than the archive file.)
+
+	<p>
+	  The client program will download the checksum file over HTTP
+	  if it exists.  The client can then search for common blocks
+	  in the local file, and therefore determine what new regions
+	  it must fetch from the server.  The client then sends an
+	  HTTP request using the optional <tt/Range/ header for the
+	  relevant sections of the new file, and patches them onto the
+	  old file.  The checksum file ought to also include a
+	  whole-file message digest which can be used to ensure that
+	  reassembly was successful.
 	
+	<p>
+	  This scheme has the great advantage that the server is
+	  entirely passive, and only needs to support standard HTTP.
+	  The checksum files can be generated once for each package
+	  either during upload, or by the administrator of a
+	  particular server.
+
 	<p>
 	  (This is not the same as rproxy, which uses a different
 	  encoding and requires upstream support, but can
@@ -557,13 +582,9 @@
 	  would be a simple way to get delta-compression in, pending
 	  only --rsyncable files.
 
-	<p>
-	  It has the benefit that it requires servers not to install
-	  any special software other than an HTTP server, and not to
-	  do any special calculation of deltas.
 
 	<p>
-	  I'm not sure if all HTTP servers currently handle Range
+	  I'm not sure if all HTTP servers currently handle <tt/Range/
 	  commands efficiently.  This proposal would probably stress
 	  them more than is common at the moment.
 
@@ -576,6 +597,8 @@
 	  downloads a delta over HTTP.
 
       </sect1>
+
+      
 
 
       <sect1>
@@ -800,6 +823,10 @@
       
 <p><tscreen><verb>
 $Log$
+Revision 1.7  2002/04/12 01:39:52  mbp
+Lots more details about rproxy.  Thanks to Brian May for prompting me
+to do this.
+
 Revision 1.6  2002/04/12 00:43:06  mbp
 Fix revision history SGML stuff.
 
