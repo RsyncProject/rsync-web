@@ -39,7 +39,7 @@
 	If there are issues ommitted by this document, or if you think
 	the answers are incomplete, unbalanced, or incorrect, then
 	please mail <tt/mbp@samba.org/, <tt/rsync@lists.samba.org/
-	and/or <tt/debian-devel@lists.samba.org/.
+	and/or <tt/debian-devel@lists.debian.org/.
 
     </sect>
 
@@ -717,6 +717,17 @@
       </sect1>
 
       
+    </sect>
+
+    
+    <appendix>
+    <sect>
+      <heading>Revision history</heading>
+
+      
+<p><tscreen>
+$Log$	
+</tscreen></p>
     </sect>
   </article>
 </linuxdoc>
