@@ -51,6 +51,16 @@ rsync -av --rsync-path=/some/path/rsync-debug SOURCE HOST:DEST
 that lead up to the failure to a file in the /tmp dir.  You can use the
 resulting files to help figure out why the remote rsync failed.
 
+<p>If you are rsyncing to an rsync daemon, the above script won't have
+an effect.  Instead, halt the current daemon and restart it under
+strace, like this:
+
+<pre>strace -f rsync --daemon --no-detach 2&gt;/tmp/rsync-$$.out
+</pre>
+
+<p>If you are using rsync under inetd, I'd suggest temporarily disabling
+that and using the above daemon approach to debug what is going on.
+
 <li><p><b>Q:</b>
 
 When connecting to an rsync daemon (using the "::" syntax) the
