@@ -31,8 +31,9 @@
       <p>
 	I have tried to respond to all the issues raised on the list
 	recently, but possibly have missed some.  After putting many
-	hours into rsync I suppose I am quite fond of it, but I think
-	I also know it's strengths and problems more than most.
+	hours into rsync I suppose I am quite fond of it and may be a
+	little biased, but I think I also know its strengths and
+	problems more than most.
       
       <p>
 	If there are issues ommitted by this document, or if you think
@@ -52,7 +53,7 @@
 
 	<p>
 	  rsync is really two independent but related ideas: the
-	  <em/rsync algorithm/ for delta compression, and it's
+	  <em/rsync algorithm/ for delta compression, and its
 	  implementation in a mirroring program.
 	</p>
 	
@@ -432,7 +433,7 @@
 	  As of April 2002, the 2.5.5 release is current and 2.5.6 is
 	  pending.  These versions seem to work quite well and we
 	  encourage people to upgrade from stable 2.4.6 and previous
-	  versions.  It's very important to the developers to
+	  versions.  It is very important to the developers to
 	  establish a stable base release before starting out on new
 	  development.
 	</p>
@@ -565,7 +566,7 @@
 	</heading>
 
 	<p>
-	  The balance point will vary for each administrator.  It's
+	  The balance point will vary for each administrator.  It is
 	  hard to answer this universally.  The balance is very
 	  different in countries other than the US.
 	</p>
@@ -590,7 +591,7 @@
 	</p>
 
 	<p>
-	  It's not inherently impossible to make rsync use
+	  It is not inherently impossible to make rsync use
 	  <tt>sendfile()</tt> and <tt>mmap()</tt>; it's just that most
 	  people don't need them.  (Apache did not use them by default
 	  either last time I looked, but that doesn't mean it's not
