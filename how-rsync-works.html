@@ -10,23 +10,23 @@ The original
 <a href="http://rsync.samba.org/tech_report/">Rsync technical report</a>
 and
 Andrew Tridgell's
-<a href="http://samba.org/~tridge/phd_thesis.pdf">Phd thesis (pdf)</a>
+<a href="http://samba.org/%7Etridge/phd_thesis.pdf">Phd thesis (pdf)</a>
 Are both excellent documents for understanding the
 theoretical mathematics and some of the mechanics of the rsync algorithm.
 Unfortunately they are more about the theory than the
 implementation of the rsync utility (hereafter referred to as
 Rsync).
 <p>
-In this document i hope to describe...
+In this document I hope to describe...
 <ul>
 	<li>A non-mathematical overview of the rsync algorithm.
 	<li>How that algorithm is implemented in the rsync utility.
 	<li>The protocol, in general terms, used by the rsync utility.
-	<li>The identifiable rolls the rsync processes play.
+	<li>The identifiable roles the rsync processes play.
 </ul>
 <p>
 This document be able to serve as a guide for programmers
-needing something of an antre into the source code but the
+needing something of an entr&eacute; into the source code but the
 primary purpose is to give the reader a foundation from
 which he may understand
 <ul>
@@ -48,64 +48,64 @@ all be speaking the same language; likewise it is important
 that we mean the same things when we use certain terms in a
 given context.  On the rsync mailing list there is often
 some confusion with regards to role and processes.  For
-these reasons i will define a few terms
-used in the role and process contexts that will be used in
-henceforth.
-<table valign="top" cellspacing="20"><tr>
+these reasons I will define a few terms
+used in the role and process contexts that will be used henceforth.
+
+<table cellspacing="20"><tr valign="top">
 <td>client
-<td>role
-<td>
+</td><td>role
+</td><td>
 	The client initiates the synchronisation.
-</tr><tr>
+</td></tr><tr valign="top">
 <td>server
-<td>role
-<td>
+</td><td>role
+</td><td>
 	The remote rsync process or system to which the
 	client connects either within a local transfer, via
 	a remote shell or via a network socket.
 	<p>
 	This is a general term and should not be confused with the daemon.
-</tr><tr>
+</td></tr><tr valign="top">
 <td>
-<td>
-<td bgcolor="EFEFEF">
+</td><td>
+</td><td bgcolor="#efefef">
 	Once the connection between the client and server is established
-	the distinction between them is superceded by the
+	the distinction between them is superseded by the
 	sender and receiver roles.
-</tr><tr>
+</td></tr><tr valign="top">
 <td>daemon
-<td>Role and process
-<td>
+</td><td>Role and process
+</td><td>
 	An Rsync process that awaits connections from
 	clients.  On a certain platform this would be called a
 	service.
-</tr><tr>
+</td></tr><tr valign="top">
 <td>remote&nbsp;shell
-<td>role and set of processes
-<td>
+</td><td>role and set of processes
+</td><td>
 	One or more processes that provide connectivity
 	between an Rsync client and an Rsync server on a
 	remote system.
-</tr><tr>
+</td></tr><tr valign="top">
 <td>sender
-<td>role and process
-<td>
+</td><td>role and process
+</td><td>
 	The Rsync process that has access to the source
 	files being synchronised.
-</tr><tr>
+</td></tr><tr valign="top">
 <td>receiver
-<td>role and process
-<td>
+</td><td>role and process
+</td><td>
 	As a role the receiver is the destination system.
 	As a process the receiver is the process that
 	receives update data and writes it to disk.
-</tr><tr>
+</td></tr><tr valign="top">
 <td>generator
-<td>process
-<td>
+</td><td>process
+</td><td>
 	The generator process identifies changed files and
 	manages the file level logic.
-</tr></table>
+</td></tr></table>
 <p>
 <h2 align="center">Process Startup</h2>
 <p>
@@ -119,23 +119,32 @@ shell which will start an Rsync server on the remote system.
 Both the Rsync client and server are communicating via pipes
 through the remote shell.  As far as the rsync processes are
 concerned there is no network.
+In this mode the rsync options for the server process are
+passed on the command-line that is used to start the remote
+shell.
 <p>
 When Rsync is communicating with a daemon it is
 communicating directly with a network socket.  This is the
 only sort of Rsync communication that could be called
 network aware.
+In this mode the rsync options must be sent over the socket, as
+described below.
 <p>
-Once the client has communications with the server they
-agree upon the protocol level and each determine whether
-they are sender or receiver and the exclude list may be
+At the very start of the communication between the client
+and the server, they each send the maximum protocol version
+they support to the other side.
+Each side then uses the minimum value as the the protocol
+level for the transfer.
+If this is a daemon-mode connection, rsync options are sent
+from the client to the server.  Then, the exclude list is
 transmitted.  From this point onward the
-client-server relationship is only irrelevant with regards
+client-server relationship is relevant only with regards
 to error and log message delivery.
 <p>
-Local Rsync jobs (both source and destination on locally
+Local Rsync jobs (when the source and destination are both on locally
 mounted filesystems) are done exactly like a push.  The
 client, which becomes the sender, forks a server process to
-fulfil the receiver role.  The client/sender and
+fulfill the receiver role.  The client/sender and
 server/receiver communicate with each other over pipes.
 <h2 align="center">The File List</h2>
 The file list includes not only the pathnames but also
@@ -146,20 +155,22 @@ the file checksums.
 The first thing that happens once the startup has completed
 is that the sender will create the file list.
 While it is being built, each entry is transmitted to the
-receiving side in a network optimised way.
+receiving side in a network-optimised way.
 <p>
-The file list is then sorted lexicographically by path
-relative to the base directories on both the sender and the
-receiver.  Once that has happened all references to files
+When this is done, each side sorts the file list lexicographically by path
+relative to the base directory of the transfer.
+(The exact sorting algorithm varies depending on what protocol
+version is in effect for the transfer.)
+Once that has happened all references to files
 will be done by their index in the file list.
 <p>
-If necessary the sender follows the file list with id-&gt;name
+If necessary the sender follows the file list with id&rarr;name
 tables for users and groups which the receiver will use to
-do a id-&gt;name-&gt;id translation for every file in the file
+do a id&rarr;name&rarr;id translation for every file in the file
 list.
 <p>
-After the file list has been received by the receiver it
-will fork again to become the generator and receiver pair
+After the file list has been received by the receiver, it
+will fork to become the generator and receiver pair
 completing the pipeline.
 <h2 align="center">The Pipeline</h2>
 Rsync is heavily pipelined.  This means that it is a set of
@@ -167,19 +178,19 @@ processes that communicate in a (largely) unidirectional
 way.  Once the file list has been shared the pipeline
 behaves like this:
 <blockquote>
-	generator -&gt; sender -&gt; receiver
+	generator &rarr; sender &rarr; receiver
 </blockquote>
 <p>
 The output of the generator is input for the sender and the
-output of the sender is input for the receiver.  Each
-process runs independently and is only delayed when the
-pipelines stall or for disk I/O.
+output of the sender is input for the receiver.
+Each process runs independently and is delayed only when the
+pipelines stall or when waiting for disk I/O or CPU resources.
 <h2 align="center">The Generator</h2>
 <p>
-The generator process compares the file list with it's local
-directory tree.  Prior to beginning its primary function if
---delete has been specified it will first identify local
-files not on the sender and delete them.
+The generator process compares the file list with its local
+directory tree.  Prior to beginning its primary function, if
+--delete has been specified, it will first identify local
+files not on the sender and delete them on the receiver.
 <p>
 The generator will then start walking the file list.  Each
 file will be checked to see if it can be skipped.  In the
@@ -189,7 +200,7 @@ specified a file-level checksum will be created and
 compared.  Directories, device nodes and symlinks are not
 skipped.  Missing directories will be created.  
 <p>
-If a file is not to be skipped block checksums are created
+If a file is not to be skipped, block checksums are created
 for it and sent with the file index number to the sender.
 An empty block checksum set is sent for new files and if
 --whole-file was specified.
@@ -207,10 +218,11 @@ block checksums and build a hash index of them for rapid lookup.
 Then the local file is read and a checksum is
 generated for the block beginning with the first byte of the
 local file.  This block checksum is looked for in the
-set that was sent by the generator if no match is found the
-block starting at the next byte will be compared and the
-byte will be added to the non-matching data.  This is what
-is referred to as the "rolling checksum"
+set that was sent by the generator, and if no match is found,
+the non-matching byte will be appended to the non-matching data
+and the block starting at the next byte will be compared.
+This is what
+is referred to as the &ldquo;rolling checksum&rdquo;
 <p>
 If a block checksum match is found it is considered a
 matching block and any accumulated non-matching data will be
@@ -225,8 +237,8 @@ This process is the very heart of the rsync algorithm.
 <p>
 In this way the generator will send to the receiver a
 sequence of non-matched data interspersed with matching block
-information.  At the end of each file's processing a whole
-file checksum is sent and the sender proceeds with the next
+information.  At the end of each file's processing a whole-file
+checksum is sent and the sender proceeds with the next
 file.
 <p>
 Generating the rolling checksums and searching for matches
@@ -239,7 +251,7 @@ The receiver will read from the sender data for each file
 identified by the file index number.  It will open the local
 file (called the basis) and will create a temporary file.
 <p>
-The receiver will expect to read non-matched data and/or match
+The receiver will expect to read non-matched data and/or to match
 records all in sequence for the final file contents.  When
 non-matched data is read it will be written to the
 temp-file.  When a block match record is received the
@@ -247,14 +259,14 @@ receiver will seek to the block offset in the basis file
 and copy the block to the temp-file.  In this way the
 temp-file is built from beginning to end.
 <p>
-As the temp-file was built the a file checksum was
-generated.  At the end of the file it is compared with the
+The file's checksum is generated as the temp-file is built.
+At the end of the file, this checksum is compared with the
 file checksum from the sender.  If the file checksums do not
 match the temp-file is deleted.  If the file fails once it
-will be reprocessed in a second phase and if it fails twice
-and error is reported.
+will be reprocessed in a second phase, and if it fails twice
+an error is reported.
 <p>
-After the temp-file has been completed it's ownership and
+After the temp-file has been completed, its ownership and
 permissions and modification time are set.  It is then
 renamed to replace the basis file.
 <p>
@@ -263,26 +275,27 @@ receiver the most disk intensive of all the rsync processes.
 Small files may still be in disk cache mitigating this but
 for large files the cache may thrash as the generator has
 moved on to other files and there is further latency caused
-by the sender.  For files exceeding cache capacity as
+by the sender.  As
 data is read possibly at random from one file and written to
-another it can produce what is called a seek storm further
+another, if the working set is larger than the disk cache,
+then what is called a seek storm can occur, further
 hurting performance.
 <h2 align="center">The Daemon</h2>
-The daemon process like many daemons forks for every
-connection.  On startup it reads the rsyncd.conf file in
-order to know what modules exist and set the global options.
+The daemon process, like many daemons, forks for every
+connection.  On startup, it parses the rsyncd.conf file
+to determine what modules exist and to set the global options.
 <p>
 When a connection is received for a defined module the
 daemon forks a new child process to handle the connection.
 That child process then reads the rsyncd.conf file to set
-the options for the requested module it may chroot to the
-module path and may drop change user and group id for the
+the options for the requested module, which may chroot to the
+module path and may drop setuid and setgid for the
 process.  After that it will behave just like any other
 rsync server process adopting either a sender or receiver
 role.
 <h2 align="center">The Rsync Protocol</h2>
 <p>
-A well designed communications protocol has a number of
+A well-designed communications protocol has a number of
 characteristics.
 <ul>
 	<li>Everything is sent in well defined packets with
@@ -291,38 +304,39 @@ characteristics.
 		specified.
 	<li>Each packet has a definite length.
 </ul>
-In addition to these, protocols have varying degrees of
+<p>
+In addition to these characteristics, protocols have varying degrees of
 statefulness, inter-packet independence, human readability,
 and the ability to reestablish a disconnected session.
 <p>
-Rsync has none of these characteristics.  The data is
-transfered as an unbroken stream of bytes.  With the
-exception of the unmatched file-data there are no length
+Rsync's protocol has none of these good characteristics.  The data is
+transferred as an unbroken stream of bytes.  With the
+exception of the unmatched file-data, there are no length
 specifiers nor counts.  Instead the meaning of each byte is
 dependent on its context as defined by the protocol level.
 <p>
 As an example, when the sender is sending  the file list it
 simply sends each file list entry and terminates the list
-with a NUL byte.  Within the file list entries a bitfield
+with a null byte.  Within the file list entries, a bitfield
 indicates which fields of the structure to expect and those
-that are variable length strings are simply NUL terminated.
+that are variable length strings are simply null terminated.
 The generator sending file numbers and block checksum sets
 works the same way.
 <p>
 This method of communication works quite well on reliable
 connections and it certainly has less data overhead than the
-formal protocols.  It unfortunately make the protocol
+formal protocols.  It unfortunately makes the protocol
 extremely difficult to document, debug or extend.
 Each version of the protocol will have subtle differences on
 the wire that can only be anticipated by knowing the exact
 protocol version.
 <h2 align="center">notes</h2>
 This document is a work in progress.  The author expects
-that it has some glaring oversights and portions that may be
+that it has some glaring oversights and some portions that may be
 more confusing than enlightening for some readers.  It is
 hoped that this could evolve into a useful reference.
 <p>
-Specific suggestions for improvement are welcome, as would a
+Specific suggestions for improvement are welcome, as would be a
 complete rewrite.
 </body>
 </html>
