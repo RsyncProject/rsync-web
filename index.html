@@ -67,8 +67,8 @@ not running as root (since we might be sending to a root receiver).
 
 <li> We once again allow --include/--exclude options to be specified on
 the server's command-line, even though rsync doesn't use this
-combination itself (since other software does).  The parsing of these
-options also ensures that a daemon transfer can't be told to use a
+combination itself (other software does).  The parsing of these
+options now ensures that a daemon transfer can't be told to use a
 file that was excluded in the module's config section.
 
 <li> We now reject the combination of --inplace with either --compare-dest
