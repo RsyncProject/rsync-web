@@ -725,9 +725,13 @@
       <heading>Revision history</heading>
 
       
-<p><tscreen>
-$Log$	
-</tscreen></p>
+<p><tscreen><verb>
+$Log$
+Revision 1.5  2002/04/12 00:24:50  mbp
+Fix mailing list name.
+Add revision history.
+	
+	  </verb></tscreen></p>
     </sect>
   </article>
 </linuxdoc>
