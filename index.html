@@ -33,12 +33,13 @@ new features with some improved delete efficiency and the usual array of
 bug fixes.  Please try it out and send feedback to the mailing list!
 
 <p><b>Important:</b> protocol 29 was revised in pre3 to be incompatible with
-pre1 and pre2, so be sure to update all your pre-release test versions at the
+pre1 and pre2, so be sure to update all your pre-release versions at the
 same time.  Rsync has code in it to detect that it is talking to an older
-pre-release, so you should see an appropriate error if you mix incompatible
-versions.  If upgrading is not an option, use the --protocol=28 option to make
-the programs fall-back to a protocol they have in common (this is suggested in
-the error message that is output).
+pre-release, so you should see an appropriate error if you try to mix
+incompatible versions.  If upgrading the older pre-release version is not
+possible, use the --protocol=28 option to make the programs fall-back to a
+protocol they have in common (this is suggested in the error message that is
+output).
 
 <p>See the <a href="/ftp/rsync/preview/rsync-2.6.4pre3-NEWS">release NEWS</a> for the
 details of what changed since 2.6.3.
@@ -81,7 +82,7 @@ files.
 
 <li> Fixed the over-reporting of changes to a write-protected dir.
 
-<li> The --copy-dest option has made a comback into CVS now that its algorithm
+<li> The --copy-dest option has made a comeback into CVS now that its algorithm
 has been improved to work just like a --link-dest with copies instead of hard
 links (an earlier version of the code did a less efficient transfer of
 unchanged files from the --copy-dest hierarchy).
