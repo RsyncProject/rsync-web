@@ -12,16 +12,23 @@
 <li><p><b>Q:</b>
 
 Transfers die with something like
+
 <pre>rsync: error writing 4 unbuffered bytes - exiting: Broken pipe
-rsync error: error in rsync protocol data stream (code 12) at ../src/io.c(463)
+rsync error: error in rsync protocol data stream (code 12) at io.c(463)
+</pre>
+
+<p>or
+
+<pre>rsync: connection unexpectedly closed (24 bytes read so far)
+rsync error: error in rsync protocol data stream (code 12) at io.c(342)
 </pre>
 
 <p><b>A:</b>
 
-	  Sometimes fatal error messages from the remote machine can
-	  be lost on the way to the client; you should investigate on
-	  the server for something stopping the transmission.  Several
-	  common causes:
+Sometimes fatal error messages from the remote machine can be lost on
+the way to the client or the remote process may have died; you should
+investigate on the server for something stopping the transmission.
+Several common causes:
 
 <ul>
 <li>The destination disk is full.
@@ -30,13 +37,27 @@ rsync error: error in rsync protocol data stream (code 12) at ../src/io.c(463)
 (i.e. is sending spurious text to rsync).
 </ul>
 
+<p>If you think you've found a bug, you'll need to help track down the
+cause of the failure (since the above errors just tell us that something
+went wrong remotely, not what went wrong).  One way is to create a shell
+script such as <a href="rsync-debug">this one named rsync-debug</a>.
+You would use the script like this:
+
+<pre>rsync -av --rsync-path=/some/path/rsync-debug HOST:SOURCE DEST
+rsync -av --rsync-path=/some/path/rsync-debug SOURCE HOST:DEST
+</pre>
+
+<p>This script enables core dumps and also logs all the OS system calls
+that lead up to the failure to a file in the /tmp dir.  You can use the
+resulting files to help figure out why the remote rsync failed.
+
 <li><p><b>Q:</b>
 
 Using --dry-run (-n) doesn't show all changed directories.
 
 <p><b>A:</b>
 
-Correct.  Rsync shows all other changes, but some directory changes are
+Correct.  Rsync shows most other changes, but some directory changes are
 not currently described in --dry-run mode.  Hopefully a future version
 will fix this.
 
@@ -46,7 +67,8 @@ Aren't there more issues than this?
 
 <p><b>A:</b>
 
-Yes.  You can find some of them in the <a href="/ftp/rsync/TODO">TODO file</a>.
+Yes.  You can find some of them in the <a href="/ftp/rsync/TODO">TODO file</a> or
+<a href="https://bugzilla.samba.org/buglist.cgi?product=rsync&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&bug_status=RESOLVED&bug_status=VERIFIED">search the bugzilla database</a>.
 
 </ol>
 
