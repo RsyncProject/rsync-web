@@ -8,9 +8,72 @@ utility that provides fast incremental file transfer. rsync is freely
 available under the <A HREF="GPL.html">GNU General Public
 License version 2</A>
 
-<p><b>** If you're using a version prior to 2.5.7, please see the
-<a href="#security">security advisory</a> below! **</b>
+<p><b style="color:red">** If you're using a version prior to 2.6.1, see the
+<a href="#security_apr04">April 2004 security advisory</a>!  If you're using
+a version prior to 2.5.7, also see the <a href="#security_dec03">December
+2003 security advisory</a>! **</b>
 
+<h3>Rsync 2.6.2 released</h3>
+
+<p>April 30th, 2004
+
+<p>Rsync version 2.6.2 has been released.  It is a bugfix release that mainly
+fixes <b style="color:red">a bug with the --relative option (-R) in 2.6.1</b>
+that could cause files to be transferred incorrectly.  This only affected a
+source right at the root of the filesystem, such as "/" or "/*" (using "."
+as the source after a chdir to "/" was not affected, however).
+
+<p>See the <a href="/ftp/rsync/rsync-2.6.2-NEWS">release NEWS</a> for the
+details of what else was fixed.
+
+<p>See the <a href="download.html">download page</a> for all the ways
+to grab the new version, or snag one of these: <b>
+<a href="/ftp/rsync/rsync-2.6.2.tar.gz">rsync-2.6.2.tar.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.2.tar.gz.sig">signature</a>),
+<a href="/ftp/rsync/rsync-2.6.1-2.6.2.diffs.gz">rsync-2.6.1-2.6.2.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.1-2.6.2.diffs.gz.sig">signature</a>)</b>.
+
+<h3>Rsync 2.6.1 released</h3>
+
+<p>April 26th, 2004
+
+<p>Rsync version 2.6.1 has been released.  It is primarily a performance
+release that requires less memory to run, makes fewer write calls to the socket
+(lowering the system CPU time), does less string copying (lowering the user CPU
+time), and also reduces the amount of data that is transmitted over the wire.
+There have also been quite a few bug fixes.  See the
+<a href="/ftp/rsync/old-versions/rsync-2.6.1-NEWS">release NEWS</a> for the full
+details.
+
+<a name="security_apr04"></a>
+<h4>April 2004 Security Advisory</h4>
+
+<p>There is a security problem in all versions prior to 2.6.1 that affects only
+people running a read/write daemon WITHOUT using chroot.  If the user privs
+that such an rsync daemon is using is anything above "nobody", you are at risk
+of someone crafting an attack that could write a file outside of the module's
+"path" setting (where all its files should be stored).  Please either enable
+chroot or upgrade to 2.6.1.  People not running a daemon, running a read-only
+daemon, or running a chrooted daemon are totally unaffected.
+
+<p>See the <a href="download.html">download page</a> for all the ways
+to grab the new version, or snag one of these: <b>
+<a href="/ftp/rsync/rsync-2.6.1.tar.gz">rsync-2.6.1.tar.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.1.tar.gz.sig">signature</a>),
+<a href="/ftp/rsync/rsync-2.6.0-2.6.1.diffs.gz">rsync-2.6.0-2.6.1.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.0-2.6.1.diffs.gz.sig">signature</a>)</b>.
+
+<h3>One Cygwin hang-problem resolved</h3>
+
+<p>The problem with rsync hanging at the end of the transfer on
+<a href="http://www.cygwin.com/">Cygwin</a> had been previously traced to a
+signal-handling bug in their compatibility DLL.  This bug appears to now be
+fixed in DLL version 1.5.7-1, and Cygwin users are reporting that upgrading the
+DLL removes the hang-at-end-of-transfer problem for their existing rsync executable.
+(Note that this doesn't solve a hang that some folks see in the middle of a
+transfer -- using daemon mode instead of ssh can work around that one.)
+
+<a name="two_six"></a>
 <h3>Rsync 2.6.0 released</h3>
 
 <p>January 1st, 2004
@@ -38,163 +101,11 @@ server to provide the file-list that lets someone grab a server-specified set of
 files, for example.  See the <a href="/ftp/rsync/rsync.html">rsync man page</a>
 for more details.
 
-<h3> Changes since 2.5.7:</h3>
+<p>For a full list of changes in version 2.6.0, see the
+<a href="/ftp/rsync/old-versions/rsync-2.6.0-NEWS">release NEWS</a>.
 
-<p>Version 2.6.0 bumped the protocol version to 27 (from 26).
-
-<h4>ENHANCEMENTS:</h4>
-
-<ul>
-
-<li><p> <b>"ssh" is now the default remote shell for rsync.</b>  If you want to
-change this, configure like this:  <tt>"./configure --with-rsh=rsh"</tt>.
-
-<li><p> Added --files-from, --no-relative, --no-implied-dirs, and --from0.  Note
-that --from0 affects the line-ending character for all the files read by the
---*-from options. (Wayne Davison)
-
-<li><p> Length of csum2 is now per-file starting with protocol version 27. (J.W.
-Schultz)
-
-<li><p> Per-file dynamic block size is now sqrt(file length).  The per-file
-checksum size is determined according to an algorithm provided by Donovan
-Baarda which reduces the probability of rsync algorithm corrupting data and
-falling back using the whole md4 checksums. (J.W. Schultz, Donovan Baarda)
-
-<li><p> The --stats option no longer includes the (debug) malloc summary unless
-the verbose option was specified at least twice.
-
-<li><p> Added a new error/warning code for when files vanish from the sending
-side.  Made vanished source files not interfere with the file-deletion pass
-when --delete-after was specified.
-
-<li><p> Various trailing-info sections are now preceded by a newline.
-
-</ul>
-
-<h4>BUG FIXES:</h4>
-
-<ul>
-
-<li><p> <b>Fixed several exclude/include matching bugs when using wild-cards.
-This has a several user-visible effects, all of which make the matching more
-consistent and intuitive.</b>  This should hopefully not cause anyone problems
-since it makes the matching work more like what people are expecting.
-(Wayne Davison) &nbsp;<i>User-visible changes are as follows:</i>
-
-    <ul>
-
-    <li><p> A pattern with a "**" no longer causes a "*" to match slashes.  For
-    example, with "/*/foo/**", "foo" must be 2 levels deep. &nbsp;<i>[If your string
-    has <b>BOTH</b> "*" and "**" wildcards, changing the "*" wildcards to "**"
-    will provide the old behavior in all versions (if that's really what you want).]</i>
-
-    <li><p> "**/foo" now matches at the base of the transfer (like /foo does).
-    &nbsp;<i>[Use "/**/foo" to get the old behavior in all versions.]</i>
-
-    <li><p> A non-anchored wildcard term floats to match beyond the base of the
-    transfer.  E.g. "CVS/R*" matches at the end of the path, just like the
-    non-wildcard term "CVS/Root" does. &nbsp;<i>[Use "/CVS/R*" to get the old behavior
-    in all versions.]</i>
-
-    <li><p> Including a "**" in the match term causes it to be matched against the
-    entire path, not just the name portion, even if there aren't any interior
-    slashes in the term.  E.g. "foo**bar" will exclude "/path/foo-bar" (just
-    like before) as well as "/foo-path/baz-bar" (unlike before). &nbsp;<i>[Use "foo*bar"
-    to get the old behavior in all versions.]</i>
-
-    </ul>
-
-<li><p> The exclude list specified in the daemon's config file is now properly
-applied to the pulled items no matter how deep the user's file-args are in the
-source tree.  (Wayne Davison)
-
-<li><p> For protocol version &gt;= 27, mdfour_tail() is called when the block size
-(including checksum_seed) is a multiple of 64.  Previously it was not called,
-giving the wrong MD4 checksum.  (Craig Barratt)
-
-<li><p> For protocol version &gt;= 27, a 64 bit bit counter is used in mdfour.c as
-required by the RFC.  Previously only a 32 bit bit counter was used, causing
-incorrect MD4 file checksums for file sizes &gt;= 512MB - 4.  (Craig Barratt)
-
-<li><p> Fixed a crash bug when interacting with older rsync versions and multiple
-files of the same name are destined for the same dir.  (Wayne Davison)
-
-<li><p> Keep tmp names from overflowing MAXPATHLEN.
-
-<li><p> Make --link-dest honor the absence of -p, -o, and -g.
-
-<li><p> Made rsync treat a trailing slash in the destination in a more consistent
-manner.
-
-<li><p> Fixed file I/O error detection.  (John Van Essen)
-
-<li><p> Fixed bogus "malformed address {hostname}" message in rsyncd log when
-checking IP address against hostnames from "hosts allow" and "hosts deny"
-parameters in config file.
-
-<li><p> Print heap statistics when verbose &gt;= 2 instead of when &gt;= 1.
-
-<li><p> Fixed a compression (-z) bug when syncing a mostly-matching file that
-contains already-compressed data.  (Yasuoka Masahiko and Wayne Davison)
-
-<li><p> Fixed a bug in the --backup code that could cause deleted files to not get
-backed up.
-
-<li><p> When the backup code makes new directories, create them with mode 0700
-instead of 0755 (since the directory permissions in the backup tree are not yet
-copied from the main tree).
-
-<li><p> Call setgroups() in a more portable manner.
-
-<li><p> Improved file-related error messages to better indicate exactly what
-pathname failed. (Wayne Davison)
-
-<li><p> Fixed some bugs in the handling of --delete and --exclude when using the
---relative (-R) option. (Wayne Davison)
-
-<li><p> Fixed bug that prevented regular files from replacing special files and
-caused a directory in --link-dest or --compare-dest to block the creation of a
-file with the same path.  A directory still cannot be replaced by a regular
-file unless --delete specified.  (J.W. Schultz)
-
-<li><p> Detect and report when open or opendir succeed but read and readdir fail
-caused by network filesystem issues and truncated files.  (David Norwood,
-Michael Brown, J.W. Schultz)
-
-<li><p> Added a fix that should give ssh time to restore the tty settings if the
-user presses Ctrl-C at an ssh password prompt.
-
-</ul>
-
-<h4>INTERNAL:</h4>
-
-<ul>
-
-<li><p> Eliminated vestigial support for old versions that we stopped supporting.
-(J.W. Schultz)
-
-<li><p> Simplified some of the option-parsing code. (Wayne Davison)
-
-<li><p> Some cleanup made to the exclude code, as well as some new defines added
-to enhance readability. (Wayne Davison)
-
-<li><p> Changed the protocol-version code so that it can interact at a lower
-protocol level than the maximum supported by both sides.  Added an undocumented
-option, --protocol=N, to force the value we advertise to the other side
-(primarily for testing purposes).  (Wayne Davison)
-
-</ul>
-
-<p>Download: <b>
-<a href="http://samba.org/ftp/rsync/rsync-2.6.0.tar.gz">rsync-2.6.0.tar.gz</a>
-(<a href="http://samba.org/ftp/rsync/rsync-2.6.0.tar.gz.sig">signature</a>),
-<a href="http://samba.org/ftp/rsync/rsync-2.5.7-2.6.0.diffs.gz">rsync-2.5.7-2.6.0.diffs.gz</a>
-(<a href="http://samba.org/ftp/rsync/rsync-2.5.7-2.6.0.diffs.gz.sig">signature</a>)</b>.
-
-
-<a name="security"></a>
-<h3>rsync 2.5.6 security advisory</h3>
+<a name="security_dec03"></a>
+<h3>December 2003 Security Advisory</h3>
 
 <p>December 4th, 2003
 
@@ -292,11 +203,5 @@ to this issue.
 Regards,
 <p>
 The rsync team
-
-<p>Download: <b>
-<a href="http://samba.org/ftp/rsync/old-versions/rsync-2.5.7.tar.gz">rsync-2.5.7.tar.gz</a>
-(<a href="http://samba.org/ftp/rsync/old-versions/rsync-2.5.7.tar.gz.sig">signature</a>),
-<a href="http://samba.org/ftp/rsync/old-patches/rsync-2.5.6-2.5.7.diffs.gz">rsync-2.5.6-2.5.7.diffs.gz</a>
-(<a href="http://samba.org/ftp/rsync/old-patches/rsync-2.5.6-2.5.7.diffs.gz.sig">signature</a>)</b>.
 
 <!--#include virtual="footer.html" -->
