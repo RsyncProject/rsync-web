@@ -623,8 +623,8 @@
 	<p>
 	  The stability expectations of our users require a somewhat
 	  disciplined approach to accepting patches, but I don't think
-	  that's a bad thing.  The goal is to alternative through
-	  freeze and flow phases similar to the kernel.
+	  that's a bad thing.  The goal is to iterate through
+	  <em/freeze/ and <em/flow/ phases similar to the kernel.
 
 	<p>
 	  The Debian rsync package maintainer, Phil Hands, has been
