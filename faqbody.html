@@ -183,10 +183,11 @@ Cheers, Andrew
 <small>
 &gt; Why does rsync produce some things on stdout and some on stderr?
 
-All messages which originate from the remote computer are sent to stderr.
+<p>All messages which originate from the remote computer are sent to stderr.
 All informational messages from the local computer are sent to stdout.
 All error messages from the local computer are sent to stderr.
 
+<p>
 There is a reason to this system, and it would be quite difficult to change.
 The reason is that rsync uses a remote shell for execution. The remote
 shell provides stderr/stdout. The stdout stream is used for the rsync 
@@ -196,16 +197,19 @@ would need to be escaped, which means non-messages would need to be encoded
 in some way. Instead rsync always sends remote messages to stderr. This means
 they appear on stderr at the local computer. rsync can't intercept them.
 
+<p>
 If you have a problem with scripts or cron jobs that produce stderr then I
 suggest you use your shell to redirect stderr and stdout. For example you
 could do a cron line like this:
 
+<p>
 <pre>
 0 0 * * * /usr/local/bin/rsync -avz /foobar /foo &gt; logfile 2&gt;&1 
 </pre>
 
+<p>
 this would send both stderr and stdout to "logfile". The magic bit is the
-"2>&1" which says to redirect stderr to to the same descriptor to which
+"2&gt;&1" which says to redirect stderr to to the same descriptor to which
 stdout is currently directed.
 
 
