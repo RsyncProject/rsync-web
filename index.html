@@ -110,7 +110,8 @@ older rsync versions, such as all the 2.5.x versions and 2.6.0.
 that the effect is the same even though the cause is slightly different.
 In the older bug, there was a way to slip certain option values through
 the option-parsing without sanitize_path() getting called on the path at
-all.  In this new bug, the problem is that a carefully crafted path can
+all (though it required a customized rsync client to do it).  In this new
+bug, the problem is that a carefully crafted path can
 be cleaned improperly, resulting in an absolute filename being generated
 instead of a relative one.  (I note that this cleaning problem in the
 sanitize_path() function exists even as far back as rsync 2.3.0.)
