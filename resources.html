@@ -31,7 +31,18 @@ backups</a>, by Mike Rubel.
 <li> Brian Elliott Finley has put together a great Linux install system based
 on rsync. You you read about it at <a href="http://thefinleys.com/SystemImager/">http://thefinleys.com/SystemImager/</a>
 
-<li><a href="http://backuppc.sourceforge.net/">BackupPC</a>: a backup system using rsync.
+<li><a href="http://backuppc.sourceforge.net/">BackupPC</a>: a backup
+system using rsync.  Hard-links all identical files (even between multiple
+runs and multiple backup sources), compresses the files, provides an easy
+interface to find and restore files, etc.
+
+<li><a href="http://hacks.dlux.hu/drsync/">drsync</a>: a wrapper for rsync
+that remembers file sets between invocations so that a 2-way syncronization
+of two systems is possible.
+
+<li><a href="http://rsyncbackup.erlang.no/">rsyncbackup</a>: a helper
+script that uses config files to setup multiple backup scenarios and
+invokes rsync (or rsyncX on MacOS).
 
 <!--#include virtual="doc-resources.html" -->
 
