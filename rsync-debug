@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ulimit -c 9999999
+ulimit -c unlimited
 
 # Some systems have "truss" or "tusc" instead of "strace".
 # The -f option tells strace to follow children too.
