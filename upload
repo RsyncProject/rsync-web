@@ -1,2 +1,2 @@
 #! /bin/sh
-rsync -avPz --exclude upload *.html samba.org:/home/httpd/html/rsync/
+rsync -avPz --exclude upload *.jpg *.html samba.org:/home/httpd/html/rsync/
