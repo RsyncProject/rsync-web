@@ -6,68 +6,106 @@
 rsync is an <A HREF="http://www.opensource.org/">open source</A>
 utility that provides fast incremental file transfer. rsync is freely
 available under the <A HREF="GPL.html">GNU General Public
-License</A>
+License version 2</A>
 
-<H2>Latest release announcement:</H2>
+<h3>rsync 2.5.6 security advisory</h3>
 
-<pre>
-<!--#include virtual="/ftp/rsync/NEWS" -->
-</pre>
+<p>December 4th 2003
 
-    <p>
-      Download rsync <a href="http://ftp.samba.org/ftp/rsync/">here</a>.
-    </p>
 
-<h2>Other news</h2>
+<h4>Background</h4>
 
-    <ul>
-    <li><p>2003-01-28:
-    Rsync 2.5.6 
-    <a href="http://lists.samba.org/pipermail/rsync/2003-January/009659.html">
-    release announcement</a>
+<p>The rsync team has received evidence that a vulnerability in rsync was
+recently used in combination with a Linux kernel vulnerability to
+compromise the security of a public rsync server. While the forensic
+evidence we have is incomplete, we have pieced together the most
+likely way that this attack was conducted and we are releasing this
+advisory as a result of our investigations to date.
 
-    <li><p>2002-05-14:
-    <a href="http://rsync.samba.org/fom-serve/cache/1.html">rsync
-    FAQ-O-Matic</a> fixed.
+<p>
+Our conclusions are that:
 
-      <li><p>2002-04-18:
-	  New list of the <a href="issues.html">most important issues
-	  with recent releases</a>.
+<ul>
 
-      <li><p>
-	  2002-04-11:
-	  <a href="rsync-and-debian/">Notes on rsync and Debian
-	    mirrors</a>
-	</p></li>
+<li>rsync version 2.5.6 contains a heap overflow vulnerability that can
+   be used to remotely run arbitrary code.
 
-      <li>
-	<p>
-	  2002-04-10: <a href="/ftp/rsync/nightly/">Nightly CVS
-	  snapshots</a> are now available for people who want to track
-	  development, but can't do anonymous CVS (e.g. because of a
-	  firewall.)
-	</p>
-      </li>
-      
-      <li>
-	<p>
-	  2002-04-10: A new tutorial on using rsync to create a system of <a
-	    href="http://www.mikerubel.org/computers/rsync_snapshots/">rotating
-	    backups</a>, by Mike Rubel.
-	</p>
-      </li>
+<li>While this heap overflow vulnerability could not be used by itself
+   to obtain root access on a rsync server, it could be used in
+   combination with the recently announced brk vulnerability in the
+   Linux kernel to produce a full remote compromise.
 
-    <li><p>2002-04-07: <a
-	  href="http://mail-archive.com/rsync@lists.samba.org/">New
-	  mailing-list archive</a>.</p>
-      </li>
+<li>The server that was compromised was using a non-default rsyncd.conf
+   option <tt>"use chroot = no"</tt>. The use of this option made the attack on
+   the compromised server considerably easier. A successful attack is
+   almost certainly still possible without this option, but it would
+   be much more difficult.
+</ul>
 
-      <li><p>2002-04-03: Cross-referenced <a
-	  href="doxygen/head/files.html">rsync source code</a> produced by
-	<a href="http://doxygen.org/">Doxygen</a> may now be perused on
-	the web site.
-	</p>
-      </li>
-    </ul>
+<p>
+Please note that this vulnerability only affects the use of rsync as a
+"rsync server". To see if you are running a rsync server you should
+use the netstat command to see if you are listening on TCP port
+873. If you are not listening on TCP port 873 then you are not running
+a rsync server.
+
+<h4>New rsync release</h4>
+
+<p>
+In response we have released a new version of rsync, version
+2.5.7. This is based on the current stable 2.5.6 release with only the
+changes necessary to prevent this heap overflow vulnerability. There
+are no new features in this release.
+<p>
+We recommend that anyone running a rsync server take the following
+steps:
+<ol>
+<li>
+ Update to rsync version 2.5.7 immediately.
+<li>
+ If you are running a Linux kernel prior to version 2.4.23 then
+      you should upgrade your kernel immediately. Note that some
+      distribution vendors may have patched versions of the 2.4.x
+      series kernel that fix the brk vulnerability in versions before
+      2.4.23. Check with your vendor security site to ensure that you
+      are not vulnerable to the <tt>brk</tt> problem.
+<li>
+ Review your <tt>/etc/rsyncd.conf</tt> configuration file. If you are
+      using the option <tt>"use chroot = no"</tt> then remove that line or
+      change it to <tt>"use chroot = yes"</tt>.  If you find that you need that
+      option for your rsync service then you should disable your rsync
+      service until you have discussed a workaround with the rsync
+      maintainers on the rsync mailing list.  The disabling of the
+      chroot option should not be needed for any normal rsync server.
+</ol>
+
+The patches and full source for rsync version 2.5.7 are available from
+<a href="http://rsync.samba.org/">http://rsync.samba.org/</a> and mirror sites. We expect that vendors will
+produce updated packages for their distributions shortly.
+
+<h4>Credits</h4>
+
+<p>
+The rsync team would like to thank the following individuals for their
+assistance in investigating this vulnerability and producing this
+response:
+<ul>
+
+<li>Mike Warfield &lt;mhw.wittsend.com&gt;
+<li>Paul Russell &lt;rusty.samba.org&gt;
+<li>Andrea Barisani &lt;lcars.gentoo.org&gt;
+</ul>
+
+<p>
+Regards,
+<p>
+The rsync team
+
+<p>Download: <b>
+<a href="http://samba.org/ftp/rsync/rsync-2.5.7.tar.gz">rsync-2.5.7.tar.gz</a>
+(<a href="http://samba.org/ftp/rsync/rsync-2.5.7.tar.gz.sig">signature</a>),
+<a href="http://samba.org/ftp/rsync/rsync-2.5.6-2.5.7.diff.gz">rsync-2.5.6-2.5.7.diff.gz</a>
+(<a href="http://samba.org/ftp/rsync/rsync-2.5.6-2.5.7.diff.gz.sig">signature</a>)</b>.
+
 
 <!--#include virtual="footer.html" -->
