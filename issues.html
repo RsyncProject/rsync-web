@@ -1,0 +1,32 @@
+<!-- $Header$ -->
+<!--#include virtual="header.html" -->
+
+<H2 align="center">Current issues</H2>
+
+    <ol>
+      <li><b>Q:</b> Transfers die with something like
+<pre>rsync: error writing 4 unbuffered bytes - exiting: Broken pipe
+rsync error: error in rsync protocol data stream (code 12) at ../src/io.c(463)
+</pre>
+
+	<p>
+	  <b>A:</b>
+	  Sometimes fatal error messages from the remote machine can
+	  be lost on the way to the client; you should investigate on
+	  the server for something stopping the transmission.  The
+	  most common cause is that the destination disk is full.
+
+      <li>
+	<p><b>Q:</b> interrupted transfers with <tt>--partial</tt> are
+	not continued properly; rsync always transfers the whole file.
+
+	<p>
+	  <b>A:</b> 2.5.4 had a bug that made it act as if
+	  <tt>--whole-file</tt> was always set.  Please upgrade to
+	  2.5.5.
+	</p>
+      </li>
+    </ol>
+
+
+<!--#include virtual="footer.html" -->
