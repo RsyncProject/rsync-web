@@ -25,7 +25,7 @@ License version 2</A>
 
 <h3>Rsync 2.6.3pre1 released</h3>
 
-<p>August 12th, 2004
+<p><i style="color:#777777">August 12th, 2004</i>
 
 <p>Rsync version 2.6.3pre1 has been released.  It contains a few new features and
 quite a few bug fixes.
@@ -44,7 +44,9 @@ to grab the new version (previews are in the "preview" subdir), or snag one of t
 <a name="security_aug04"></a>
 <h3 style="color:red">August 2004 Security Advisory</h3>
 
-<h4>SUMMARY</h4>
+<p><i style="color:#777777">August 12th, 2004</i>
+
+<h4>Background</h4>
 
 <p>There is a path-sanitizing bug that affects daemon mode in all recent
 rsync versions (including 2.6.2) but only if chroot is disabled.  It
@@ -54,7 +56,7 @@ sanitized twice, and thus the second call removes any lingering leading
 slash(es) that the first call left behind).  It does affect certain
 option paths that cause auxilliary files to be read or written.
 
-<h4>FIXES</h4>
+<h4>The Fix</h4>
 
 <p>The best fix is to apply this one-word patch to the sanitize_path()
 function in util.c:
@@ -82,7 +84,7 @@ version 2.6.3 (it is currently in release-testing).
 
 <h3>Rsync 2.6.2 released</h3>
 
-<p>April 30th, 2004
+<p><i style="color:#777777">April 30th, 2004</i>
 
 <p>Rsync version 2.6.2 has been released.  It is a bugfix release that mainly
 fixes <b>a bug with the --relative option (-R) in 2.6.1</b>
@@ -102,7 +104,7 @@ to grab the new version, or snag one of these: <b>
 
 <h3>Rsync 2.6.1 released</h3>
 
-<p>April 26th, 2004
+<p><i style="color:#777777">April 26th, 2004</i>
 
 <p>Rsync version 2.6.1 has been released.  It is primarily a performance
 release that requires less memory to run, makes fewer write calls to the socket
@@ -114,6 +116,8 @@ details.
 
 <a name="security_apr04"></a>
 <h3 style="color:red">April 2004 Security Advisory</h3>
+
+<p><i style="color:#777777">April 26th, 2004</i>
 
 <p>There is a security problem in all versions prior to 2.6.1 that affects only
 people running a read/write daemon WITHOUT using chroot.  If the user privs
@@ -139,7 +143,7 @@ transfer -- using daemon mode instead of ssh can work around that one.)
 <a name="two_six"></a>
 <h3>Rsync 2.6.0 released</h3>
 
-<p>January 1st, 2004
+<p><i style="color:#777777">January 1st, 2004</i>
 
 <P> Two important things to note in the new release:
 
@@ -170,7 +174,7 @@ for more details.
 <a name="security_dec03"></a>
 <h3 style="color:red">December 2003 Security Advisory</h3>
 
-<p>December 4th, 2003
+<p><i style="color:#777777">December 4th, 2003</i>
 
 <h4>Background</h4>
 
