@@ -31,16 +31,25 @@ investigate on the server for something stopping the transmission.
 Several common causes:
 
 <ul>
-<li>The destination disk is full.
+<li>The destination disk is full (remember that you need at least the
+size of the largest file that needs to be updated available in free
+disk space for the transfer to succeed).
 <li>The remote rsync executable wasn't found.
 <li>Your remote-shell setup isn't working right or isn't "clean"
-(i.e. is sending spurious text to rsync).
+(i.e. it is sending spurious text to rsync).
 </ul>
 
-<p>If you think you've found a bug, you'll need to help track down the
+<p><b>Note</b>: rsync 2.6.3 (which has yet to be released -- see the CVS version)
+does a better job of retreiving the error from the remote process than
+older versions of rsync, so you may wish to try upgrading as your first
+step in tracking down why the remote process has gone away.
+
+<p>If you can't figure out why the failure happened, you can take steps
+to track down the actual 
 cause of the failure (since the above errors just tell us that something
 went wrong remotely, not what went wrong).  One way is to create a shell
-script such as <a href="rsync-debug">this one named rsync-debug</a>.
+script on the remote system such as
+<a href="rsync-debug">this one named rsync-debug</a>.
 You would use the script like this:
 
 <pre>rsync -av --rsync-path=/some/path/rsync-debug HOST:SOURCE DEST
@@ -52,7 +61,7 @@ that lead up to the failure to a file in the /tmp dir.  You can use the
 resulting files to help figure out why the remote rsync failed.
 
 <p>If you are rsyncing to an rsync daemon, the above script won't have
-an effect.  Instead, halt the current daemon and restart it under a
+any effect.  Instead, halt the current daemon and restart it under a
 system-call tracing utility such as <i>strace</i>, <i>truss</i>, or
 <i>tusc</i>.  For strace, you would do it like this (the -f option
 tells strace to follow the child processes too):
@@ -79,7 +88,9 @@ generated during the option-parsing phase of the transfer.  Look in the
 logfile on the server to see if an error was reported, such as a
 "refused" option, an option that the server rsync doesn't support (e.g.
 perhaps links are not supported by the server), or some other failure
-(such as trying to send data to a read-only module).
+(such as trying to send data to a read-only module).  Upgrading the
+version of rsync that is running as a daemon will allow these errors
+to get returned to all rsync clients, old or new alike.
 
 <li><p><b>Q:</b>
 
