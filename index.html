@@ -12,10 +12,90 @@ utility that provides fast incremental file transfer. rsync is freely
 available under the <A HREF="GPL.html">GNU General Public
 License version 2</A>
 
-<p><b style="color:red">** If you're using a version prior to 2.6.1, see the
-<a href="#security_apr04">April 2004 security advisory</a>!  If you're using
-a version prior to 2.5.7, also see the <a href="#security_dec03">December
-2003 security advisory</a>! **</b>
+<p><b style="color:red">**</b>
+<b>For all released veersions of rsync, see the
+<a href="security_aug04" style="color:red">August 2004 security advisory</a>!</b>
+<b style="color:red">**</b>
+<b>If you're using a version prior to 2.6.1, see the
+<a href="#security_apr04" style="color:red">April 2004 security advisory</a>!</b>
+<b style="color:red">**</b>
+<b>If you're using a version prior to 2.5.7, also see the
+<a href="#security_dec03" style="color:red">December 2003 security advisory</a>!</b>
+<b style="color:red">**</b>
+
+<a name="security_aug04"></a>
+<h3 style="color:red">August 2004 Security Advisory</h3>
+
+<h4>SUMMARY</h4>
+
+<p>There is a path-sanitizing bug that affects daemon mode in all recent
+rsync versions (including 2.6.2) but only if chroot is disabled.  It
+does NOT affect the normal send/receive filenames that specify what
+files should be transferred (this is because these names happen to get
+sanitized twice, and thus the second call removes any lingering leading
+slash(es) that the first call left behind).
+
+<h4>POTENTIAL EXPLOITS</h4>
+
+<p>I can think of two ways to exploit this sanitizing bug:
+
+<p>For anyone running an rsync daemon with chroot turned off while allowing
+the uploading of files, this bug can allow a carefully crafted filename
+for the --backup-dir option to cause rsync to overwrite a file outside
+of the module's path (if the UID of the daemon module has adequate
+permissions, of course).
+
+<p>For anyone running a 2.6.0 or 2.6.1 rsync daemon with chroot turned off,
+this bug can potentially reveal the contents of a file outside the
+module's hierarchy if the user uses a carefully crafted --files-from
+filename.  This causes each line of the file to be revealed to the user
+as link_stat errors (other rsync versions hide these errors from the
+remote user).
+
+<h4>FIXES</h4>
+
+<p>The best fix is to apply this one-word patch to the sanitize_path()
+function in util.c:
+
+<pre>
+--- orig/util.c	2004-04-27 12:59:37 -0700
++++ util.c	2004-08-11 23:37:27 -0700
+@@ -743,7 +743,7 @@
+ 				allowdotdot = 1;
+ 			} else {
+ 				p += 2;
+-				if (*p == '/')
++				while (*p == '/')
+ 					p++;
+ 				if (sanp != start) {
+ 					/* back up sanp one level */
+</pre>
+
+<p>This bug is fixed in the CVS version of rsync, and will be released in
+version 2.6.3 (which will begin release-testing soon).
+
+<p>One potential fix that doesn't require recompiling rsync is to set
+"use chroot = true" for all the modules in the rsyncd.conf file.
+
+<p>A band-aid work-around for those running a 2.6.2 daemon is to exclude
+the use of the above options in the rsyncd.conf file:
+
+    <blockquote>refuse options = files-from backup-dir</blockquote>
+
+<p>Note, however, that this "refuse options" configure item was broken in
+older rsync versions, such as all the 2.5.x versions and 2.6.0.
+
+
+<h4>EXPERIENCING DEJA VU?</h4>
+
+<p>Yes this bug is similar to the last security problem fixed in rsync in
+that the effect is the same even though the cause is slightly different.
+In the older bug, there was a way to slip certain option values through
+the option-parsing without sanitize_path() getting called on the path at
+all.  In this new bug, the problem is that a carefully crafted path can
+be cleaned improperly, resulting in an absolute filename being generated
+instead of a relative one.  (I note that this cleaning problem in the
+sanitize_path() function exists even as far back as rsync 2.3.0.)
 
 <h3>Rsync 2.6.2 released</h3>
 
@@ -50,7 +130,7 @@ There have also been quite a few bug fixes.  See the
 details.
 
 <a name="security_apr04"></a>
-<h4>April 2004 Security Advisory</h4>
+<h3 style="color:red">April 2004 Security Advisory</h3>
 
 <p>There is a security problem in all versions prior to 2.6.1 that affects only
 people running a read/write daemon WITHOUT using chroot.  If the user privs
@@ -105,7 +185,7 @@ for more details.
 <a href="/ftp/rsync/old-versions/rsync-2.6.0-NEWS">release NEWS</a>.
 
 <a name="security_dec03"></a>
-<h3>December 2003 Security Advisory</h3>
+<h3 style="color:red">December 2003 Security Advisory</h3>
 
 <p>December 4th, 2003
 
