@@ -706,7 +706,7 @@
 
 	<p>
 	  Although this idea does not seem very practical for people
-	  using <em/unstable/, it could work well for <em/unstable/
+	  using <em/unstable/, it could work well for <em/stable/
 	  and other situations where there are relatively few
 	  releases, or for people without network access.  One could,
 	  for example, distribute a CD-ROM of xdeltas.  On the other
