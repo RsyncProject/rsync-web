@@ -24,43 +24,77 @@ If you're using a version prior to 2.5.7, see the
 **</b>
 
 
-<h3>Rsync 2.6.4pre2 released</h3>
+<h3>Rsync 2.6.4pre3 released</h3>
 
-<p><i style="color:#777777">February 28nd, 2005</i>
+<p><i style="color:#777777">March 15th, 2005</i>
 
-<p>Rsync version 2.6.4pre2 has been released.  This release combines several
+<p>Rsync version 2.6.4pre3 has been released.  This release combines several
 new features with some improved delete efficiency and the usual array of
 bug fixes.  Please try it out and send feedback to the mailing list!
 
-<p>See the <a href="/ftp/rsync/preview/rsync-2.6.4pre2-NEWS">release NEWS</a> for the
+<p><b>Important:</b> protocol 29 was revised in pre3 to be incompatible with
+pre1 and pre2, so be sure to update all your pre-release test versions at the
+same time.  Rsync has code in it to detect that it is talking to an older
+pre-release, so you should see an appropriate error if you mix incompatible
+versions.  If upgrading is not an option, use the --protocol=28 option to make
+the programs fall-back to a protocol they have in common (this is suggested in
+the error message that is output).
+
+<p>See the <a href="/ftp/rsync/preview/rsync-2.6.4pre3-NEWS">release NEWS</a> for the
 details of what changed since 2.6.3.
 
-<p>The changes since 2.6.4pre1 are as follows:
+<p>The changes since 2.6.4pre2 are as follows:
 
 <ul>
 
-<li>Added a keep-alive packet that the generator can send to the sender when a
---timeout is in effect and no output is ready to go over the socket (e.g.
-deletions are happening or we're still searching for a changed file).
+<li> Some protocol changes were made: (1) simplified the data flow for the
+generator's reporting of its basis-file choice to the receiver (because
+simplified data flow makes deadlock prevention easier); (2) made hard-linking
+be reported via the itemized log output; and (3) added an extra "phase" at the
+end of the transfer for the --delay-updates processing so that it can itemize
+any delayed hard-links.  (These changes make protocol 29 incompatible with
+earlier pre-releases, as mentioned in the "Important" note above.)
 
-<li>Added support for a literal IPv6 address enclosed in '[' and ']' to the
-HOST:PATH and HOST::PATH arg formats (the rsync://HOST:PORT/PATH format was
-already covered).
+<li> Another change for hard-links:  a cluster of hard-linked files is now
+dealt with as soon as possible, either when we complete the update of one file
+in the cluster, or we find an unchanged file in the cluster (the old code used
+to do all hard-linking at the end of the transfer).
 
-<li>Fixed a bug in the sending of an include to an older version of rsync.
+<li> When --max-delete=N is specified and we attempted to overflow this value,
+we now warn at the end of the transfer and exit with error code 25.  If you
+want to know about too-many deletions prior to doing any deletes, do a check
+run with --dry-run first.
 
-<li>Fixed a bug where a file getting resent in the same transfer with --backup
-and --inplace enabled would get backed up twice.
+<li> Fixed a potential protocol-corrupting bug in the data sent from the
+generator to the receiver (this doesn't seem to have been easy to trigger,
+though).
 
-<li>Some other minor changes and documentation improvements.
+<li> Fixed a slowdown in the name-sorting code.
+
+<li> When '%i' outputs a deletion, it uses the string "*deleting" (with the
+leading '*' being new).  Also a few other minor changes to the itemized output,
+including adding an extra character for future code to be able to report when
+an ACL/extended-attribute changes.  (See the man page for full details.)
+
+<li> Fixed a glitch in the --progress output when transferring zero-length
+files.
+
+<li> Fixed the over-reporting of changes to a write-protected dir.
+
+<li> The --copy-dest option has made a comback into CVS now that its algorithm
+has been improved to work just like a --link-dest with copies instead of hard
+links (an earlier version of the code did a less efficient transfer of
+unchanged files from the --copy-dest hierarchy).
 
 </ul>
 
 <p>To build it from source, snag one of these:
-<b><a href="/ftp/rsync/preview/rsync-2.6.4pre2.tar.gz">rsync-2.6.4pre2.tar.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.4pre2.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/preview/rsync-2.6.4pre1-2.6.4pre2.diffs.gz">rsync-2.6.4pre1-2.6.4pre2.diffs.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.4pre1-2.6.4pre2.diffs.gz.asc">signature</a>)</b>.
+<b><a href="/ftp/rsync/preview/rsync-2.6.4pre3.tar.gz">rsync-2.6.4pre3.tar.gz</a>
+(<a href="/ftp/rsync/preview/rsync-2.6.4pre3.tar.gz.asc">signature</a>),
+<a href="/ftp/rsync/preview/rsync-2.6.4pre2-2.6.4pre3.diffs.gz">rsync-2.6.4pre2-2.6.4pre3.diffs.gz</a>
+(<a href="/ftp/rsync/preview/rsync-2.6.4pre2-2.6.4pre3.diffs.gz.asc">signature</a>)</b>.
+<a href="/ftp/rsync/preview/old-patches/rsync-2.6.4pre1-2.6.4pre2.diffs.gz">rsync-2.6.4pre1-2.6.4pre2.diffs.gz</a>
+(<a href="/ftp/rsync/preview/old-patches/rsync-2.6.4pre1-2.6.4pre2.diffs.gz.asc">signature</a>)</b>.
 <a href="/ftp/rsync/preview/old-patches/rsync-2.6.3-2.6.4pre1.diffs.gz">rsync-2.6.3-2.6.4pre1.diffs.gz</a>
 (<a href="/ftp/rsync/preview/old-patches/rsync-2.6.3-2.6.4pre1.diffs.gz.asc">signature</a>)</b>.
 Note that the diffs do not contain updates for the "patches" dir -- grab the tar
