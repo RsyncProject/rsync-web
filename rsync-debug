@@ -2,5 +2,6 @@
 
 ulimit -c 9999999
 
-# Some systems have "truss" instead of "strace".
+# Some systems have "truss" or "tusc" instead of "strace".
+# The -f option tells strace to follow children too.
 strace -f rsync "${@}" 2>/tmp/rsync-$$.out
