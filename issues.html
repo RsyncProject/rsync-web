@@ -39,7 +39,7 @@ disk space for the transfer to succeed).
 (i.e. it is sending spurious text to rsync).
 </ul>
 
-<p><b>Note</b>: rsync 2.6.3 (which has yet to be released -- see the CVS version)
+<p><b>Note</b>: rsync 2.6.3
 does a better job of retreiving the error from the remote process than
 older versions of rsync, so you may wish to try upgrading as your first
 step in tracking down why the remote process has gone away.
@@ -83,7 +83,7 @@ rsync error: error in rsync protocol data stream (code 12) at io.c(342)
 
 <p><b>A:</b>
 
-Older rsync daemons (pre 2.6.3) were unable to return errors that were
+Older rsync daemons (before 2.6.3) were unable to return errors that were
 generated during the option-parsing phase of the transfer.  Look in the
 logfile on the server to see if an error was reported, such as a
 "refused" option, an option that the server rsync doesn't support (e.g.
