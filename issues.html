@@ -1,20 +1,28 @@
-<!-- $Header$ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>current issues for rsync</TITLE>
+</HEAD>
 <!--#include virtual="header.html" -->
 
 <H2 align="center">Current issues</H2>
 
-    <ol>
-      <li><b>Q:</b> Transfers die with something like
+<ol>
+
+<li><b>Q:</b>
+
+Transfers die with something like
 <pre>rsync: error writing 4 unbuffered bytes - exiting: Broken pipe
 rsync error: error in rsync protocol data stream (code 12) at ../src/io.c(463)
 </pre>
 
-	<p>
-	  <b>A:</b>
+<p><b>A:</b>
+
 	  Sometimes fatal error messages from the remote machine can
 	  be lost on the way to the client; you should investigate on
 	  the server for something stopping the transmission.  Several
 	  common causes:
+
 <ul>
 <li>The destination disk is full.
 <li>The remote rsync executable wasn't found.
@@ -22,7 +30,16 @@ rsync error: error in rsync protocol data stream (code 12) at ../src/io.c(463)
 (i.e. is sending spurious text to rsync).
 </ul>
 
-    </ol>
+<li><b>Q:</b>
 
+Using --dry-run (-n) doesn't show all changed directories.
+
+<p><b>A:</b>
+
+Correct.  Rsync shows all other changes, but some directory changes are
+not currently described in --dry-run mode.  Hopefully a future version
+will fix this.
+
+</ol>
 
 <!--#include virtual="footer.html" -->
