@@ -53,6 +53,24 @@ resulting files to help figure out why the remote rsync failed.
 
 <li><p><b>Q:</b>
 
+When connecting to an rsync daemon (using the "::" syntax) the
+connection fails immediately with an error like this:
+
+<pre>rsync: connection unexpectedly closed (24 bytes read so far)
+rsync error: error in rsync protocol data stream (code 12) at io.c(342)
+</pre>
+
+<p><b>A:</b>
+
+Older rsync daemons (pre 2.6.3) were unable to return errors that were
+generated during the option-parsing phase of the transfer.  Look in the
+logfile on the server to see if an error was reported, such as a
+"refused" option, an option that the server rsync doesn't support (e.g.
+perhaps links are not supported by the server), or some other failure
+(such as trying to send data to a read-only module).
+
+<li><p><b>Q:</b>
+
 Using --dry-run (-n) doesn't show all changed directories.
 
 <p><b>A:</b>
