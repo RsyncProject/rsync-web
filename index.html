@@ -13,7 +13,7 @@ available under the <A HREF="GPL.html">GNU General Public
 License version 2</A>
 
 <p><b style="color:red">**</b>
-<b>For all versions of rsync prior to 2.6.3pre1, see the
+<b>For all versions of rsync prior to 2.6.3, see the
 <a href="#security_aug04" style="color:red">August 2004 security advisory</a>!</b>
 <b style="color:red">**</b>
 <b>If you're using a version prior to 2.6.1, see the
@@ -23,84 +23,22 @@ License version 2</A>
 <a href="#security_dec03" style="color:red">December 2003 security advisory</a>!</b>
 <b style="color:red">**</b>
 
-<h3>Rsync 2.6.3pre2 released</h3>
+<h3>Rsync 2.6.3 released</h3>
 
-<p><i style="color:#777777">September 21th, 2004</i>
+<p><i style="color:#777777">September 30th, 2004</i>
 
-<p>Rsync version 2.6.3pre2 has been released.  It contains a few bug fixes and
-one minor new feature compared with 2.6.3pre1.  This release should be the last
-one prior to 2.6.3, so please give it a good workout.
+<p>Rsync version 2.6.3 has been released.  It contains a few new features and
+quite a few bug fixes.
 
-<p>See the <a href="/ftp/rsync/preview/rsync-2.6.3pre2-NEWS">release NEWS</a> for the
+<p>See the <a href="/ftp/rsync/rsync-2.6.3-NEWS">release NEWS</a> for the
 details of what changed since 2.6.2.
-
-<p>The changes since 2.6.3pre1 are:
-
-<ul>
-
-<li> Fixed the combination of --inplace and --backup to work properly.
-Also optimized this combination to use the backup file as the basis
-file for a more optimal transfer.
-
-<li> Improved the combination of --keep-dirlinks and --delete so that only
-symlinks-to-directories on the receiver that match a real directory
-on the sender are treated as if they were a real directory.  This
-eliminates some weird delete behavior for symlinks that point inside
-the transferred hierarchy.
-
-<li> Also added support for the RSYNC_PARTIAL_DIR environment variable
-that, when found, transforms a regular --partial option (such as
-the convenient -P option) into one that also specifies a directory.
-
-<li> Added the ability to parse a literal IPv6 address in an "rsync:" URL
-(e.g. rsync://[2001:638:500:101::21]:873/module/dir).
-
-<li> The "backed up ..." message that is output when at least 2 --verbose
-options are specified is now the same both with and without the
---backup-dir option.
-
-<li> The file-list that is output when at least 4 verbose options are
-specified reports the uid value on the sender even when rsync is
-not running as root (since we might be sending to a root receiver).
-
-<li> Fixed a typo in the RERR_VANISHED error message.
-
-<li> We once again allow --include/--exclude options to be specified on
-the server's command-line, even though rsync doesn't use this
-combination itself (other software does).  The parsing of these
-options now ensures that a daemon transfer can't be told to use a
-file that was excluded in the module's config section.
-
-<li> We now reject the combination of --inplace with either --compare-dest
-or --link-dest (since the rsync protocol will need to be extended to
-tell the server when the generator is using an adjunct file as the
-basis-file and when it is using the destination file directly).
-
-<li> Fixed a bug that could cause a slow-to-connect rsync daemon to die
-with an error instead of waiting for the connection to finish.
-
-<li> Fixed a problem with --delete-after not happening if 2.6.3 was
-talking to an rsync older than 2.5.6 as the receiver.
-
-</ul>
 
 <p>See the <a href="download.html">download page</a> for all the ways
-to grab the new version (previews are in the "preview" subdir), or snag one of these:
-<b><a href="/ftp/rsync/preview/rsync-2.6.3pre2.tar.gz">rsync-2.6.3pre2.tar.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.3pre2.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/preview/rsync-2.6.3pre1-2.6.3pre2.diffs.gz">rsync-2.6.3pre1-2.6.3pre2.diffs.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.3pre1-2.6.3pre2.diffs.gz.asc">signature</a>)</b>.
-
-<h3>Rsync 2.6.3pre1 released</h3>
-
-<p><i style="color:#777777">August 12th, 2004</i>
-
-<p>Rsync version 2.6.3pre1 has been released.  It contains a few new features and
-quite a few bug fixes.
-Please help out with the testing so that we give the latest code a good workout.
-
-<p>See the <a href="/ftp/rsync/preview/old-versions/rsync-2.6.3pre1-NEWS">release NEWS</a> for the
-details of what changed since 2.6.2.
+to grab the new version, or snag one of these:
+<b><a href="/ftp/rsync/rsync-2.6.3.tar.gz">rsync-2.6.3.tar.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.3.tar.gz.asc">signature</a>),
+<a href="/ftp/rsync/rsync-2.6.2-2.6.3.diffs.gz">rsync-2.6.2-2.6.3.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.2-2.6.3.diffs.gz.asc">signature</a>)</b>.
 
 <a name="security_aug04"></a>
 <h3 style="color:red">August 2004 Security Advisory</h3>
