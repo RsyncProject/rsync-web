@@ -87,8 +87,8 @@ function in util.c:
 <p>Rsync version 2.6.2 has been released.  It is a bugfix release that mainly
 fixes <b>a bug with the --relative option (-R) in 2.6.1</b>
 that could cause files to be transferred incorrectly.  This only affected a
-source right at the root of the filesystem, such as "/" or "/*" (using "."
-as the source after a chdir to "/" was not affected, however).
+source right at the root of the filesystem, such as "/" or "/*" (if you
+first "cd /" and then copy from ".", it would not tickle the bug).
 
 <p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.2-NEWS">release NEWS</a> for the
 details of what else was fixed.
@@ -142,7 +142,9 @@ make something else the default.
 
 <li>Some bug fixes in the include/exclude code, while making things work
 properly, have resulted in some user-visible changes for certain wildcard
-strings.  Read the BUG FIXES below to see if any of these changes apply to you.
+strings.  Read the BUG FIXES section in the
+<a href="/ftp/rsync/old-versions/rsync-2.6.0-NEWS">NEWS file</a> to see if
+any of these changes apply to you.
 (Most people should be unaffected.)
 
 </ol>
