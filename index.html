@@ -44,11 +44,11 @@ what changes would be made without --dry-run (but do nothing).
 looking for an alternate basis file.  Also fixed a bug in the parsing of each
 file's suffix.
 
-<li> Tweaked the generator to do any --delete-after processing and all its
-directory tweaking after --delay-updates is finished (when specified).
+<li> Tweaked the generator to do any --delete-after processing and any
+directory tweaking after any --delay-updates processing has finished.
 
-<li> Reversed the meaning of the '<' and '>' prefix output by the %i escape for
-transferred files.
+<li> Reversed the meaning of the '&lt;' or '&gt;' prefix that is output by
+the log-format's "%i" escape when files are transferred.
 
 <li> Documented the --protocol=NUM option (which can be useful for creating
 batch files with an older protocol version).
