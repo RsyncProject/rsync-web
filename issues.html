@@ -25,35 +25,37 @@ rsync error: error in rsync protocol data stream (code 12) at io.c(342)
 
 <p><b>A:</b>
 
-Sometimes fatal error messages from the remote machine can be lost on
-the way to the client or the remote process may have died; you should
-investigate on the server for something stopping the transmission.
-Several common causes:
-
-<ul>
-<li>The destination disk is full (remember that you need at least the
-size of the largest file that needs to be updated available in free
-disk space for the transfer to succeed).
-<li>The remote rsync executable wasn't found.
-<li>Your remote-shell setup isn't working right or isn't "clean"
-(i.e. it is sending spurious text to rsync).
-</ul>
-
-<p><b>Note</b>: rsync 2.6.3
-does a better job of retreiving the error from the remote process than
-older versions of rsync, so you may wish to try upgrading as your first
-step in tracking down why the remote process has gone away.
+This error tells you that the local rsync was trying to talk to the remote
+rsync, but the connection to that rsync is now gone.  The thing you must
+figure out is <b>why</b>, and that can involve some investigative work.
 
 <p>If the remote rsync is a daemon, your first step should be to look at
 the daemon's log file to see if it logged an error explaining why it
 aborted the transfer.
 
-<p>If you can't figure out why the failure happened, you can take steps
-to track down the actual 
-cause of the failure (since the above errors just tell us that something
-went wrong remotely, not what went wrong).  One way is to create a shell
+<p>Rsync 2.6.3 does a better job of retreiving the error from the remote
+process than older versions of rsync, so you may wish to try upgrading and
+see if you now get sent the error message from the remote rsync.
+
+<p>There are several common causes for a remote rsync process going away:
+
+<ul>
+
+<li>The destination disk is full (remember that you need at least the
+size of the largest file that needs to be updated available in free
+disk space for the transfer to succeed).
+
+<li>The remote rsync executable wasn't found.
+
+<li>Your remote-shell setup isn't working right or isn't "clean"
+(i.e. it is sending spurious text to rsync).
+
+</ul>
+
+<p>If you can't figure out why the failure happened, there are steps
+you can take to debug the situation.  One way is to create a shell
 script on the remote system such as
-<a href="rsync-debug">this one named rsync-debug</a>.
+<a href="rsync-debug">this one named "rsync-debug"</a>.
 You would use the script like this:
 
 <pre>rsync -av --rsync-path=/some/path/rsync-debug HOST:SOURCE DEST
