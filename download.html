@@ -14,7 +14,7 @@ You can download rsync via ftp, http, cvs or rsync.
 <ul>
 <li>The source code is available <A HREF="/ftp/rsync/">here</A>
 
-<!-- <li>Binaries for a number of platforms are available 
+<!-- <li>Binaries for a number of platforms are available
 <A HREF="/ftp/rsync/binaries/">here</A> -->
 </ul>
 
@@ -23,7 +23,7 @@ You can download rsync via ftp, http, cvs or rsync.
 <ul>
 <li>The source code is available <A HREF="ftp://ftp.samba.org/pub/rsync/">here</A>
 
-<!-- <li>Binaries for a number of platforms are available 
+<!-- <li>Binaries for a number of platforms are available
 <A HREF="ftp://ftp.samba.org/pub/rsync/binaries/">here</A> -->
 </ul>
 
@@ -35,8 +35,8 @@ You can download rsync via ftp, http, cvs or rsync.
 from <em>rsync://rsync.samba.org/ftp/unpacked/rsync/</em>
 </ul>
 
-    <H2>cvs</H2>
-    
+<H2>cvs</H2>
+
     <p>
       The rsync development tree is publicly available by various
       methods so that you can try out the latest changes and give
@@ -48,17 +48,23 @@ from <em>rsync://rsync.samba.org/ftp/unpacked/rsync/</em>
       may not compile, or may fail in various ways, though it's
       usually pretty good.
     </p>
-      
+
     <p>
-      Anyone may use anonymous CVS to follow development: <a
-      href="http://cvs.samba.org/">here are the anoncvs details you need</a>.
-    </p>
+      Anyone may use anonymous CVS to follow development:
+
+    <blockquote>
+    <p><code>cvs -d :pserver:cvs@pserver.samba.org:/cvsroot login</code>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>(Specify the password <b>cvs</b> when prompted.)</i>
+    <p><code>cvs -d :pserver:cvs@pserver.samba.org:/cvsroot co rsync</code>
+    </blockquote>
 
     <p>You can also browse the <a
       href="http://cvs.samba.org/cgi-bin/cvsweb/rsync">development
       history through cvsweb</a>.</p></li>
     </p>
-    
+
+<H2>tar files of cvs code</H2>
+
     <p>
       <a href="http://rsync.samba.org/ftp/rsync/nightly/">Nightly
 	snapshots of the rsync source tree</a> are also available for
