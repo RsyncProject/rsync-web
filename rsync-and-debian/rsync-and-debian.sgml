@@ -330,9 +330,8 @@
 
 
       <sect1>
-	<heading>apt-proxy</heading>
-
-      <p>
+	<heading>apt-proxy</heading> 
+      <p><label id="apt-proxy">
 	<url url="http://apt-proxy.sourceforge.net/" name="apt-proxy">	is a caching proxy for Debian archives.  It appears as an HTTP
 	server to apt clients, and uses rsync, http, or ftp to connect
 	to an upstream server.  
@@ -611,221 +610,229 @@
 
       </sect1>
 
+
+
+
+       <sect1>
+	 <heading>rsync only compares files with the exact same
+	   name</heading>
+
+	 <p>
+	   Even for uncompressed files, rsync will not currently try to
+	   use <tt/linux-2.4.17.tar/ to do delta-compression against
+	   <tt/linux-2.4.18.tar/, because it cannot guess from the
+	   names that the two files are related.
+
+	 <p>
+	   Paul Russell has contributed a patch which adds a heuristic
+	   to detect this.  It will probably be merged in 2.6.
+	 </p>
+       </sect1>
+
+
+       <sect1>
+	 <heading/rsync uses too much memory/
+
+	 <p>
+	   rsync traverses the entire directory tree before it begins
+	   copying files.  On machines with little virtual memory and a
+	   lot of files to copy this can be a problem.
+
+	 <p>
+	   Some problems in this area have been fixed in the 2.5
+	   series.  Other solutions involving internal restructuring of
+	   the <tt/flist/ and <tt/hlink/ code will be attempted in 2.6,
+	   and they should yield a substantial improvement.
+
+	 <p>
+	   We are not likely to change the general approach of
+	   traversing the tree up-front in the near future, because it
+	   is tightly tied to the network protocol.  It might be
+	   attempted in the 3.0 timeframe, but it is not entirely clear
+	   that it is really a problem.
+       </sect1>
+
+
+
+       <sect1>
+	 <heading>rsync hangs?</heading>
+
+	 <p>
+	   There were a number of deadlock bugs in the past.  We
+	   believe they are all fixed in 2.5.5, but would welcome good
+	   bug reports to the contrary.  Some of them were in fact
+	   Linux and Solaris kernel bugs, but they've been fixed by the
+	   relevant parties quite some time ago.
+	 </p>
+       </sect1>
+
+
+
+       <sect1>
+	 <heading>Reduced network usage is not justified by increased CPU
+	   usage
+	 </heading>
+
+	 <p>
+	   The balance point will vary for each administrator.  It is
+	   hard to answer this universally.  The balance is very
+	   different in countries other than the US.
+	 </p>
+
+	 <p>
+	   I suspect CPU cycles are falling in price faster than
+	   network bandwidth, and for many people unused CPU cycles are
+	   wasted but network packets cost money.
+	 </p>
+       </sect1>
+
+
+
+       <sect1>
+	 <heading/rsync can't saturate a fast link/
+
+	 <p>
+	   rsync with <tt>--whole-file</tt> (to turn off the
+	   delta algorithm and be more comparable to ftp) floods a
+	   100Mbps link.  If you have something faster than that to
+	   your upstream Debian mirror, you're a lucky person.
+	 </p>
+
+	 <p>
+	   It is not inherently impossible to make rsync use
+	   <tt>sendfile()</tt> and <tt>mmap()</tt>; it's just that most
+	   people don't need them.  (Apache did not use them by default
+	   either last time I looked, but that doesn't mean it's not
+	   fast enough for most people.)
+	 </p>
+       </sect1>
+
+
+
+       <sect1>
+	 <heading>rsync is not actively developed</heading>
+
+	 <p>
+	   This was a pretty fair accusation a year ago, but I don't
+	   think it is true anymore.  We have made five releases this
+	   year, and the <tt/diff -u/ since 2.4.6, the last version
+	   from the previous maintainer, is 38305 lines.
+
+	 <p>
+	   Mail is answered promptly.  The web site has been revised
+	   and cleaned.  We're working on a regression test suite, code
+	   cleanup and documentation, and other quality issues.
+
+	 <p>
+	   I'm the most active developer at the moment, but there are a
+	   number of other people with experience in the code who
+	   regularly commit changes or send patches.
+
+	 <p>
+	   The stability expectations of our users require a somewhat
+	   disciplined approach to accepting patches, but I don't think
+	   that's a bad thing.  The goal is to iterate through
+	   <em/freeze/ and <em/flow/ phases similar to the kernel.
+
+	 <p>
+	   The Debian rsync package maintainer, Phil Hands, has been
+	   somewhat inactive, but apparently he's back now.  Colin
+	   Walters has been helping out.
+
+	 <p>
+	   If you have patches that were dropped, please send them
+	   through again.
+       </sect1>
+
+
+
+       <sect1>
+	 <heading>Servers should cache deltas</heading>
+
+	 <p>
+	   This also smells like premature optimization.  It might be
+	   useful, but it certainly seems less important than some
+	   other tasks.
+       </sect1>
+
+
+
+       <sect1>
+	 <heading>Possible patent on rsync?</heading>
+
+	 <p>
+	   It has been suggested that some uses of rsync may conflict
+	   with a US patent.  I am not sure of the current situation so
+	   I won't comment.  I don't know of any suggestion that the
+	   rsync program as it currently exists infringes any patent.
+	 </p>
+
+	 <p>
+	   I do know that rsync has been in use for many years by large
+	   and small organization with no complaints of patent
+	   infringement.
+	 </p>
+
+	 <p>
+	   I would point out that linked lists, mark-and-copy garbage
+	   collection, and the Tab key are all patented too.  Somebody
+	   who always carefully checked first for software patents
+	   would never write anything at all.
+	 </p>
+
+       </sect1>
+
+
+       <sect1>
+	 <heading>Debian should store more metadata outside of
+	 the package file</heading>
+
+	 <p>
+	   I can see some reasons why this might be a good idea, but
+	   it doesn't seem particularly relevant to rsync either way.
+	 </p>
+       </sect1>
+
+
+
+       <sect1>
+	 <heading>Debian should distribute diffs or xdeltas
+	   between different versions of their packages</heading>
+
+	 <p>
+	   A problem with this is that Debian releases packages very
+	   often, and so the number of delta files is large.  This will
+	   be a problem for mirror sites who cannot carry all of the
+	   delta files for history, although of course the client could
+	   fall back to directly fetching the new package if the
+	   relevant deltas are not present.
+	 </p>
+
+	 <p>
+	   Fetching a series of deltas which update the same area is
+	   less efficient than calculating the deltas directly.
+	 </p>
+
+	 <p>
+	   Although this idea does not seem very practical for people
+	   using <em/unstable/, it could work well for <em/stable/
+	   and other situations where there are relatively few
+	   releases, or for people without network access.  One could,
+	   for example, distribute a CD-ROM of xdeltas.  On the other
+	   hand, since CD-ROMs are relatively large compared to the
+	   distribution it might be simpler to just distribute the new
+	   packages directly as is currently done.
+      </sect1>
       
-
-
       <sect1>
-	<heading>rsync only compares files with the exact same
-	  name</heading>
-
-	<p>
-	  Even for uncompressed files, rsync will not currently try to
-	  use <tt/linux-2.4.17.tar/ to do delta-compression against
-	  <tt/linux-2.4.18.tar/, because it cannot guess from the
-	  names that the two files are related.
-
-	<p>
-	  Paul Russell has contributed a patch which adds a heuristic
-	  to detect this.  It will probably be merged in 2.6.
-	</p>
-      </sect1>
-
-
-      <sect1>
-	<heading/rsync uses too much memory/
-
-	<p>
-	  rsync traverses the entire directory tree before it begins
-	  copying files.  On machines with little virtual memory and a
-	  lot of files to copy this can be a problem.
-
-	<p>
-	  Some problems in this area have been fixed in the 2.5
-	  series.  Other solutions involving internal restructuring of
-	  the <tt/flist/ and <tt/hlink/ code will be attempted in 2.6,
-	  and they should yield a substantial improvement.
-
-	<p>
-	  We are not likely to change the general approach of
-	  traversing the tree up-front in the near future, because it
-	  is tightly tied to the network protocol.  It might be
-	  attempted in the 3.0 timeframe, but it is not entirely clear
-	  that it is really a problem.
-      </sect1>
-
-
-
-      <sect1>
-	<heading>rsync hangs?</heading>
-
-	<p>
-	  There were a number of deadlock bugs in the past.  We
-	  believe they are all fixed in 2.5.5, but would welcome good
-	  bug reports to the contrary.  Some of them were in fact
-	  Linux and Solaris kernel bugs, but they've been fixed by the
-	  relevant parties quite some time ago.
-	</p>
-      </sect1>
-
-
-      
-      <sect1>
-	<heading>Reduced network usage is not justified by increased CPU
-	  usage
-	</heading>
-
-	<p>
-	  The balance point will vary for each administrator.  It is
-	  hard to answer this universally.  The balance is very
-	  different in countries other than the US.
-	</p>
-
-	<p>
-	  I suspect CPU cycles are falling in price faster than
-	  network bandwidth, and for many people unused CPU cycles are
-	  wasted but network packets cost money.
-	</p>
-      </sect1>
-
-      
-
-      <sect1>
-	<heading/rsync can't saturate a fast link/
-
-	<p>
-	  rsync with <tt>--whole-file</tt> (to turn off the
-	  delta algorithm and be more comparable to ftp) floods a
-	  100Mbps link.  If you have something faster than that to
-	  your upstream Debian mirror, you're a lucky person.
-	</p>
-
-	<p>
-	  It is not inherently impossible to make rsync use
-	  <tt>sendfile()</tt> and <tt>mmap()</tt>; it's just that most
-	  people don't need them.  (Apache did not use them by default
-	  either last time I looked, but that doesn't mean it's not
-	  fast enough for most people.)
-	</p>
-      </sect1>
-
-
-
-      <sect1>
-	<heading>rsync is not actively developed</heading>
-
-	<p>
-	  This was a pretty fair accusation a year ago, but I don't
-	  think it is true anymore.  We have made five releases this
-	  year, and the <tt/diff -u/ since 2.4.6, the last version
-	  from the previous maintainer, is 38305 lines.
-
-	<p>
-	  Mail is answered promptly.  The web site has been revised
-	  and cleaned.  We're working on a regression test suite, code
-	  cleanup and documentation, and other quality issues.
-
-	<p>
-	  I'm the most active developer at the moment, but there are a
-	  number of other people with experience in the code who
-	  regularly commit changes or send patches.
-
-	<p>
-	  The stability expectations of our users require a somewhat
-	  disciplined approach to accepting patches, but I don't think
-	  that's a bad thing.  The goal is to iterate through
-	  <em/freeze/ and <em/flow/ phases similar to the kernel.
-
-	<p>
-	  The Debian rsync package maintainer, Phil Hands, has been
-	  somewhat inactive, but apparently he's back now.  Colin
-	  Walters has been helping out.
-
-	<p>
-	  If you have patches that were dropped, please send them
-	  through again.
-      </sect1>
-      
-
-
-      <sect1>
-	<heading>Servers should cache deltas</heading>
-
-	<p>
-	  This also smells like premature optimization.  It might be
-	  useful, but it certainly seems less important than some
-	  other tasks.
-      </sect1>
-
-
-      
-      <sect1>
-	<heading>Possible patent on rsync?</heading>
-
-	<p>
-	  It has been suggested that some uses of rsync may conflict
-	  with a US patent.  I am not sure of the current situation so
-	  I won't comment.  I don't know of any suggestion that the
-	  rsync program as it currently exists infringes any patent.
-	</p>
-
-	<p>
-	  I do know that rsync has been in use for many years by large
-	  and small organization with no complaints of patent
-	  infringement.
-	</p>
-
-	<p>
-	  I would point out that linked lists, mark-and-copy garbage
-	  collection, and the Tab key are all patented too.  Somebody
-	  who always carefully checked first for software patents
-	  would never write anything at all.
-	</p>
+	<heading>rsync should be used by <tt/apt-get update/</heading>
 	
+	<p>
+	  Even if there are few gains from compressing <tt/.deb/s,
+	  rsync might help in providing a more efficient transfer of
+	  the <tt/Packages/ file, which has small but frequent
+	  changes.  This approach is used by <tt/apt-proxy/.
       </sect1>
-
-
-      <sect1>
-	<heading>Debian should store more metadata outside of
-	the package file</heading>
-
-	<p>
-	  I can see some reasons why this might be a good idea, but
-	  it doesn't seem particularly relevant to rsync either way.
-	</p>
-      </sect1>
-
-      
-      
-      <sect1>
-	<heading>Debian should distribute diffs or xdeltas
-	  between different versions of their packages</heading>
-
-	<p>
-	  A problem with this is that Debian releases packages very
-	  often, and so the number of delta files is large.  This will
-	  be a problem for mirror sites who cannot carry all of the
-	  delta files for history, although of course the client could
-	  fall back to directly fetching the new package if the
-	  relevant deltas are not present.
-	</p>
-
-	<p>
-	  Fetching a series of deltas which update the same area is
-	  less efficient than calculating the deltas directly.
-	</p>
-
-	<p>
-	  Although this idea does not seem very practical for people
-	  using <em/unstable/, it could work well for <em/stable/
-	  and other situations where there are relatively few
-	  releases, or for people without network access.  One could,
-	  for example, distribute a CD-ROM of xdeltas.  On the other
-	  hand, since CD-ROMs are relatively large compared to the
-	  distribution it might be simpler to just distribute the new
-	  packages directly as is currently done.
-      </sect1>
-
-      
     </sect>
 
     
@@ -836,6 +843,9 @@
       
 <p><tscreen><verb>
 $Log$
+Revision 1.9  2002/05/14 02:35:43  mbp
+Update notes on apt-proxy based on mail from Chris Halls.
+
 Revision 1.8  2002/04/12 02:04:15  mbp
 More information about Goswin's idea, as I understand it.
 
