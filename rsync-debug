@@ -1,0 +1,6 @@
+#!/bin/sh
+
+ulimit -c 9999999
+
+# Some systems have "truss" instead of "strace".
+strace -f rsync "${@}" 2>/tmp/rsync-$$.out
