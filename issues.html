@@ -52,8 +52,10 @@ that lead up to the failure to a file in the /tmp dir.  You can use the
 resulting files to help figure out why the remote rsync failed.
 
 <p>If you are rsyncing to an rsync daemon, the above script won't have
-an effect.  Instead, halt the current daemon and restart it under
-strace, like this:
+an effect.  Instead, halt the current daemon and restart it under a
+system-call tracing utility such as <i>strace</i>, <i>truss</i>, or
+<i>tusc</i>.  For strace, you would do it like this (the -f option
+tells strace to follow the child processes too):
 
 <pre>strace -f rsync --daemon --no-detach 2&gt;/tmp/rsync-$$.out
 </pre>
