@@ -61,13 +61,18 @@ that lead up to the failure to a file in the /tmp dir.  You can use the
 resulting files to help figure out why the remote rsync failed.
 
 <p>If you are rsyncing to an rsync daemon, the above script won't have
-any effect.  Instead, halt the current daemon and restart it under a
+any effect.  Instead, halt the current daemon and run a debug version
+with core-dumps enabled and (if desired) using a
 system-call tracing utility such as <i>strace</i>, <i>truss</i>, or
 <i>tusc</i>.  For strace, you would do it like this (the -f option
 tells strace to follow the child processes too):
 
-<pre>strace -f rsync --daemon --no-detach 2&gt;/tmp/rsync-$$.out
+<pre>ulimit -c unlimited
+strace -f rsync --daemon --no-detach 2&gt;/tmp/rsync-$$.out
 </pre>
+
+<p>Then, use a separate window to actually run the failing transfer, after
+which you can kill the debug rsync daemon (pressing Ctrl-C should do it).
 
 <p>If you are using rsync under inetd, I'd suggest temporarily disabling
 that and using the above daemon approach to debug what is going on.
