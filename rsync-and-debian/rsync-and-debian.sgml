@@ -8,7 +8,7 @@
       </author>
       <date>$Date$</date>
     </titlepag>
-
+    
     <toc>
     
     <sect>
@@ -60,7 +60,7 @@
 	<p>
 	  The rsync algorithm is described in detail in the ANU
 	  Technical Report included with the distribution and on the
-	  <tt/rsync.samba.org/ web site.
+	  <htmlurl url="http://rsync.samba.org/" name="rsync.samba.org"> web site.
 	  </p>
 
 	<p>
@@ -97,7 +97,7 @@
 	  software development, but not ideal for distribution of
 	  deltas.
 	</p>
-	</sect1>
+      </sect1>
 
 
       
@@ -213,9 +213,10 @@
 	<heading/rproxy/
 
 	<p>
-	  <tt/librsync/ is used in the rproxy program, which is a
-	  prototype of transparent integration of delta compression
-	  into HTTP.
+	  <tt/librsync/ is used in the <url
+	  url="http://rproxy.samba.org/" name="rproxy"> program, which
+	  is a prototype of transparent integration of delta
+	  compression into HTTP.
 	</p>
 
 	<p>
@@ -279,10 +280,6 @@
 	  Elliston has expressed interest in looking after it in the
 	  last couple of months, and possibly it will be more active
 	  in the future.
-
-	<p>
-	  For more details see <tt>http://rproxy.samba.org/</tt>
-
       </sect1>
 
       
@@ -326,21 +323,37 @@
 	  less frequently.  Possibly the development branches of other
 	  distributions, such as Redhat "Rawhide" and Mandrake
 	  "Cooker" are similar.
-	</p>
-
-	<p>
-	  Some of the <tt/ozlabs.org/ people have written a program
-	  called <tt/apt-proxy/, which uses rsync to download from a
-	  Debian mirror to a local cache.  Although it cannot compress
-	  the <tt/.deb/ files, it does do delta compression on the
-	  <tt/Packages/ file and can therefore be somewhat more
-	  efficient than Squid as a cache for a network of Debian
-	  users.  <tt/apt-proxy/ is perhaps not ready for widescale
-	  production use.
-
+	  </p>
       </sect1>
 
-    </sect>      
+
+
+
+      <sect1>
+	<heading>apt-proxy</heading>
+
+      <p>
+	<url url="http://apt-proxy.sourceforge.net/" name="apt-proxy">	is a caching proxy for Debian archives.  It appears as an HTTP
+	server to apt clients, and uses rsync, http, or ftp to connect
+	to an upstream server.  
+
+      <p>
+	Because rsync is less efficient than HTTP for transferring
+	compressed files, <tt/apt-proxy/ can selectively use rsync for
+	uncompressed Packages and files and HTTP or FTP for <tt/.deb/
+	files.
+
+      <p>
+	<tt/apt-proxy/, unlike Squid, has domain knowledge about
+	Debian archives and can therefore perform functions such as
+	purging old packages from the cache.
+
+      <p>
+	The original apt-proxy was written by Paul 'Rusty' Russel.
+	The current maintainer is Chris Halls.
+      </p>
+    </sect1>
+  </sect>      
 
     
 
@@ -823,6 +836,9 @@
       
 <p><tscreen><verb>
 $Log$
+Revision 1.8  2002/04/12 02:04:15  mbp
+More information about Goswin's idea, as I understand it.
+
 Revision 1.7  2002/04/12 01:39:52  mbp
 Lots more details about rproxy.  Thanks to Brian May for prompting me
 to do this.
