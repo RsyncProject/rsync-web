@@ -1,2 +1,2 @@
 #! /bin/sh
-rsync -avz --exclude upload --exclude '*~' --exclude CVS rsync-and-debian  *.jpg *.html samba.org:/home/httpd/html/rsync/
+rsync -avzH --exclude=upload --exclude='*~' --exclude=CVS rsync-and-debian *.jpg *.html samba.org:/home/httpd/html/rsync/
