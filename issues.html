@@ -13,19 +13,15 @@ rsync error: error in rsync protocol data stream (code 12) at ../src/io.c(463)
 	  <b>A:</b>
 	  Sometimes fatal error messages from the remote machine can
 	  be lost on the way to the client; you should investigate on
-	  the server for something stopping the transmission.  The
-	  most common cause is that the destination disk is full.
+	  the server for something stopping the transmission.  Several
+	  common causes:
+<ul>
+<li>The destination disk is full.
+<li>The remote rsync executable wasn't found.
+<li>Your remote-shell setup isn't working right or isn't "clean"
+(i.e. is sending spurious text to rsync).
+</ul>
 
-      <li>
-	<p><b>Q:</b> interrupted transfers with <tt>--partial</tt> are
-	not continued properly; rsync always transfers the whole file.
-
-	<p>
-	  <b>A:</b> 2.5.4 had a bug that made it act as if
-	  <tt>--whole-file</tt> was always set.  Please upgrade to
-	  2.5.5.
-	</p>
-      </li>
     </ol>
 
 
