@@ -14,60 +14,25 @@ License version 2</A>
 
 <p><i>(If you're using a version of rsync older than 2.6.3, see below for some security advisories.)</i>
 
-<h3>Rsync 2.6.4pre4 released</h3>
+<h3>Rsync 2.6.4 released</h3>
 
-<p><i style="color:#777777">March 28th, 2005</i>
+<p><i style="color:#777777">March 30th, 2005</i>
 
-<p>Rsync version 2.6.4pre4 has been released.  This release combines several
-new features with some improved delete efficiency and the usual array of
-bug fixes.  Please try it out and send feedback to the mailing list!
+<p>Rsync version 2.6.4 has been released.  This release combines quite a
+few new features, some improved delete efficiency, and the usual array of
+bug fixes.
 
-<p>See the <a href="/ftp/rsync/preview/rsync-2.6.4pre4-NEWS">release NEWS</a> for the
-details of what changed since 2.6.3.  You can also read a preview of the man pages
-for <a href="http://rsync.samba.org/ftp/rsync/preview/rsync.html">rsync</a> and
-<a href="http://rsync.samba.org/ftp/rsync/preview/rsyncd.conf.html">rsyncd.conf</a>.
+<p>See the <a href="/ftp/rsync/NEWS">release NEWS</a> for the
+details of what changed since 2.6.3.  You can also read the man pages
+for <a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync</a> and
+<a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
 
-<p>The changes since 2.6.4pre3 are as follows:
-
-<ul>
-
-<li> Fixed the listing of files on an rsync daemon that is version 2.6.3 or before.
-
-<li> Fixed the saving of the state of the --dirs option in a protocol-29 batch file.
-Also added the saving of --compress.
-
-<li> Got rid of the customized death message when talking to pre1/pre2 version
-of 2.6.4 (since everyone should have upgraded to pre3 by now).
-
-<li> Don't reject --dry-run with --read-batch or --write-batch.  Instead, output
-what changes would be made without --dry-run (but do nothing).
-
-<li> Limit the maximum fuzzy-name distance the --fuzzy option will accept when
-looking for an alternate basis file.  Also fixed a bug in the parsing of each
-file's suffix.
-
-<li> Tweaked the generator to do any --delete-after processing and any
-directory tweaking after any --delay-updates processing has finished.
-
-<li> Reversed the meaning of the '&lt;' or '&gt;' prefix that is output by
-the log-format's "%i" escape when files are transferred.
-
-<li> Documented the --protocol=NUM option (which can be useful for creating
-batch files with an older protocol version).
-
-</ul>
-
-<p>To build it from source, snag one of these:
-<b><a href="/ftp/rsync/preview/rsync-2.6.4pre4.tar.gz">rsync-2.6.4pre4.tar.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.4pre4.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/preview/rsync-2.6.4pre3-2.6.4pre4.diffs.gz">rsync-2.6.4pre3-2.6.4pre4.diffs.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.4pre3-2.6.4pre4.diffs.gz.asc">signature</a>)</b>.
-<a href="/ftp/rsync/preview/old-patches/rsync-2.6.4pre2-2.6.4pre3.diffs.gz">rsync-2.6.4pre2-2.6.4pre3.diffs.gz</a>
-(<a href="/ftp/rsync/preview/old-patches/rsync-2.6.4pre2-2.6.4pre3.diffs.gz.asc">signature</a>)</b>.
-<a href="/ftp/rsync/preview/old-patches/rsync-2.6.4pre1-2.6.4pre2.diffs.gz">rsync-2.6.4pre1-2.6.4pre2.diffs.gz</a>
-(<a href="/ftp/rsync/preview/old-patches/rsync-2.6.4pre1-2.6.4pre2.diffs.gz.asc">signature</a>)</b>.
-<a href="/ftp/rsync/preview/old-patches/rsync-2.6.3-2.6.4pre1.diffs.gz">rsync-2.6.3-2.6.4pre1.diffs.gz</a>
-(<a href="/ftp/rsync/preview/old-patches/rsync-2.6.3-2.6.4pre1.diffs.gz.asc">signature</a>)</b>.
+<p>See the <a href="download.html">download page</a> for all the ways
+to grab the new version, or snag one of these:
+<b><a href="/ftp/rsync/rsync-2.6.4.tar.gz">rsync-2.6.4.tar.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.4.tar.gz.asc">signature</a>),
+<a href="/ftp/rsync/rsync-2.6.3-2.6.4.diffs.gz">rsync-2.6.3-2.6.4.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.3-2.6.4.diffs.gz.asc">signature</a>)</b>.
 Note that the diffs do not contain updates for the "patches" dir -- grab the tar
 file if you want the full release.
 
@@ -79,15 +44,8 @@ file if you want the full release.
 <p>Rsync version 2.6.3 has been released.  It contains several new features
 and quite a few bug fixes.
 
-<p>See the <a href="/ftp/rsync/rsync-2.6.3-NEWS">release NEWS</a> for the
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.3-NEWS">release NEWS</a> for the
 details of what changed since 2.6.2.
-
-<p>See the <a href="download.html">download page</a> for all the ways
-to grab the new version, or snag one of these:
-<b><a href="/ftp/rsync/rsync-2.6.3.tar.gz">rsync-2.6.3.tar.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.3.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/rsync-2.6.2-2.6.3.diffs.gz">rsync-2.6.2-2.6.3.diffs.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.2-2.6.3.diffs.gz.asc">signature</a>)</b>.
 
 <a name="security_aug04"></a>
 <h3 style="color:red">August 2004 Security Advisory</h3>
