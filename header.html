@@ -6,11 +6,7 @@
 <SCRIPT TYPE="text/javascript">
 <!--
 if (top.frames.length!=0) {
-    if (window.location.href.replace)
-        window.location.replace(self.location.href);
-    else
-        // causes problems with back button, but works
-        window.location.href = self.location.href;
+        window.location.href = self.document.href;
 }
 //  -->
 </SCRIPT>
