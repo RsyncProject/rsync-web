@@ -11,6 +11,19 @@
 
 <li><p><b>Q:</b>
 
+My chrooted rsync daemon crashes when doing an LDAP lookup for a user or group.
+
+<p><b>A:</b>
+
+There is a bug in some LDAP libraries (e.g. Fedora Core 3) where it crashes
+when someone looks up a name from inside a chrooted process (one that does not
+contain copies of the libraries to perform the lookup).  This is a bug that the
+LDAP libraries will need to fix, and is out of rsync's hands.  You can work
+around the problem by using the --numeric-ids option, turning chroot off, or
+getting rid of LDAP lookups.
+
+<li><p><b>Q:</b>
+
 Transfers die with something like
 
 <pre>rsync: error writing 4 unbuffered bytes - exiting: Broken pipe
