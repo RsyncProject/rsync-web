@@ -46,7 +46,8 @@ figure out is <b>why</b>, and that can involve some investigative work.
 the daemon's log file to see if it logged an error explaining why it
 aborted the transfer.
 
-<p>Rsync 2.6.3 does a better job of retreiving the error from the remote
+<p>Beginning with version 2.6.3, rsync now does a better job of retreiving
+the error from the remote
 process than older versions of rsync, so you may wish to try upgrading and
 see if you now get sent the error message from the remote rsync.
 
@@ -124,9 +125,8 @@ Using --dry-run (-n) doesn't show all changed directories.
 
 <p><b>A:</b>
 
-Correct.  Rsync shows most other changes, but some directory changes are
-not currently described in --dry-run mode.  Hopefully a future version
-will fix this.
+This was true in versions prior to 2.6.4.  Upgrade both rsync versions (or at
+least the receiving side).
 
 <li><p><b>Q:</b>
 
