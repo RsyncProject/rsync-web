@@ -11,7 +11,28 @@
 
 <li><p><b>Q:</b>
 
-My chrooted rsync daemon crashes when doing an LDAP lookup for a user or group.
+Rsync appears hung -- what should I do?
+
+<p><b>A:</b>
+
+When experiencing a hang or freeze <b>please</b> gather the following
+information before killing the rsync process:
+
+<ul>
+
+<li> The state of the send/receive queues shown with netstat on the two ends.
+
+<li> The system call that each of the 3 processes is stuck in (use truss on
+solaris, strace on Linux, etc.).
+
+</ul>
+
+<p> If you need help, send email to the mailing list. 
+
+<li><p><b>Q:</b>
+
+Why does my chrooted rsync daemon crash when doing an LDAP lookup for a user or
+group?
 
 <p><b>A:</b>
 
@@ -24,7 +45,7 @@ getting rid of LDAP lookups.
 
 <li><p><b>Q:</b>
 
-Transfers die with something like
+Why does my transfer die with something like the following error?
 
 <pre>rsync: error writing 4 unbuffered bytes - exiting: Broken pipe
 rsync error: error in rsync protocol data stream (code 12) at io.c(463)
@@ -101,8 +122,8 @@ that and using the above daemon approach to debug what is going on.
 
 <li><p><b>Q:</b>
 
-When connecting to an rsync daemon (using the "::" syntax) the
-connection fails immediately with an error like this:
+Why does my connection to an rsync daemon (using the "::" syntax)
+fail immediately with an error like the following?
 
 <pre>rsync: connection unexpectedly closed (24 bytes read so far)
 rsync error: error in rsync protocol data stream (code 12) at io.c(342)
@@ -121,11 +142,11 @@ get returned to all rsync clients, old or new alike.
 
 <li><p><b>Q:</b>
 
-Using --dry-run (-n) doesn't show all changed directories.
+Why doesn't --dry-run (-n) show all the changed directories?
 
 <p><b>A:</b>
 
-This was true in versions prior to 2.6.4.  Upgrade both rsync versions (or at
+This was a bug in versions prior to 2.6.4.  Upgrade both rsync versions (or at
 least the receiving side).
 
 <li><p><b>Q:</b>
