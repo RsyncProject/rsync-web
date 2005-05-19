@@ -14,12 +14,13 @@ License version 2</A>
 
 <p><i>(If you're using a version of rsync older than 2.6.3, see below for some security advisories.)</i>
 
-<h3>Rsync 2.6.5pre1 released</h3>
+<h3>Rsync 2.6.5pre2 released</h3>
 
-<p><i style="color:#777777">May 10th, 2005</i>
+<p><i style="color:#777777">May 19th, 2005</i>
 
-<p>I have released rsync version 2.6.5pre1 -- the first pre-release for 2.6.5.
-This version is primarily a bug-fix release to squash some annoying bugs that
+<p>I have released rsync version 2.6.5pre2 -- the second (and hopefully final)
+pre-release for 2.6.5.
+The 2.6.5 release is primarily a bug-fix release to squash some annoying bugs that
 made it into 2.6.4 (though a few minor enhancements did make it in as well).
 
 <p>See the <a href="/ftp/rsync/preview/NEWS">release NEWS</a> for the
@@ -27,11 +28,33 @@ details of what changed since 2.6.4.  You can also read the pre-release man page
 for <a href="http://rsync.samba.org/ftp/rsync/preview/rsync.html">rsync</a> and
 <a href="http://rsync.samba.org/ftp/rsync/preview/rsyncd.conf.html">rsyncd.conf</a>.
 
+<p> The changes since 2.5.6pre1 are:
+
+<ul>
+
+<li>Improved the keep-alive code (when a timeout is in effect) to handle a long
+silence between the sender and the receiver that can occur when processing the
+checksum data for a large file.
+
+<li>If a source filename ends with the name "..", treat it like "../" had been
+specified (so that we don't copy files to the parent dir of the destination).
+
+<li>If --delete is combined with a file-listing rsync command (i.e. no transfer
+is happening), avoid outputting a warning that we couldn't delete anything.
+
+<li>If --stats is specified with --delete-after, ensure that all the "deleting"
+messages are output before the statistics.
+
+<li>Improved one "if" in the deletion code that was only checking errno for
+ENOTEMPTY when it should have also been checking for EEXIST.
+
+</ul>
+
 <p>Please help with the testing by grabbing one of these source files:
-<b><a href="/ftp/rsync/preview/rsync-2.6.5pre1.tar.gz">rsync-2.6.5pre1.tar.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.5pre1.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/preview/rsync-2.6.4-2.6.5pre1.diffs.gz">rsync-2.6.4-2.6.5pre1.diffs.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.4-2.6.5pre1.diffs.gz.asc">signature</a>)</b>.
+<b><a href="/ftp/rsync/preview/rsync-2.6.5pre2.tar.gz">rsync-2.6.5pre2.tar.gz</a>
+(<a href="/ftp/rsync/preview/rsync-2.6.5pre2.tar.gz.asc">signature</a>),
+<a href="/ftp/rsync/preview/rsync-2.6.5pre1-2.6.5pre2.diffs.gz">rsync-2.6.5pre1-2.6.5pre2.diffs.gz</a>
+(<a href="/ftp/rsync/preview/rsync-2.6.5pre1-2.6.5pre2.diffs.gz.asc">signature</a>)</b>.
 Note that the diffs do not contain updates for the "patches" dir -- grab the tar
 file if you want the full release.
 
