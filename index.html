@@ -14,47 +14,27 @@ License version 2</A>
 
 <p><i>(If you're using a version of rsync older than 2.6.3, see below for some security advisories.)</i>
 
-<h3>Rsync 2.6.5pre2 released</h3>
+<h3>Rsync 2.6.5 released</h3>
 
-<p><i style="color:#777777">May 19th, 2005</i>
+<p><i style="color:#777777">June 1st, 2005</i>
 
-<p>I have released rsync version 2.6.5pre2 -- the second (and hopefully final)
-pre-release for 2.6.5.
-The 2.6.5 release is primarily a bug-fix release to squash some annoying bugs that
-made it into 2.6.4 (though a few minor enhancements did make it in as well).
+<p>Rsync version 2.6.5 has been released.  This release is primarily a bug-fix
+release to squash some annoying problems that made it into the (feature-filled)
+release of 2.6.4 (though a few minor enhancements did make it in as well).
 
-<p>See the <a href="/ftp/rsync/preview/NEWS">release NEWS</a> for the
-details of what changed since 2.6.4.  You can also read the pre-release man pages
-for <a href="http://rsync.samba.org/ftp/rsync/preview/rsync.html">rsync</a> and
-<a href="http://rsync.samba.org/ftp/rsync/preview/rsyncd.conf.html">rsyncd.conf</a>.
+<p>See the <a href="/ftp/rsync/NEWS">release NEWS</a> for the
+details of what changed since 2.6.4, and the
+<a href="/ftp/rsync/OLDNEWS">OLDNEWS file</a> for details of what changed
+in prior versions.  You can also read the man pages for
+<a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync</a> and
+<a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
 
-<p> The changes since 2.5.6pre1 are:
-
-<ul>
-
-<li>Improved the keep-alive code (when a timeout is in effect) to handle a long
-silence between the sender and the receiver that can occur when the sender is
-receiving the checksum data for a large file.
-
-<li>If a source filename ends with the name "..", treat it like "../" had been
-specified (so that we don't copy files to the parent dir of the destination).
-
-<li>If --delete is combined with a file-listing rsync command (i.e. no transfer
-is happening), avoid outputting a warning that we couldn't delete anything.
-
-<li>If --stats is specified with --delete-after, ensure that all the "deleting"
-messages are output before the statistics.
-
-<li>Improved one "if" in the deletion code that was only checking errno for
-ENOTEMPTY when it should have also been checking for EEXIST.
-
-</ul>
-
-<p>Please help with the testing by grabbing one of these source files:
-<b><a href="/ftp/rsync/preview/rsync-2.6.5pre2.tar.gz">rsync-2.6.5pre2.tar.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.5pre2.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/preview/rsync-2.6.5pre1-2.6.5pre2.diffs.gz">rsync-2.6.5pre1-2.6.5pre2.diffs.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.5pre1-2.6.5pre2.diffs.gz.asc">signature</a>)</b>.
+<p>See the <a href="download.html">download page</a> for all the ways
+to grab the new version, or snag one of these:
+<b><a href="/ftp/rsync/rsync-2.6.5.tar.gz">rsync-2.6.5.tar.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.5.tar.gz.asc">signature</a>),
+<a href="/ftp/rsync/rsync-2.6.4-2.6.5.diffs.gz">rsync-2.6.4-2.6.5.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.4-2.6.5.diffs.gz.asc">signature</a>)</b>.
 Note that the diffs do not contain updates for the "patches" dir -- grab the tar
 file if you want the full release.
 
@@ -67,19 +47,8 @@ file if you want the full release.
 few new features, some improved delete efficiency, and the usual array of
 bug fixes.
 
-<p>See the <a href="/ftp/rsync/NEWS">release NEWS</a> for the
-details of what changed since 2.6.3.  You can also read the man pages
-for <a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync</a> and
-<a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
-
-<p>See the <a href="download.html">download page</a> for all the ways
-to grab the new version, or snag one of these:
-<b><a href="/ftp/rsync/rsync-2.6.4.tar.gz">rsync-2.6.4.tar.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.4.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/rsync-2.6.3-2.6.4.diffs.gz">rsync-2.6.3-2.6.4.diffs.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.3-2.6.4.diffs.gz.asc">signature</a>)</b>.
-Note that the diffs do not contain updates for the "patches" dir -- grab the tar
-file if you want the full release.
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.4-NEWS">release NEWS</a> for the
+details of what changed since 2.6.3.
 
 
 <h3>Rsync 2.6.3 released</h3>
@@ -92,14 +61,13 @@ and quite a few bug fixes.
 <p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.3-NEWS">release NEWS</a> for the
 details of what changed since 2.6.2.
 
+
 <a name="security_aug04"></a>
 <h3 style="color:red">August 2004 Security Advisory</h3>
 
 <p><i style="color:#777777">August 12th, 2004</i>
 
-<h4>Background</h4>
-
-<p>There is a path-sanitizing bug that affects daemon mode in all modern
+<p>There is a path-sanitizing bug that affects daemon-mode in
 rsync versions through version 2.6.2, but only if chroot is disabled.  It
 does NOT affect the normal send/receive filenames that specify what
 files should be transferred (this is because these names happen to get
@@ -107,26 +75,7 @@ sanitized twice, and thus the second call removes any lingering leading
 slash(es) that the first call left behind).  It does affect certain
 option paths that cause auxilliary files to be read or written.
 
-<h4>The Fix</h4>
-
-<p>The best fix is to apply this one-word patch to the sanitize_path()
-function in util.c:
-
-<pre>
---- orig/util.c	2004-04-27 12:59:37 -0700
-+++ util.c	2004-08-11 23:37:27 -0700
-@@ -743,7 +743,7 @@
- 				allowdotdot = 1;
- 			} else {
- 				p += 2;
--				if (*p == '/')
-+				while (*p == '/')
- 					p++;
- 				if (sanp != start) {
- 					/* back up sanp one level */
-</pre>
-
-<p>This bug-fix was released in version 2.6.3 of rsync.
+<p>This bug was fixed in version 2.6.3 of rsync.
 
 <p>One potential fix that doesn't require recompiling rsync is to set
 "use chroot = true" for all the modules in the rsyncd.conf file.
@@ -145,6 +94,7 @@ first "cd /" and then copy from ".", it would not tickle the bug).
 <p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.2-NEWS">release NEWS</a> for the
 details of what else was fixed.
 
+
 <h3>Rsync 2.6.1 released</h3>
 
 <p><i style="color:#777777">April 26th, 2004</i>
@@ -156,6 +106,7 @@ time), and also reduces the amount of data that is transmitted over the wire.
 There have also been quite a few bug fixes.  See the
 <a href="/ftp/rsync/old-versions/rsync-2.6.1-NEWS">release NEWS</a> for the full
 details.
+
 
 <a name="security_apr04"></a>
 <h3 style="color:red">April 2004 Security Advisory</h3>
@@ -170,6 +121,7 @@ of someone crafting an attack that could write a file outside of the module's
 chroot or upgrade to 2.6.1.  People not running a daemon, running a read-only
 daemon, or running a chrooted daemon are totally unaffected.
 
+
 <h3>One Cygwin hang-problem resolved</h3>
 
 <p>The problem with rsync hanging at the end of the transfer on
@@ -179,6 +131,7 @@ fixed in DLL version 1.5.7-1, and Cygwin users are reporting that upgrading the
 DLL removes the hang-at-end-of-transfer problem for their existing rsync executable.
 (Note that this doesn't solve a hang that some folks see in the middle of a
 transfer -- using daemon mode instead of ssh can work around that one.)
+
 
 <a name="two_six"></a>
 <h3>Rsync 2.6.0 released</h3>
@@ -218,99 +171,11 @@ for more details.
 
 <p><i style="color:#777777">December 4th, 2003</i>
 
-<h4>Background</h4>
+<p>Rsync version 2.5.6 and earlier contains a heap overflow vulnerability that
+could be used to remotely run arbitrary code, but this only affects the use of
+rsync as an "rsync daemon" (where rsync handles incoming socket connections,
+typically on port 873).
 
-<p>The rsync team has received evidence that a vulnerability in rsync was
-recently used in combination with a Linux kernel vulnerability to
-compromise the security of a public rsync server. While the forensic
-evidence we have is incomplete, we have pieced together the most
-likely way that this attack was conducted and we are releasing this
-advisory as a result of our investigations to date.
-
-<p>
-Our conclusions are that:
-
-<ul>
-
-<li>rsync version 2.5.6 and earlier contains a heap overflow vulnerability that can
-   be used to remotely run arbitrary code.
-
-<li>While this heap overflow vulnerability could not be used by itself
-   to obtain root access on a rsync server, it could be used in
-   combination with the recently announced brk vulnerability in the
-   Linux kernel to produce a full remote compromise.
-
-<li>The server that was compromised was using a non-default rsyncd.conf
-   option <tt>"use chroot = no"</tt>. The use of this option made the attack on
-   the compromised server considerably easier. A successful attack is
-   almost certainly still possible without this option, but it would
-   be much more difficult.
-</ul>
-
-<p>
-Please note that this vulnerability only affects the use of rsync as a
-"rsync server". To see if you are running a rsync server you should
-use the netstat command to see if you are listening on TCP port
-873. If you are not listening on TCP port 873 then you are not running
-a rsync server.
-
-<h4>New rsync release</h4>
-
-<p>
-In response we have released a new version of rsync, version
-2.5.7. This is based on the current stable 2.5.6 release with only the
-changes necessary to prevent this heap overflow vulnerability. There
-are no new features in this release.
-<p>
-We recommend that anyone running a rsync server take the following
-steps:
-<ol>
-<li>
- Update to (at least) rsync version 2.5.7 immediately.
-<li>
- If you are running a Linux kernel prior to version 2.4.23 then
-      you should upgrade your kernel immediately. Note that some
-      distribution vendors may have patched versions of the 2.4.x
-      series kernel that fix the brk vulnerability in versions before
-      2.4.23. Check with your vendor security site to ensure that you
-      are not vulnerable to the <tt>brk</tt> problem.
-<li>
- Review your <tt>/etc/rsyncd.conf</tt> configuration file. If you are
-      using the option <tt>"use chroot = no"</tt> then remove that line or
-      change it to <tt>"use chroot = yes"</tt>.  If you find that you need that
-      option for your rsync service then you should disable your rsync
-      service until you have discussed a workaround with the rsync
-      maintainers on the rsync mailing list.  The disabling of the
-      chroot option should not be needed for any normal rsync server.
-</ol>
-
-<p>The patches and full source for rsync version 2.5.7 are available from
-<a href="http://rsync.samba.org/">http://rsync.samba.org/</a> and mirror sites. We expect that vendors will
-produce updated packages for their distributions shortly.
-
-<h4>Credits</h4>
-
-<p>
-The rsync team would like to thank the following individuals for their
-assistance in investigating this vulnerability and producing this
-response:
-<ul>
-
-<li>Timo Sirainen &lt;tss.iki.fi&gt;
-<li>Mike Warfield &lt;mhw.wittsend.com&gt;
-<li>Paul Russell &lt;rusty.samba.org&gt;
-<li>Andrea Barisani &lt;lcars.gentoo.org&gt;
-</ul>
-
-<p>        
-The Common Vulnerabilities and Exposures project (cve.mitre.org) has
-assigned the name 
-<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0962">CAN-2003-0962</a> 
-to this issue.
-
-<p>
-Regards,
-<p>
-The rsync team
+<p>This bug was fixed in rsync 2.5.7.
 
 <!--#include virtual="footer.html" -->
