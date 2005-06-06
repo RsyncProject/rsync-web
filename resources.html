@@ -12,9 +12,8 @@ documents to add to this list:
 
 <ul> 
 
-<li>Google knows more than we do.  Here are <a
-href="http://www.google.com/search?hl=en&q=rsync">400,000 more
-rsync resources</a>.
+<li>Google knows more than we do.  Feel free to
+<a href="http://www.google.com/search?hl=en&q=rsync">search google for rsync</a>.
 
 <li>
 2002-05-15: rsync is not official GNU software, but we try to
@@ -55,8 +54,21 @@ file.
 
 <!--#include virtual="doc-resources.html" -->
 
-<li> Thomas Roessler has written a rsync wrapper for efficient, safe
-CVS mirroring. See <A HREF="ftp://riemann.iam.uni-bonn.de/pub/users/roessler/cvslock/">ftp://riemann.iam.uni-bonn.de/pub/users/roessler/cvslock/</A>
+<li>There are a few choices for making rsync work with OS X's resource forks.
+One is the official apple patch found on their opendarwin site, such as
+<a href="http://darwinsource.opendarwin.org/10.4/rsync-20">this one</a>
+(I've heard patch inefficiently transfers the entire resource fork information
+for every file on every transfer.)  Another choice is to use a third-party
+adapted rsync, such as
+<a href="http://archive.macosxlabs.org/rsyncx/rsyncx.html">rsyncx</a> or a
+<a href="http://www.quesera.com/reynhout/misc/rsync+hfsmode">rsync+hfsmode
+patch</a> by D Andrew Reynhout.  For the future, I would like to see an rsync
+that supports ACLs and Posix xattrs adapted to interact with resource forks in
+a seamless way (if that's possible).
+
+<li>Thomas Roessler has written an rsync wrapper for efficient, safe CVS
+mirroring. See
+<a href="ftp://riemann.iam.uni-bonn.de/pub/users/roessler/cvslock/">ftp://riemann.iam.uni-bonn.de/pub/users/roessler/cvslock/</a>
 
 <li>Rsync is distributed with the
 <a href="/ftp/unpacked/rsync/support/rrsync">rrsync perl script</a>
