@@ -84,9 +84,9 @@ file list structure containing all the vital details of each file.
 rsync needs to hold structure in memory because it is being constantly
 traversed.
 
-I do have a plan for how to rewrite rsync so that it consumes a fixed
-(small) amount of memory no matter how many files are transferred, but
-I haven't yet found a spare week of coding time to implement it!
+A future version of rsync could be built with an improved protocol that
+transfers files in a more incremental fashion, which would require a lot
+less memory.  Unfortunately, such an rsync does not yet exist.
 
 
 </small></pre><hr>
