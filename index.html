@@ -18,10 +18,15 @@ License version 2</A>
 
 <p><i style="color:#777777">July 7th, 2005</i>
 
-<p>Rsync version 2.6.6pre1 has been released.  This release is primarily
-targetted at getting a zlib security bugfix into the released version, but it
-also contains a few other minor fixes, all of which you can read about in the
-<a href="http://rsync.samba.org/ftp/rsync/preview/NEWS">NEWS file for 2.6.6pre1</a>.
+<p>Rsync version 2.6.6pre1 has been released.  This release is a preliminary
+release for trying out a zlib upgrade to version 1.2.2 plus a security fix for
+the latest security problem found in zlib.  I had originally thought that this
+release was needed to fix a security problem in the zlib included in rsync, but
+it turns out that 2.6.5 is not affected by the latest zlib security problem
+because it uses the code from zlib 1.1.4.
+
+<p>If you'd like to read about all the fixes that are in 2.6.6pre1, read the
+<a href="http://rsync.samba.org/ftp/rsync/preview/NEWS">NEWS file</a>.
 
 <p>You can download the pre-release version either as a tar file:
 <b><a href="/ftp/rsync/preview/rsync-2.6.6pre1.tar.gz">rsync-2.6.6pre1.tar.gz</a>
