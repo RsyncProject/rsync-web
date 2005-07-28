@@ -15,26 +15,31 @@ License version 2</A> and is currently being maintained by
 
 <p><i>(If you're using a version of rsync older than 2.6.3, see below for some security advisories.)</i>
 
-<h3>Rsync 2.6.6pre1 released</h3>
+<h3>Rsync 2.6.6 released</h3>
 
-<p><i style="color:#777777">July 7th, 2005</i>
+<p><i style="color:#777777">July 28th, 2005</i>
 
-<p>Rsync version 2.6.6pre1 has been released.  This release is a preliminary
-release for trying out a zlib upgrade to version 1.2.2 plus a security fix for
-the latest security problem found in zlib.  I had originally thought that this
-release was needed to fix a security problem in the zlib included in rsync, but
-it turns out that zlib 1.1.4 (which is used in 2.6.5 and earlier) is not affected
-by this latest zlib security problem.
+<p>Rsync version 2.6.6 has been released.  This release is a bug-fix release to
+handle a null-pointer bug that turned up in zlib 1.1.4 (not the recent zlib
+1.2.2 security fix, which did not affect rsync) and to squash a few other minor
+bugs.  To deal with the zlib issue, rsync has been upgraded to include zlib
+1.2.3.
 
-<p>If you'd like to read about all the fixes that are in 2.6.6pre1, read the
-<a href="http://rsync.samba.org/ftp/rsync/preview/NEWS">NEWS file</a>.
+<p>If you'd like to read about all the fixes that are in 2.6.6, read the
+<a href="http://rsync.samba.org/ftp/rsync/NEWS">NEWS file</a>.  See the
+<a href="/ftp/rsync/OLDNEWS">OLDNEWS file</a> for details of what changed
+in prior versions.  You can also read the man pages for
+<a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync</a> and
+<a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
 
-<p>You can download the pre-release version either as a tar file:
-<b><a href="/ftp/rsync/preview/rsync-2.6.6pre1.tar.gz">rsync-2.6.6pre1.tar.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.6pre1.tar.gz.asc">signature</a>),
-</b>or a set of diffs based on 2.6.5:<b>
-<a href="/ftp/rsync/preview/rsync-2.6.5-2.6.6pre1.diffs.gz">rsync-2.6.5-2.6.6pre1.diffs.gz</a>
-(<a href="/ftp/rsync/preview/rsync-2.6.5-2.6.6pre1.diffs.gz.asc">signature</a>)</b>.
+<p>See the <a href="download.html">download page</a> for all the ways
+to grab the new version, or snag one of these:
+<b><a href="/ftp/rsync/rsync-2.6.6.tar.gz">rsync-2.6.6.tar.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.6.tar.gz.asc">signature</a>),
+<a href="/ftp/rsync/rsync-2.6.5-2.6.6.diffs.gz">rsync-2.6.5-2.6.6.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.5-2.6.6.diffs.gz.asc">signature</a>)</b>.
+Note that the diffs do not contain updates for the "patches" dir -- grab the tar
+file if you want the full release.
 
 <h3>Rsync 2.6.5 released</h3>
 
@@ -44,22 +49,8 @@ by this latest zlib security problem.
 release to squash some annoying problems that made it into the (feature-filled)
 release of 2.6.4, plus a few minor enhancements.
 
-<p>See the <a href="/ftp/rsync/NEWS">release NEWS</a> for the
-details of what changed since 2.6.4, and the
-<a href="/ftp/rsync/OLDNEWS">OLDNEWS file</a> for details of what changed
-in prior versions.  You can also read the man pages for
-<a href="http://rsync.samba.org/ftp/rsync/rsync.html">rsync</a> and
-<a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
-
-<p>See the <a href="download.html">download page</a> for all the ways
-to grab the new version, or snag one of these:
-<b><a href="/ftp/rsync/rsync-2.6.5.tar.gz">rsync-2.6.5.tar.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.5.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/rsync-2.6.4-2.6.5.diffs.gz">rsync-2.6.4-2.6.5.diffs.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.4-2.6.5.diffs.gz.asc">signature</a>)</b>.
-Note that the diffs do not contain updates for the "patches" dir -- grab the tar
-file if you want the full release.
-
+<p>See the <a href="/ftp/rsync/old-versions/NEWS">release NEWS</a> for the
+details of what changed since 2.6.4.
 
 <h3>Rsync 2.6.4 released</h3>
 
