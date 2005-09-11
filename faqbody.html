@@ -1,216 +1,252 @@
-<table><tr><td>
-<a href="#1">HP compile</a><br>
-<a href="#2">Read-only file system</a><br>
-<a href="#3">copies every file</a><br>
-<a href="#4">is your shell clean</a><br>
-<a href="#5">memory usage</a><br>
-<a href="#6">out of memory</a><br>
-</td><td><ol>
-<a href="#7">rsync 2.4.3 with rsh</a><br>
-<a href="#8">rsync and cron</a><br>
-<a href="#9">rsync: Command not found</a><br>
-<a href="#10">spaces in filenames</a><br>
-<a href="#11">stderr & stdout</a><br>
-<a href="#12">subscribe</a><br>
-</td></tr></table>
-<h3><a name=1>HP compile</a></h3>
-<pre><small>
-For HPUX apparently you need to add the option -Ae to the CFLAGS. Edit
-the Makefile and change CFLAGS to:
+<table><tr><td><ul>
+<li><a href="#1">Read-only file system</a><br>
+<li><a href="#2">copies every file</a><br>
+<li><a href="#3">is your shell clean</a><br>
+<li><a href="#4">memory usage</a><br>
+<li><a href="#5">out of memory</a><br>
+</ul></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><ul>
+<li><a href="#6">rsync through a firewall</a><br>
+<li><a href="#7">rsync and cron</a><br>
+<li><a href="#8">rsync: Command not found</a><br>
+<li><a href="#9">spaces in filenames</a><br>
+<li><a href="#10">HP compile</a><br>
+</ul></td></tr></table>
 
- CFLAGS=-Ae -O
-</small></pre><hr>
-<h3><a name=2>Read-only file system</a></h3>
-<pre><small>
-if you get "Read-only file system" as an error when sending to a rsync
-server then you probably forgot to set "read only = no" for that
-module.
-</small></pre><hr>
-<h3><a name=3>copies every file</a></h3>
-<pre><small>
-Some people occasionally report that rsync copies every file when they 
-expect it to copy only a small subset. In most cases the explanation
-is that rsync is not in fact copying every file it is just trying
-to update file permissions or ownership and this is failing for some
-reason. rsync lists files with the -v option if it makes any change
-to the file, including minor changes such as group changes.
+<h3><a name=1>Read-only file system</a></h3>
 
-If you think that rsync is erroneously copying every file then look
-at the stats produced with -v and see if rsync is really sending all
-the data. 
+<p>If you get "Read-only file system" as an error when sending to a rsync
+daemon then you probably forgot to set "read only = no" for that module.
 
+<hr>
+<h3><a name=2>copies every file</a></h3>
 
-</small></pre><hr>
-<h3><a name=4>is your shell clean</a></h3>
-<pre><small>
-The "is your shell clean" message and the "protocol mismatch"
-message are usually caused by having some sort of program
-in your .cshrc, .profile, .bashrc or equivalent file that
-writes a message every time you connect. Data written
-in this way corrupts the rsync data stream. rsync detects this
-at startup and produces those error messages.
+<p>Some people occasionally report that rsync copies every file when they
+expect it to copy only a small subset. In most cases the explanation is
+that you forgot to include the --times (-t) option in the original copy,
+so rsync is forced to check every file to see if it has changed (because
+the modified time and size do not match).
 
-A good way to test this is something like:
+<p>If you think that rsync is erroneously copying every file then look at
+the stats produced with -v and see if rsync is really sending all the data. 
 
-	rsh remotemachine /bin/true &gt; test.dat
+<hr>
+<h3><a name=3>is your shell clean</a></h3>
 
-you should get a file called test.dat created of 0 length. If
-test.dat is not of zero length then your shell is not clean.
-Look at the contents of test.dat to see what was sent. Look
-at all the startup files on remotemachine to try and find the
-problem.
+<p>The "is your shell clean" message and the "protocol mismatch" message
+are usually caused by having some sort of program in your .cshrc, .profile,
+.bashrc or equivalent file that writes a message every time you connect
+using a remote-shell program (such as ssh or rsh).  Data written in this
+way corrupts the rsync data stream. rsync detects this at startup and
+produces those error messages.  However, if you are using rsync-daemon
+syntax (host::path or rsync://) without using a remote-shell program (no
+--rsh or -e option), there is not remote-shell program involved, and the
+problem is probably caused by an error on the daemon side (so check the
+daemon logs).
 
+<p>A good way to test if your remote-shell connection is clean is to try
+something like this (use ssh or rsh, as appropriate):
 
-</small></pre><hr>
-<h3><a name=5>memory usage</a></h3>
-<pre><small>
-yes, rsync uses a lot of memory. The majority of the memory is used to
-hole the list of files being transferred. This takes about 100 bytes
-per file, so if you are transferring 800,000 files then rsync will consume
+<blockquote><pre>ssh remotemachine /bin/true &gt; test.dat</pre></blockquote>
+
+<p>That should create a file called test.dat with nothing in it. If
+test.dat is not of zero length then your shell is not clean.  Look at the
+contents of test.dat to see what was sent. Look at all the startup files on
+remotemachine to try and find the problem.
+
+<hr>
+<h3><a name=4>memory usage</a></h3>
+
+<p>Yes, rsync uses a lot of memory. The majority of the memory is used to
+hold the list of files being transferred. This takes about 100 bytes per
+file, so if you are transferring 800,000 files then rsync will consume
 about 80M of memory. It will be higher if you use -H or --delete.
 
-To fix this requires a major rewrite of rsync. I do plan on doing that, but
-I don't know when I'll get to it.
-</small></pre><hr>
-<h3><a name=6>out of memory</a></h3>
-<pre><small>
-The usual reason for "out of memory" when running rsync is that you
-are transferring a _very_ large number of files.  The size of the
-files doesn't matter, only the total number of files.
+<p>To fix this requires a major rewrite of rsync, which my or may not
+happen.
 
-As a rule of thumb you should expect rsync to consume about 100 bytes per
-file in the file list. This happens because rsync builds a internal
-file list structure containing all the vital details of each file. 
-rsync needs to hold structure in memory because it is being constantly
-traversed.
+<hr>
+<h3><a name=5>out of memory</a></h3>
 
-A future version of rsync could be built with an improved protocol that
+<p>The usual reason for "out of memory" when running rsync is that you are
+transferring a _very_ large number of files.  The size of the files doesn't
+matter, only the total number of files.
+
+<p>As a rule of thumb you should expect rsync to consume about 100 bytes
+per file in the file list. This happens because rsync builds a internal
+file list structure containing all the vital details of each file.  rsync
+needs to hold structure in memory because it is being constantly traversed.
+
+<p>A future version of rsync could be built with an improved protocol that
 transfers files in a more incremental fashion, which would require a lot
 less memory.  Unfortunately, such an rsync does not yet exist.
 
+<hr>
+<h3><a name=6>rsync through a firewall</a></h3>
 
-</small></pre><hr>
-<h3><a name=7>rsync 2.4.3 with rsh</a></h3>
-<pre><small>
-rsync 2.4.3 has a problem with some versions of rsh. The versions of rsh (such as the
-one on Solaris) that don't handle non-blocking IO will cause all sorts of errors,
-including "unexpected tag" "multiplexing overflow" etc.
+<p>If you have a setup where there is no way to directly connect two
+machines for an rsync transfer, there are several ways to use the firewall
+machine to act as an intermediary in the transfer.
 
-The fix is to either use an earlier version of rsync or use ssh instead of rsh
-or wait for rsync 2.4.4
+<h4>Method 1</h4>
 
-</small></pre><hr>
-<h3><a name=8>rsync and cron</a></h3>
-<pre><small>
-On some systems (notably SunOS4) cron supplies what looks like a
-socket to rsync, so rsync thinks that stdin is a socket. This means
-that if you start rsync with the --daemon switch from a cron job you
-end up rsync thiking it has been started from inetd. The fix is simple
-- just redirect stdin from /dev/null in your cron job.
+<p>Use ssh to access the intermediary system and have it ssh into the
+actual target machine.
 
-</small></pre><hr>
-<h3><a name=9>rsync: Command not found</a></h3>
-<pre><small>
-&gt; rsync: Command not found
+<p>To effect this extra ssh hop, you'll need to configure a authorization
+method that does not involve any user interaction (such as prompting for a
+password).  The easiest way to do this is to setup an ssh key (see the
+ssh-key manpage).  You can encrypt this key (which requires a passphrase to
+unlock it) as long as you have ssh-agent forwarding enabled -- this allows
+the ssh connection between the intermediary system and the target machine
+to authorize without a passphrase prompt because the authorization
+information is coming from your local machine via the ssh protocol (which
+has the benefit of not making intra-system logins password-less in
+general).  Another solution is to configure host-based authentication,
+which makes all logins between authorized machines automatically authorized
+(which may or may not be something that you are comfortable with).
 
-This error is produced when the remote shell is unable to locate the rsync
+<p>You should then test that the forwarded ssh connection works without a
+prompt by running a command like this:
+
+<blockquote><pre>ssh inter ssh target uptime</pre></blockquote>
+
+<p>If you get a password/passphrase prompt to get into the intermediary
+system that's fine, but the extra hop need to occur without any extra user
+interaction.
+
+<p>Once that's done, you can do an rsync copy like this (one pull, one
+push):
+
+<blockquote><pre>rsync -av --rsync-path="ssh target rsync" inter:/source/ /dest/
+rsync -av --rsync-path="ssh target rsync" /source/ inter:/dest/</pre></blockquote>
+
+<p>These commands looks like they are copying to/from the "inter" host, but the 
+remote-rsync command that we it to run performs the extra hop to the real
+target system and runs the rsync command there.
+
+<h4>Method 2</h4>
+
+<p>Install and configure an rsync daemon on the target and use an ssh
+tunnel to reach the rsync sever.
+
+<p>Installing the rsync daemon is beyond the scope of this document, but
+see the rsyncd.conf manpage for more information.  Keep in mind that you
+don't need to be root to run an rsync daemon as long as you don't use a
+protected port.
+
+<p>Once your rsync daemon is up and running, you build an ssh tunnel
+through your intermediary system like this:
+
+<blockquote><pre>ssh -fN -l userid_on_inter -L 8873:target:8873 inter</pre></blockquote>
+
+<p>What this does is cause a connection to port 8873 on the local system to
+turn into a connection from the intermediary system to the target machine
+on port 8873.  (Port 8873 was chosen instead of the normal 873 port number
+because it does not require root privileges--use whatever port number you
+like.)  The -N option tells ssh not to run a command on the remote system,
+which works with modern ssh versions (you can run a sleep command if -N
+doesn't work).  The -f option tells ssh to put the command in the
+background after any password/passphrase prompts.
+
+<p>Now when an rsync command is executed with a daemon-mode command-line
+syntax to the local machine, the conversation is directed to the target
+system.  For example:
+
+<blockquote><pre>rsync -av --port 8873 localhost::module/source dest/
+rsync -av rsync://localhost:8873/module/source dest/</pre></blockquote>
+
+<hr>
+<h3><a name=7>rsync and cron</a></h3>
+
+<p>On some systems (notably SunOS4) cron supplies what looks like a socket
+to rsync, so rsync thinks that stdin is a socket. This means that if you
+start rsync with the --daemon switch from a cron job you end up rsync
+thinking it has been started from inetd. The fix is simple&mdash;just
+redirect stdin from /dev/null in your cron job.
+
+<hr>
+<h3><a name=8>rsync: Command not found</a></h3>
+
+<p>This error is produced when the remote shell is unable to locate the rsync
 binary in your path. There are 3 possible solutions:
 
-1) install rsync in a "standard" location that is in your remote path. 
+<ol>
 
-2) modify your .cshrc, .bashrc etc on the remote machine to include the path
+<li>install rsync in a "standard" location that is in your remote path. 
+
+<li>modify your .cshrc, .bashrc etc on the remote machine to include the path
 that rsync is in
 
-3) use the --rsync-path option to explicitly specify the path on the
+<li>use the --rsync-path option to explicitly specify the path on the
 remote machine where rsync is installed
 
-You may echo find the command:
+</ol>
 
-	rsh samba 'echo $PATH'
+<p>You may echo find the command:
 
-for determining what your remote path is.
+<blockquote><pre>ssh host 'echo $PATH'</pre></blockquote>
 
+<p>for determining what your remote path is.
 
-</small></pre><hr>
-<h3><a name=10>spaces in filenames</a></h3>
-<pre><small>
-Jim wrote:
-&gt; This seems to imply rsync can't copy files with names containing
-&gt; spaces.  A couple quick greps through the man page suggests that
-&gt; this limitation isn't mentioned.
+<hr>
+<h3><a name=9>spaces in filenames</a></h3>
 
-Short answer: rsync can handle filenames with spaces
+<p>Can rsync copy files with spaces in them?
 
-Long answer: 
+<p>Short answer: Yes, rsync can handle filenames with spaces.
 
-rsync handles spaces just like any other unix command line application.
-Within the code spaces are treated just like any other character so
-a filename with a space is no different from a filename with any
-other character in it.
+<p>Long answer: 
 
-The problem of spaces is in the argv processing done to interpret the
-command line. As with any other unix application you have to escape
-spaces in some way on the command line or they will be used to
-separate arguments. 
+<p>Rsync handles spaces just like any other unix command line application.
+Within the code spaces are treated just like any other character so a
+filename with a space is no different from a filename with any other
+character in it.
 
-It is slightly trickier in rsync because rsync sends a command line
-to the remote system to launch the peer copy of rsync. The command
-line is interpreted by the remote shell and thus the spaces need
-to arrive on the remote system escaped so that the shell doesn't
-split such filenames into multiple arguments.
+<p>The problem of spaces is in the argv processing done to interpret the
+command line.  As with any other unix application you have to escape spaces
+in some way on the command line or they will be used to separate arguments. 
 
-For example:
+<p>It is slightly trickier in rsync (and other remote-copy programs like
+scp) because rsync sends a command line to the remote system to launch the
+peer copy of rsync (this assumes that we're not talking about daemon mode,
+which is not affected by this problem because no remote shell is involved
+in the reception of the filenames).  The command line is interpreted by the
+remote shell and thus the spaces need to arrive on the remote system
+escaped so that the shell doesn't split such filenames into multiple
+arguments.
 
-	rsync -av fjall:'a long filename' /tmp/
+<p>For example:
 
-won't work because the remote shell gets an unquoted filename. Instead
-you have to use:
+<blockquote><pre>rsync -av host:'a long filename' /tmp/</pre></blockquote>
 
-	rsync -av fjall:'"a long filename"' /tmp/
+<p>This is usually a request for rsync to copy 3 files from the remote
+system, "a", "long", and "filename" (the only exception to this is for a
+system running a shell that does not word-split arguments in its commands,
+and that is exceedingly rare).  If you wanted to request a single file with
+spaces, you need to get some kind of space-quoting characters to the remote
+shell that is running the remote rsync command.  The following commands
+should all work:
 
-or a similar construct (there are lots of varients that work).
+<blockquote><pre>rsync -av host:'"a long filename"' /tmp/
+rsync -av host:'a\ long\ filename' /tmp/
+rsync -av host:a\\\ long\\\ filename /tmp/</pre></blockquote>
 
-As long as you know that the remote filenames on the command line
+<p>You might also like to use a '?' in place of a space as long as there
+are no other matching filenames than the one with spaces (since '?' matches
+any character):
+
+<blockquote><pre>rsync -av host:a?long?filename /tmp/</pre></blockquote>
+
+<p>As long as you know that the remote filenames on the command line
 are interpreted by the remote shell then it all works fine. 
 
-I should probably provide the above examples in the docs :-)
+<hr>
+<h3><a name=10>HP compile</a></h3>
 
-Cheers, Andrew
+<p>For HPUX apparently you need to add the option -Ae to the CFLAGS. Edit
+the Makefile and change CFLAGS to:
 
+<blockquote><pre>CFLAGS=-Ae -O</pre></blockquote>
 
-</small></pre><hr>
-<h3><a name=11>stderr & stdout</a></h3>
-<small>
-&gt; Why does rsync produce some things on stdout and some on stderr?
+<hr>
 
-<p>All messages which originate from the remote computer are sent to stderr.
-All informational messages from the local computer are sent to stdout.
-All error messages from the local computer are sent to stderr.
-
-<p>
-There is a reason to this system, and it would be quite difficult to change.
-The reason is that rsync uses a remote shell for execution. The remote
-shell provides stderr/stdout. The stdout stream is used for the rsync 
-protocol. Mixing error messages into this stdout stream would involve
-lots of extra overhead and complexity in the protocol because each message
-would need to be escaped, which means non-messages would need to be encoded
-in some way. Instead rsync always sends remote messages to stderr. This means
-they appear on stderr at the local computer. rsync can't intercept them.
-
-<p>
-If you have a problem with scripts or cron jobs that produce stderr then I
-suggest you use your shell to redirect stderr and stdout. For example you
-could do a cron line like this:
-
-<p>
-<pre>
-0 0 * * * /usr/local/bin/rsync -avz /foobar /foo &gt; logfile 2&gt;&1 
-</pre>
-
-<p>
-this would send both stderr and stdout to "logfile". The magic bit is the
-"2&gt;&1" which says to redirect stderr to to the same descriptor to which
-stdout is currently directed.
-
-
-</small><hr>
