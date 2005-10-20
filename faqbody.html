@@ -89,27 +89,27 @@ system to act as an intermediary in the transfer.
 
 <h4>Method 1</h4>
 
-<p>Use your remote shell (e.g. ssh) to access the intermediary system and
-have it use a remote shell to hop over to the actual target system.
+<p>Use your remote shell (e.g. ssh) to access the middle system and have it
+use a remote shell to hop over to the actual target system.
 
-<p>To effect this extra hop, you'll need to make sure that the remote shell
-on the intermediary system does not involve any tty-based user interaction
-(such as prompting for a password) because there is no way for the
-intermediary system to access the user's tty.
+<p>To effect this extra hop, you'll need to make sure that the remote-shell
+connection from the middle system to the target system does not involve any
+tty-based user interaction (such as prompting for a password) because there
+is no way for the middle system to access the local user's tty.
 
 <p>One way that works for both rsh and ssh is to enable host-based
-authentication, which would allow all connections from the intermediary to the
-target system to succeed (when the username remains the same).  However, this
-may not be a desirable setup.
+authentication, which would allow all connections from the middle system to
+the target system to succeed (when the username remains the same).
+However, this may not be a desirable setup.
 
-<p>Another method that works with ssh (and is also very safe) is to setup an
-ssh key (see the ssh-key manpage) and ensure that ssh-agent forwarding is
-turned on (e.g. "ForwardAgent&nbsp;yes").  You would put the public version
-of your key onto the intermediary and target systems, and the private key
-on your origin system (which I recommend you encrypt).  With this setup, a
+<p>Another method that works with ssh (and is also very safe) is to setup
+an ssh key (see the ssh-key manpage) and ensure that ssh-agent forwarding
+is turned on (e.g. "ForwardAgent&nbsp;yes").  You would put the public
+version of your key onto the middle and target systems, and the private key
+on your local system (which I recommend you encrypt).  With this setup, a
 series of ssh connections that starts from the system where your private
-key is available will auto-authorize (after the first pass-phrase prompt on
-the first system).
+key is available will auto-authorize (after the pass-phrase prompt on the
+first system).
 
 <p>You should then test that a series of ssh connections works without
 multiple prompts by running a command like this (put in the real "middle"
@@ -117,8 +117,8 @@ and "target" hostnames, of course):
 
 <blockquote><pre>ssh middle ssh target uptime</pre></blockquote>
 
-<p>If you get a password/passphrase prompt to get into the intermediary
-system that's fine, but the extra hop needs to occur without any extra user
+<p>If you get a password/passphrase prompt to get into the middle system
+that's fine, but the extra hop needs to occur without any extra user
 interaction.
 
 <p>Once that's done, you can do an rsync copy like this:
@@ -128,14 +128,15 @@ interaction.
 <h4>Method 2</h4>
 
 <p>Assuming you're using ssh as your remote shell, you can configure ssh to
-forward a local-port through your intermediary system to the ssh port (22)
-on the destination system.
+forward a local port through your middle system to the ssh port (22) on the
+destination system.
 
 <p>The first thing we need is an ssh configuration that will allow us to
-connect to the forwarded port as if we were connecting to the target system,
-and we need ssh to know what we're doing so that it doesn't complain about
-the host keys being wrong.  We can do this by adding this section to your
-~/.ssh/config file (substitute "target" and "target_user" as appropriate):
+connect to the forwarded port as if we were connecting to the target
+system, and we need ssh to know what we're doing so that it doesn't
+complain about the host keys being wrong.  We can do this by adding this
+section to your ~/.ssh/config file (substitute "target" and "target_user"
+as appropriate):
 
 <blockquote><pre>Host target
   HostName localhost
@@ -146,12 +147,12 @@ the host keys being wrong.  We can do this by adding this section to your
 
 <p>Next, we need to enable the port forwarding:
 
-<blockquote><pre>ssh -fN -l userid_on_middle -L 2222:target:22 middle</pre></blockquote>
+<blockquote><pre>ssh -fN -l middle_user -L 2222:target:22 middle</pre></blockquote>
 
 <p>What this does is cause a connection to port 2222 on the local system to
-get tunneled to the intermediary system and then turn into a connection to
-the target system's port 22.  The -N option tells ssh not to run a command
-on the remote system, which works with modern ssh versions (you can run a
+get tunneled to the middle system and then turn into a connection to the
+target system's port 22.  The -N option tells ssh not to run a command on
+the remote system, which works with modern ssh versions (you can run a
 sleep command if -N doesn't work).  The -f option tells ssh to put the
 command in the background after any password/passphrase prompts.
 
@@ -160,15 +161,15 @@ that would use a connection to port 2222 on localhost automatically:
 
 <blockquote><pre>rsync -av target:/src/ /dest/</pre></blockquote>
 
-<p><b>Note:</b> starting an ssh tunnel allows anyone on the source system to
-connect to the localhost port 2222, not just you, but they'd still need to
-be able to login to the target system using their own credentials.
+<p><b>Note:</b> starting an ssh tunnel allows anyone on the source system
+to connect to the localhost port 2222, not just you, but they'd still need
+to be able to login to the target system using their own credentials.
 
 <h4>Method 3</h4>
 
 <p>Install and configure an rsync daemon on the target and use an ssh
-tunnel to reach the rsync sever.  This is similar to method 2, but
-tunnels the daemon port for those that prefer to use an rsync daemon.
+tunnel to reach the rsync sever.  This is similar to method 2, but tunnels
+the daemon port for those that prefer to use an rsync daemon.
 
 <p>Installing the rsync daemon is beyond the scope of this document, but
 see the rsyncd.conf manpage for more information.  Keep in mind that you
@@ -176,13 +177,13 @@ don't need to be root to run an rsync daemon as long as you don't use a
 protected port.
 
 <p>Once your rsync daemon is up and running, you build an ssh tunnel
-through your intermediary system like this:
+through your middle system like this:
 
-<blockquote><pre>ssh -fN -l userid_on_middle -L 8873:target:873 middle</pre></blockquote>
+<blockquote><pre>ssh -fN -l middle_user -L 8873:target:873 middle</pre></blockquote>
 
 <p>What this does is cause a connection to port 8873 on the local system to
-turn into a connection from the intermediary system to the target system on
-port 873.  (Port 873 is the normal port for an rsync daemon.) The -N option
+turn into a connection from the middle system to the target system on port
+873.  (Port 873 is the normal port for an rsync daemon.) The -N option
 tells ssh not to run a command on the remote system, which works with
 modern ssh versions (you can run a sleep command if -N doesn't work).  The
 -f option tells ssh to put the command in the background after any
