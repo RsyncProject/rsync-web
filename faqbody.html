@@ -129,7 +129,7 @@ interaction.
 
 <p>Assuming you're using ssh as your remote shell, you can configure ssh to
 forward a local port through your middle system to the ssh port (22) on the
-destination system.
+target system.
 
 <p>The first thing we need is an ssh configuration that will allow us to
 connect to the forwarded port as if we were connecting to the target
@@ -195,6 +195,10 @@ system.  For example:
 
 <blockquote><pre>rsync -av --port 8873 localhost::module/source dest/
 rsync -av rsync://localhost:8873/module/source dest/</pre></blockquote>
+
+<p><b>Note:</b> starting an ssh tunnel allows anyone on the source system
+to connect to the localhost port 8873, not just you, so you may want to
+enable username/password restrictions on you rsync daemon.
 
 <hr>
 <h3><a name=7>rsync and cron</a></h3>
