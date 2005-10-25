@@ -315,7 +315,8 @@ are interpreted by the remote shell then it all works fine.
 
 <p>Some folks would like to ignore the "vanished files" warning, which
 manifests as an exit-code 24.  The easiest way to do this is to create
-a shell script wrapper.  For instance, name this something like "rsync2":
+a shell script wrapper.  For instance, name this something like
+"rsync-no24":
 
 <blockquote><pre>#!/bin/sh
 rsync "$@"
