@@ -9,7 +9,7 @@
 <li><a href="#7">rsync and cron</a><br>
 <li><a href="#8">rsync: Command not found</a><br>
 <li><a href="#9">spaces in filenames</a><br>
-<li><a href="#10">HP compile</a><br>
+<li><a href="#10">ignore "vanished files" warning</a><br>
 </ul></td></tr></table>
 
 <h3><a name=1>Read-only file system</a></h3>
@@ -128,8 +128,33 @@ interaction.
 <h4>Method 2</h4>
 
 <p>Assuming you're using ssh as your remote shell, you can configure ssh to
+use a proxy command to get to the remote host you're interested in reaching.
+
+<p>Here is an example config for your ~/.ssh/config file (substitute "target",
+"target_user", and "middle" as appropriate):
+
+<blockquote><pre>Host target
+  ProxyCommand nohup ssh middle nc -w1 %h %p
+  User target_user
+</pre></blockquote>
+
+<p>This proxy setup uses ssh to login to the firewall system ("middle") and
+uses nc (netcat) to connect to the target host (%h) using the target port
+number (%p).  The use of "nohup" silences a warning at the end of the run,
+and the "-w1" option tells nc to shut down when the connection closes.
+
+<p>With this done, you could run a normal-looking rsync command to "target"
+that would run the proxy command to get through the firewall system:
+
+<blockquote><pre>rsync -av /src/ target:/dest/</pre></blockquote>
+
+<h4>Method 3</h4>
+
+<p>Assuming you're using ssh as your remote shell, you can configure ssh to
 forward a local port through your middle system to the ssh port (22) on the
-target system.
+target system.  This method does not require the use of "nc" (it uses only
+ssh to effect the extra hop), but otherwise it is similar to, but slightly
+less convenient than, method 2.
 
 <p>The first thing we need is an ssh configuration that will allow us to
 connect to the forwarded port as if we were connecting to the target
@@ -165,11 +190,11 @@ that would use a connection to port 2222 on localhost automatically:
 to connect to the localhost port 2222, not just you, but they'd still need
 to be able to login to the target system using their own credentials.
 
-<h4>Method 3</h4>
+<h4>Method 4</h4>
 
 <p>Install and configure an rsync daemon on the target and use an ssh
-tunnel to reach the rsync sever.  This is similar to method 2, but tunnels
-the daemon port for those that prefer to use an rsync daemon.
+tunnel to reach the rsync sever.  This is similar to method 3, but it
+tunnels the daemon port for those that prefer to use an rsync daemon.
 
 <p>Installing the rsync daemon is beyond the scope of this document, but
 see the rsyncd.conf manpage for more information.  Keep in mind that you
@@ -286,12 +311,19 @@ any character):
 are interpreted by the remote shell then it all works fine. 
 
 <hr>
-<h3><a name=10>HP compile</a></h3>
+<h3><a name=10>ignore "vanished files" warning</a></h3>
 
-<p>For HPUX apparently you need to add the option -Ae to the CFLAGS. Edit
-the Makefile and change CFLAGS to:
+<p>Some folks would like to ignore the "vanished files" warning, which
+manifests as an exit-code 24.  The easiest way to do this is to create
+a shell script wrapper.  For instance, name this something like "rsync2":
 
-<blockquote><pre>CFLAGS=-Ae -O</pre></blockquote>
+<blockquote><pre>#!/bin/sh
+rsync "$@"
+e=$?
+if test $e = 24; then
+    exit 0
+fi
+exit $e</pre></blockquote>
 
 <hr>
 
