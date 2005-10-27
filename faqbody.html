@@ -129,6 +129,10 @@ interaction.
 
 <p>Assuming you're using ssh as your remote shell, you can configure ssh to
 use a proxy command to get to the remote host you're interested in reaching.
+Doing this will allow the multi-hop connection to work with rsync, even if
+both hosts prompt for a password -- this is because both ssh connections
+originate from the localhost, and thus both instances of ssh have access to
+the local console to use for an out-of-band password prompt.
 
 <p>Here is an example config for your ~/.ssh/config file (substitute "target",
 "target_user", and "middle" as appropriate):
@@ -176,7 +180,7 @@ as appropriate):
 
 <p>What this does is cause a connection to port 2222 on the local system to
 get tunneled to the middle system and then turn into a connection to the
-target system's port 22.  The -N option tells ssh not to run a command on
+target system's port 22.  The -N option tells ssh not to start a shell on
 the remote system, which works with modern ssh versions (you can run a
 sleep command if -N doesn't work).  The -f option tells ssh to put the
 command in the background after any password/passphrase prompts.
@@ -209,7 +213,7 @@ through your middle system like this:
 <p>What this does is cause a connection to port 8873 on the local system to
 turn into a connection from the middle system to the target system on port
 873.  (Port 873 is the normal port for an rsync daemon.) The -N option
-tells ssh not to run a command on the remote system, which works with
+tells ssh not to start a shell on the remote system, which works with
 modern ssh versions (you can run a sleep command if -N doesn't work).  The
 -f option tells ssh to put the command in the background after any
 password/passphrase prompts.
@@ -223,7 +227,7 @@ rsync -av rsync://localhost:8873/module/source dest/</pre></blockquote>
 
 <p><b>Note:</b> starting an ssh tunnel allows anyone on the source system
 to connect to the localhost port 8873, not just you, so you may want to
-enable username/password restrictions on you rsync daemon.
+enable username/password restrictions on your rsync daemon.
 
 <hr>
 <h3><a name=7>rsync and cron</a></h3>
