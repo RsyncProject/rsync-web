@@ -105,7 +105,8 @@ rsync -av --rsync-path=/some/path/rsync-debug SOURCE HOST:DEST
 that lead up to the failure to a file in the /tmp dir.  You can use the
 resulting files to help figure out why the remote rsync failed.
 
-<p>If you are rsyncing to an rsync daemon, the above script won't have
+<p>If you are rsyncing directly to an rsync daemon (without using a
+remote-shell transport), the above script won't have
 any effect.  Instead, halt the current daemon and run a debug version
 with core-dumps enabled and (if desired) using a
 system-call tracing utility such as <i>strace</i>, <i>truss</i>, or
