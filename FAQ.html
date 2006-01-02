@@ -46,8 +46,13 @@ for details on how you can try to figure out what is going wrong.
 <p>Some people occasionally report that rsync copies every file when they
 expect it to copy only a small subset. In most cases the explanation is
 that you forgot to include the --times (-t) option in the original copy,
-so rsync is forced to check every file to see if it has changed (because
-the modified time and size do not match).
+so rsync is forced to (efficiently) transfer every file to see if it has
+changed (because the modified time and size do not match).
+
+<p>Another common cause involves sending files to an Microsoft filesystem:
+if the file's modified time is an odd value but the receiving filesystem
+can only even values, then rsync will re-transfer too many files.  You can
+avoid this by specifying the --modify-window=1 option.
 
 <p>If you think that rsync is erroneously copying every file then look at
 the stats produced with -v and see if rsync is really sending all the data. 
