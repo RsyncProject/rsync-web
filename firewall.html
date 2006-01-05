@@ -30,25 +30,27 @@ authentication, which would allow all connections from the middle system to
 the target system to succeed (when the username remains the same).
 However, this may not be a desirable setup.
 
-<p>A better method that works with ssh (because it is very safe) is to setup
-an ssh key (see the ssh-key manpage) and ensure that ssh-agent forwarding
-is turned on (e.g. "ForwardAgent&nbsp;yes").  You would put the public
-version of your key onto the middle and target systems, and the private key
-on your local system (which I recommend you encrypt).  With this setup, a
-series of ssh connections that starts from the system where your private
-key is available will auto-authorize (after a pass-phrase prompt on the
-first system if your key is encrypted).  See also ssh-agent (for a way to
-keep a public key unlocked in memory for a time) and the keychain project
-(for a way to manage a per-user ssh-agent).
+<p>A better method that works with ssh (and is very safe) is to setup an ssh
+key (see the ssh-key manpage) and ensure that ssh-agent forwarding is turned
+on in your ssh client config (e.g. "ForwardAgent&nbsp;yes").  You would put
+the public version of your key onto the middle and target systems (in the
+~/.ssh/authorized_keys file), and the private key on your local system (which
+I recommend you encrypt).  With this setup, a series of ssh connections that
+starts from the system where your private key is available will auto-authorize
+(after a pass-phrase prompt on the first system if your key is encrypted).
+See also ssh-agent for a way to keep a public key unlocked in memory for an
+extended time, and the keychain project for a way to manage a system-wide,
+per-user ssh-agent.
 
-<p>You should then test that a series of remote-shell connections works
-without multiple prompts by running a command like this (substitute your
-actual remote-shell and the hostnames "middle" and "target", of course):
+<p>To test that you have things setup right, first test a series of
+remote-shell connections outside of rsync.  A command such as the following
+should work without issuing multiple prompts (use the appropriate remote-shell
+and the substitute the real hostnames for "middle" and "target", of course):
 
 <blockquote><pre>ssh middle ssh target uptime</pre></blockquote>
 
-<p>If you get a password/passphrase prompt to get into the middle system
-that's fine, but the extra hop needs to occur without any extra user
+<p>If you get a password/passphrase prompt to get into the first ("middle")
+system that's fine, but the extra hop needs to occur without any extra user
 interaction.
 
 <p>Once that's done, you can do an rsync copy like this:
@@ -62,7 +64,7 @@ use a proxy command to get to the remote host you're interested in reaching.
 Doing this will allow the multi-hop connection to work with rsync, even if
 both hosts prompt for a password -- this is because both ssh connections
 originate from the localhost, and thus both instances of ssh have access to
-the local console to use for an out-of-band password prompt.
+the local tty to use for an out-of-band password prompt.
 
 <p>Here is an example config for your ~/.ssh/config file (substitute "target",
 "target_user", and "middle" as appropriate):
@@ -72,13 +74,13 @@ the local console to use for an out-of-band password prompt.
   User target_user
 </pre></blockquote>
 
-<p>This proxy setup uses ssh to login to the firewall system ("middle") and
-uses nc (netcat) to connect to the target host ("target") using the default
-port number.  The use of "nohup" silences a warning at the end of the run,
-and the "-w1" option tells nc to shut down when the connection closes.
+<p>This proxy setup uses "ssh" to login to the firewall system ("middle") and
+uses "nc" (netcat) to connect to the target host ("target") using the default
+port number.  The use of "nohup" silences a warning at the end of the run, and
+the "-w1" option tells nc to shut down when the connection closes.
 
-<p>With this done, you could run a normal-looking rsync command to "target"
-that would run the proxy command to get through the firewall system:
+<p>With this done, you can run a normal-looking rsync command to "target" that
+will run the proxy command to get through the firewall system:
 
 <blockquote><pre>rsync -av /src/ target:/dest/</pre></blockquote>
 
