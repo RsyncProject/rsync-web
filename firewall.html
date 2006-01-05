@@ -17,7 +17,7 @@ in making a tunneled connection possible).
 
 <h4>Method 1 -- should work with any remote-shell</h4>
 
-<p>Use your remote shell (e.g. rsh) to access the middle system and have it
+<p>Use your remote shell (e.g. ssh) to access the middle system and have it
 use a remote shell to hop over to the actual target system.
 
 <p>To effect this extra hop, you'll need to make sure that the remote-shell
@@ -25,25 +25,27 @@ connection from the middle system to the target system does not involve any
 tty-based user interaction (such as prompting for a password) because there
 is no way for the middle system to access the local user's tty.
 
-<p>One way that should work all remote-shell programs is to enable host-based
+<p>One way that should work for all remote-shell programs is to enable host-based
 authentication, which would allow all connections from the middle system to
 the target system to succeed (when the username remains the same).
 However, this may not be a desirable setup.
 
-<p>Another method that works with ssh (and is also very safe) is to setup
+<p>A better method that works with ssh (because it is very safe) is to setup
 an ssh key (see the ssh-key manpage) and ensure that ssh-agent forwarding
 is turned on (e.g. "ForwardAgent&nbsp;yes").  You would put the public
 version of your key onto the middle and target systems, and the private key
 on your local system (which I recommend you encrypt).  With this setup, a
 series of ssh connections that starts from the system where your private
 key is available will auto-authorize (after a pass-phrase prompt on the
-first system if your key is encrypted).
+first system if your key is encrypted).  See also ssh-agent (for a way to
+keep a public key unlocked in memory for a time) and the keychain project
+(for a way to manage a per-user ssh-agent).
 
 <p>You should then test that a series of remote-shell connections works
 without multiple prompts by running a command like this (substitute your
 actual remote-shell and the hostnames "middle" and "target", of course):
 
-<blockquote><pre>rsh middle rsh target uptime</pre></blockquote>
+<blockquote><pre>ssh middle ssh target uptime</pre></blockquote>
 
 <p>If you get a password/passphrase prompt to get into the middle system
 that's fine, but the extra hop needs to occur without any extra user
@@ -51,9 +53,9 @@ interaction.
 
 <p>Once that's done, you can do an rsync copy like this:
 
-<blockquote><pre>rsync -av -e "rsh middle rsh" target:/source/ /dest/</pre></blockquote>
+<blockquote><pre>rsync -av -e "ssh middle ssh" target:/source/ /dest/</pre></blockquote>
 
-<h4>Method 2 -- recommended method for ssh users</h4>
+<h4>Method 2 -- requires ssh and nc (netcat)</h4>
 
 <p>Assuming you're using ssh as your remote shell, you can configure ssh to
 use a proxy command to get to the remote host you're interested in reaching.
@@ -80,11 +82,11 @@ that would run the proxy command to get through the firewall system:
 
 <blockquote><pre>rsync -av /src/ target:/dest/</pre></blockquote>
 
-<h4>Method 3 -- an alternate ssh method for those without "nc"</h4>
+<h4>Method 3 -- an alternate ssh method for those without nc (netcat)</h4>
 
 <p>Assuming you're using ssh as your remote shell, you can configure ssh to
 forward a local port through your middle system to the ssh port (22) on the
-target system.  This method does not require the use of "nc" (it uses only
+target system.  This method does not require the use of nc (it uses only
 ssh to effect the extra hop), but otherwise it is similar to, but slightly
 less convenient than, method 2.
 
