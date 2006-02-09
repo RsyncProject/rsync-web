@@ -15,14 +15,34 @@ License version 2</A> and is currently being maintained by
 
 <p><i>(If you're using a version of rsync older than 2.6.3, see below for some security advisories.)</i>
 
-<h3>The CVS version</h3>
+<h3>Rsync 2.6.7pre1 available for release testing</h3>
 
-<p>If you're curious about the changes going into the next version of
-rsync, you can view the <a href="/ftp/unpacked/rsync/NEWS">NEWS file from
-CVS</a> to see a summary of the current changes.  Also available are the
-<a href="/ftp/rsync/nightly/rsync.html">rsync manpage from CVS</a> and the
-<a href="/ftp/rsync/nightly/rsyncd.conf.html">rsyncd.conf manpage from
-CVS</a>.
+<p><i style="color:#777777">February 8th, 2006</i>
+
+<p>Rsync version 2.6.7pre1 is now available for release testing. Please
+give it a try and send email to the rsync mailing list with any questions,
+comments, bug reports, etc.
+
+<p>This release provides several useful new options and a number of
+bugfixes.  You can read all about it in the
+<a href="/ftp/rsync/preview/NEWS">NEWS file</a>.  You can also read the
+prerelease version of the manpages for
+<a href="/ftp/rsync/preview/rsync.html">rsync</a> and
+<a href="/ftp/rsync/preview/rsyncd.conf.html">rsyncd.conf</a>.
+
+<p>The source tar is available here:
+<b><a href="/ftp/rsync/preview/rsync-2.6.7pre1.tar.gz">rsync-2.6.7pre1.tar.gz</a>
+(<a href="/ftp/rsync/preview/rsync-2.6.7pre1.tar.gz.asc">signature</a>),</b>
+and the diffs from version 2.6.6 are available here:
+<b><a href="/ftp/rsync/preview/rsync-2.6.6-2.6.7pre1.diffs.gz">rsync-2.6.6-2.6.7pre1.diffs.gz</a>
+(<a href="/ftp/rsync/preview/rsync-2.6.6-2.6.7pre1.diffs.gz.asc">signature</a>)</b>.
+Note that the diffs do not contain updates for the "patches" dir -- grab the tar
+file if you want the full release.
+
+<p>Also of note for packagers: the diffs in the patches dir of the release tar
+now contain patches for generated files, so you won't need to use autoconf and
+yodl unless you're creating a custom combination of patches that don't apply
+cleanly together.  There are several new patches available.
 
 <h3>Rsync 2.6.6 released</h3>
 
