@@ -132,6 +132,10 @@ to be able to login to the target system using their own credentials.
 tunnel to reach the rsync sever.  This is similar to method 3, but it
 tunnels the daemon port for those that prefer to use an rsync daemon.
 
+<p>(Note that this method also works to tunnel a socket connection
+directly to a destination system if you use "localhost" as the target
+hostname and your destination system's name as the middle hostname.)
+
 <p>Installing the rsync daemon is beyond the scope of this document, but
 see the rsyncd.conf manpage for more information.  Keep in mind that you
 don't need to be root to run an rsync daemon as long as you don't use a
