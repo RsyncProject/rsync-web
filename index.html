@@ -15,8 +15,6 @@ License version 2</A> and is currently being maintained by
 
 <p><i>(If you're using a version of rsync older than 2.6.3, see below for some security advisories.)</i>
 
-<!--
-
 <h3>The CVS version</h3>
 
 <p>If you're curious about the changes going into the next version of
@@ -26,36 +24,31 @@ CVS</a> to see a summary of the current changes.  Also available are the
 <a href="/ftp/rsync/nightly/rsyncd.conf.html">rsyncd.conf manpage from
 CVS</a>.
 
--->
+<h3>Rsync 2.6.7 released</h3>
 
-<h3>Rsync 2.6.7pre3 available for release testing</h3>
+<p><i style="color:#777777">March 11th, 2006</i>
 
-<p><i style="color:#777777">March 2nd, 2006</i>
-
-<p>Rsync version 2.6.7pre3 is now available for release testing.  I'm hoping
-that this will be the final pre-release before 2.6.7, so please
-give it a try and send email to the rsync mailing list with any questions,
-comments, bug reports, etc.
+<p>Rsync version 2.6.7 has been released.
 
 <p>You can read all about the latest improvements and bug-fixes in the
-<a href="/ftp/rsync/rsync-2.6.7pre3-NEWS">NEWS file</a>.
+<a href="/ftp/rsync/rsync-2.6.7-NEWS">NEWS file</a>.
 The latest versions of the manpages are also available for both
 <a href="/ftp/rsync/rsync.html">rsync</a> and
 <a href="/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
 
-<p>The source tar is available here:
-<b><a href="/ftp/rsync/rsync-2.6.7pre3.tar.gz">rsync-2.6.7pre3.tar.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.7pre3.tar.gz.asc">signature</a>),</b>
-and the diffs from version 2.6.7pre2 are available here:
-<b><a href="/ftp/rsync/rsync-2.6.7pre2-2.6.7pre3.diffs.gz">rsync-2.6.7pre2-2.6.7pre3.diffs.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.7pre2-2.6.7pre3.diffs.gz.asc">signature</a>)</b>.
+<p>See the <a href="download.html">download page</a> for all the ways
+to grab the new version, or snag one of these:
+<b><a href="/ftp/rsync/rsync-2.6.7.tar.gz">rsync-2.6.7.tar.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.7.tar.gz.asc">signature</a>),
+<a href="/ftp/rsync/rsync-2.6.6-2.6.7.diffs.gz">rsync-2.6.6-2.6.7.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.6-2.6.7.diffs.gz.asc">signature</a>)</b>.
 Note that the diffs do not contain updates for the "patches" dir -- grab the tar
 file if you want the full release.
 
 <p>Also of note for packagers: the diffs in the patches dir of the release tar
 now contain patches for generated files, so you won't need to use autoconf and
 yodl unless you're creating a custom combination of patches that don't apply
-cleanly together.  There are several new patches available.
+cleanly together.  There are several new patches added since the 2.6.6 release.
 
 <h3>Rsync 2.6.6 released</h3>
 
@@ -67,21 +60,8 @@ to handle a null-pointer bug that turned up in rsync's version of zlib
 affect rsync) and to squash a few other minor bugs.  To deal with the
 zlib issue, rsync has been upgraded to include zlib 1.2.3.
 
-<p>If you'd like to read about all the fixes that are in 2.6.6, read the
-<a href="/ftp/rsync/rsync-2.6.6-NEWS">NEWS file</a>.  See the
-<a href="/ftp/rsync/OLDNEWS">OLDNEWS file</a> for details of what changed
-in prior versions.  You can also read the
-<a href="/ftp/rsync/rsync.html">rsync manpage</a> and
-<a href="/ftp/rsync/rsyncd.conf.html">rsyncd.conf manpage</a>.
-
-<p>See the <a href="download.html">download page</a> for all the ways
-to grab the new version, or snag one of these:
-<b><a href="/ftp/rsync/rsync-2.6.6.tar.gz">rsync-2.6.6.tar.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.6.tar.gz.asc">signature</a>),
-<a href="/ftp/rsync/rsync-2.6.5-2.6.6.diffs.gz">rsync-2.6.5-2.6.6.diffs.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.5-2.6.6.diffs.gz.asc">signature</a>)</b>.
-Note that the diffs do not contain updates for the "patches" dir -- grab the tar
-file if you want the full release.
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.6-NEWS">release NEWS</a> for the
+details of what changed since 2.6.5.
 
 <h3>Rsync 2.6.5 released</h3>
 
