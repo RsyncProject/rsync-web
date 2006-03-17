@@ -1,89 +1,67 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<HTML>
-<HEAD>
+<html>
+<head>
 <TITLE>rsync download</TITLE>
-</HEAD>
+</head>
 <!--#include virtual="header.html" -->
 
-<H2 align="center">rsync download</H2>
+<h2 align="center">rsync download</h2>
 
-You can download rsync via ftp, http, cvs or rsync.
+<h2>Source Code</h2>
 
-<H2>http</H2>
-
-<ul>
-<li>The source code is available <A HREF="/ftp/rsync/">here</A>
-
-<!-- <li>Binaries for a number of platforms are available
-<A HREF="/ftp/rsync/binaries/">here</A> -->
-</ul>
-
-<H2>ftp</H2>
+<p>You can grab the latest source code tar file, its gpg signature, and other
+related files in a variety of ways:
 
 <ul>
-<li>The source code is available <A HREF="ftp://ftp.samba.org/pub/rsync/">here</A>
 
-<!-- <li>Binaries for a number of platforms are available
-<A HREF="ftp://ftp.samba.org/pub/rsync/binaries/">here</A> -->
+<li>via <a href="/ftp/rsync/">http</a> (the standard web-browser protocol)
+<li>via <a href="ftp://ftp.samba.org/pub/rsync/">ftp</a>
+<li>via <i>anonymous rsync</i> from:
+<code><small>rsync://rsync.samba.org/rsyncftp/</small></code>
+
 </ul>
 
-<H2>rsync</H2>
+<p>Also, an unpacked copy of the latest development version can be
+<a href="/ftp/unpacked/rsync/">browsed on the web</a>, or obtained via
+<i>anonymous rsync</i> from:
+<code><small>rsync://rsync.samba.org/ftp/unpacked/rsync/</small></code>
 
+<h2>Binaries</h2>
+
+<p>Precompiled binaries are available from 3rd-party web sites:
 <ul>
-<li>The rsync ftp site is available via anonymous rsync at <em>rsync://rsync.samba.org/rsyncftp/</em>
-<li>An unpacked copy of the latest development version can be obtained
-from <em>rsync://rsync.samba.org/ftp/unpacked/rsync/</em>
+
+<li><p><a href="http://dag.wieers.com/packages/rsync/">RPMs for Red Hat/Fedora</a> from Dag Wieers.
+<li><p>More to come...
+
 </ul>
 
-<H2>cvs</H2>
+<h2>CVS</h2>
 
-    <p>
-      The rsync development tree is publicly available by various
-      methods so that you can try out the latest changes and give
-      feedback to the developers.
-    </p>
+<p> The rsync development tree is publicly available by various methods so that
+you can try out the latest changes and give feedback to the developers.
 
-    <p>
-      <b>Note:</b> Since the "head" source is a work in progress it
-      may not compile, or may fail in various ways, though it's
-      usually pretty good.
-    </p>
+<p> <b>Note:</b> Since the "HEAD" source is a work in progress it may not
+compile, or may fail in various ways, though it's usually pretty good.
 
-    <p>
-      Anyone may use anonymous CVS to follow development:
+<p> Anyone may use anonymous CVS to follow development:
 
-    <blockquote>
-    <p><code>cvs -d :pserver:cvs@pserver.samba.org:/cvsroot login</code>
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>(Specify the password <b>cvs</b> when prompted.)</i>
-    <p><code>cvs -d :pserver:cvs@pserver.samba.org:/cvsroot co rsync</code>
-    </blockquote>
+<blockquote>
+<p><code>cvs -d :pserver:cvs@pserver.samba.org:/cvsroot login</code>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>(Specify the password <b>cvs</b> when prompted.)</i>
+<p><code>cvs -d :pserver:cvs@pserver.samba.org:/cvsroot co rsync</code>
+</blockquote>
 
-    <p>You can also browse the <a
-      href="http://cvs.samba.org/cgi-bin/cvsweb/rsync">development
-      history through cvsweb</a>.</p></li>
-    </p>
+<p>You can also browse the <a href="http://cvs.samba.org/cgi-bin/cvsweb/rsync">development
+history through cvsweb</a>.
 
-<H2>tar files of cvs code</H2>
+<h2>Nightly CVS Snapshots</h2>
 
-    <p>
-      <a href="http://rsync.samba.org/ftp/rsync/nightly/">Nightly
-	snapshots of the rsync source tree</a> are also available for
-	people who want to try the latest development version.  If you
-	want to track development, then CVS uses less bandwidth and
-	can automatically merge your local changes with our version.
-	However, if you just want a one-off download, or cannot use
-	CVS because of firewall, network or software issues, then the
-	snapshots might be helpful.
-    </p>
-
-<!--
-<h2>Contributing binaries</h2>
-
-If you can build binaries for a platform that we currently don't offer
-binaries for then please let me know (via the bug tracking
-system). I'll then give you a way of uploading binaries to
-rsync.samba.org. Please only do this if you have the time to build and
-package binaries in a timely fashion for every rsync release.
- -->
+<p><a href="http://rsync.samba.org/ftp/rsync/nightly/">Nightly snapshots of the
+rsync source tree</a> are also available for people who want to try the latest
+development version.  If you want to track development, then CVS uses less
+bandwidth and can automatically merge your local changes with our version.
+However, if you just want a one-off download, or cannot use CVS because of
+firewall, network or software issues, then the snapshots might be helpful.
 
 <!--#include virtual="footer.html" -->
