@@ -54,6 +54,12 @@ if the file's modified time is an odd value but the receiving filesystem
 can only even values, then rsync will re-transfer too many files.  You can
 avoid this by specifying the --modify-window=1 option.
 
+<p>A third case happens can happen when daylight-savings time changes if
+your OS+filesystem saves file times in local time instead of UTC.  For a
+full explanation of this and some suggestions on how to avoid them problem,
+see <a href="daylight-savings.html">this
+document</a>.
+
 <p>If you think that rsync is erroneously copying every file then look at
 the stats produced with -v and see if rsync is really sending all the data. 
 See also the --checksum (-c) option for one way to avoid the extra copying
