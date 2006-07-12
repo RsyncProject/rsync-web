@@ -195,13 +195,18 @@ files not on the sender and delete them on the receiver.
 The generator will then start walking the file list.  Each
 file will be checked to see if it can be skipped.  In the
 most common mode of operation files are not skipped if the
-modification time or size differ.  If --checksum was
+modification time or size differs.  If --checksum was
 specified a file-level checksum will be created and
 compared.  Directories, device nodes and symlinks are not
 skipped.  Missing directories will be created.  
 <p>
-If a file is not to be skipped, block checksums are created
-for it and sent with the file index number to the sender.
+If a file is not to be skipped, any existing version on the
+receiving side becomes the "basis file" for the transfer, and is
+used as a data source that will help to eliminate matching data
+from having to be sent by the sender.  To effect this remote
+matching of data, block checksums are created for the basis file
+and sent to the sender immediately following the file's index
+number.
 An empty block checksum set is sent for new files and if
 --whole-file was specified.
 <p>
@@ -235,9 +240,12 @@ Matching blocks can be identified in this way even if
 the blocks are reordered or at different offsets.  
 This process is the very heart of the rsync algorithm.
 <p>
-In this way the generator will send to the receiver a
-sequence of non-matched data interspersed with matching block
-information.  At the end of each file's processing a whole-file
+In this way, the sender will give the receiver instructions for
+how to reconstruct the source file into a new destination file.
+These instructions detail all the matching data that can be
+copied from the basis file (if one exists for the transfe),
+and includes any raw data that was not available locally.
+At the end of each file's processing a whole-file
 checksum is sent and the sender proceeds with the next
 file.
 <p>
