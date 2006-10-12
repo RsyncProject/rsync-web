@@ -26,6 +26,29 @@ CVS</a> to see a summary of the current changes.  Also available are the
 CVS</a>.
 -->
 
+<h3>Rsync 2.6.9pre1 available for release testing</h3>
+
+<p><i style="color:#777777">October 11th, 2006</i>
+
+<p>Rsync version 2.6.9pre1 is now available for release testing. Please test it
+and send email to the rsync mailing list with any questions, comments, or bug
+reports.
+
+<p>You can read all about the latest improvements and bug-fixes in the
+<a href="/ftp/rsync/rsync-2.6.9pre1-NEWS">NEWS file</a>.
+The pre-release version of the manpages are also available for both
+<a href="/ftp/rsync/rsync.html">rsync</a> and
+<a href="/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
+
+<p>The source tar is available here:
+<b><a href="/ftp/rsync/rsync-2.6.9pre1.tar.gz">rsync-2.6.9pre1.tar.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.9pre1.tar.gz.asc">signature</a>),</b>
+and the diffs from version 2.6.7 are available here:
+<b><a href="/ftp/rsync/rsync-2.6.8-2.6.9pre1.diffs.gz">rsync-2.6.8-2.6.9pre1.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.8-2.6.9pre1.diffs.gz.asc">signature</a>)</b>.
+Note that the diffs do not contain updates for the "patches" dir -- grab the tar
+file if you want the full release.
+
 <h3>Rsync version 2.6.8 released</h3>
 
 <p><i style="color:#777777">April 22th, 2006</i>
@@ -123,7 +146,7 @@ does NOT affect the normal send/receive filenames that specify what
 files should be transferred (this is because these names happen to get
 sanitized twice, and thus the second call removes any lingering leading
 slash(es) that the first call left behind).  It does affect certain
-option paths that cause auxilliary files to be read or written.
+option paths that cause auxiliary files to be read or written.
 
 <p>This bug was fixed in version 2.6.3 of rsync.
 
