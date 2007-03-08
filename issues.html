@@ -82,6 +82,9 @@ see if you now get sent the error message from the remote rsync.
 size of the largest file that needs to be updated available in free
 disk space for the transfer to succeed).
 
+<li>An idle connection caused a router or remove-shell server to close
+the connection.
+
 <li>A network error caused the connection to be dropped.
 
 <li>The remote rsync executable wasn't found.
@@ -90,6 +93,14 @@ disk space for the transfer to succeed).
 (i.e. it is sending spurious text to rsync).
 
 </ul>
+
+<p>If you think the problem might be an idle connection getting closed,
+you might be able to work around the problem by using a --timeout option
+(newer rsyncs send keep-alive messages during lulls).  You can also
+configure ssh to send keep-alive messages when using Protocol 2 (look for
+KeepAlive, ServerAliveInterval, ClientAliveInterval, ServerAliveCountMax,
+and ClientAliveCountMax).  You can also avoid some lulls by switching
+from --delete (aka --delete-before) to --del (aka --delete-during).
 
 <p>If you can't figure out why the failure happened, there are steps
 you can take to debug the situation.  One way is to create a shell
