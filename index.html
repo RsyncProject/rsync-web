@@ -25,10 +25,15 @@ to add ACL and xattr support, and more.  Upcoming changes include:
 filename charset-conversion support, renamed-file detection, improved
 performance for large files, and other changes yet to be decided.
 
-<p><b>Caution:</b> protocol 30 is still in flux, so if you install the
-CVS version, be sure to upgrade all your CVS rsync installs with the same
-executable at the same time OR use the --protocol=29 option if you need
-to make two different CVS rsyncs talk a common language.
+<p><b>Note:</b> protocol 30 is still in flux, but I have just added an
+automatic check to make sure that a pre-released version of rsync is
+talking to a compatible rsync -- the transfer will fall back to protocol
+29 if the two sides don't have the same idea of what protocol 30 should
+be.  This change will allow people to install a pre-release version with
+the confidence that rsync won't fail in strange ways as the release
+progresses.  (Aside:  if a newer CVS version is talking to an older CVS
+version that does NOT have this check, you can use the --protocol=29
+option to force them to talk in a common language.)
 
 <p>See also the <a href="/ftp/unpacked/rsync/NEWS">NEWS file from CVS</a>, the
 <a href="/ftp/rsync/nightly/rsync.html">rsync manpage from CVS</a> and the
