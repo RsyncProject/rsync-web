@@ -19,18 +19,20 @@ License version 2</A> and is currently being maintained by
 
 <p>I'm currently working on rsync 3.0.0, which is going to be a feature
 release that has a number of improvements.  There has already been work
-done to lower rsync's memory use, and make recursive transfers start up
-more rapidly (due to an incremental recursive scan being added).  This
-version has just added ACL support, and should also get: xattr support,
+done to lower rsync's memory use, make recursive transfers start up
+more rapidly (due to an incremental recursive scan being added),
+to add ACL and xattr support, and more.  Upcoming changes include:
 filename charset-conversion support, renamed-file detection, improved
 performance for large files, and other changes yet to be decided.
 
-<p>If you're curious about the changes going into the next version of
-rsync, you can view the <a href="/ftp/unpacked/rsync/NEWS">NEWS file from
-CVS</a> to see a summary of the current changes.  Also available are the
+<p><b>Caution:</b> protocol 30 is still in flux, so if you install the
+CVS version, be sure to upgrade all your CVS rsync installs with the same
+executable at the same time OR use the --protocol=29 option if you need
+to make two different CVS rsyncs talk a common language.
+
+<p>See also the <a href="/ftp/unpacked/rsync/NEWS">NEWS file from CVS</a>, the
 <a href="/ftp/rsync/nightly/rsync.html">rsync manpage from CVS</a> and the
-<a href="/ftp/rsync/nightly/rsyncd.conf.html">rsyncd.conf manpage from
-CVS</a>.
+<a href="/ftp/rsync/nightly/rsyncd.conf.html">rsyncd.conf manpage from CVS</a>.
 
 <h3>Rsync version 2.6.9 released</h3>
 
