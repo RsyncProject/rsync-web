@@ -55,7 +55,7 @@ interaction.
 
 <p>Once that's done, you can do an rsync copy like this:
 
-<blockquote><pre>rsync -av -e "ssh middle ssh" target:/source/ /dest/</pre></blockquote>
+<blockquote><pre>rsync -av -e "ssh middle ssh" target:/src/ /dest/</pre></blockquote>
 
 <h4>Method 2 -- requires ssh and nc (netcat)</h4>
 
@@ -129,21 +129,23 @@ to be able to login to the target system using their own credentials.
 <h4>Method 4 -- for using rsync in daemon-mode (requires nc)</h4>
 
 <p>Install and configure an rsync daemon on the target and use ssh and nc
-to send the socket data to the remote host.  This command takes advantage
-of the RSYNC_CONNECT_PROG environment variable, which tells rsync to use
-a pipe to an external program as its socket connection.
+to send the socket data to the remote host.
 
-<blockquote><pre>RSYNC_CONNECT_PROG='ssh -l sshuser middle nc target 873' \
-    rsync daemonuser at foo::module/ ...</pre></blockquote>
+<blockquote><pre>RSYNC_CONNECT_PROG='ssh -l middle_user middle nc %H 873' \
+    rsync daemonuser@target::module/src/ /dest/</pre></blockquote>
 
-<p>(You could also export that variable into your environment if you wanted
-to perform a series of datemon rsync commands.)
+<p>(You can also export that variable into your environment if you want to
+perform a series of daemon rsync commands through the same middle host.)
 
-<p>The above command tells rsync that its daemon connection will create a
-pipe to the program mentioned:  an ssh login to a remote system that uses
-nc to send the data to the specified port on the specified target host.
-E.g., you'd use "localhost" if the middle host and the target host were the
-same.
+<p>This command takes advantage of the RSYNC_CONNECT_PROG environment
+variable, which tells rsync to use a pipe its socket data to an external
+program in place of making a direct socket connection.  The command
+specifed above uses ssh to run the nc command on the middle host, which
+forwards all data to port 873 on the target host (%H).  The "%H" will be
+substituted with the target host from the rsync command as long as you're
+running rsync 3.0.0 or newer (you'll need to replace %H with the actual
+target hostname for earlier rsync versions, which makes the hostname
+specified in the rsync command superfluous).
 
 <h4>Method 5 -- for using rsync in daemon-mode (for those without nc)</h4>
 
@@ -177,8 +179,8 @@ password/passphrase prompts.
 syntax to the local system, the conversation is directed to the target
 system.  For example:
 
-<blockquote><pre>rsync -av --port 8873 localhost::module/source dest/
-rsync -av rsync://localhost:8873/module/source dest/</pre></blockquote>
+<blockquote><pre>rsync -av --port 8873 localhost::module/src/ dest/
+rsync -av rsync://localhost:8873/module/src/ dest/</pre></blockquote>
 
 <p><b>Note:</b> starting an ssh tunnel allows anyone on the source system
 to connect to the localhost port 8873, not just you, so you may want to
