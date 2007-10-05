@@ -15,29 +15,41 @@ License version 2</A> and is currently being maintained by
 
 <p><i>(If you're using a version of rsync older than 2.6.3, see below for some security advisories.)</i>
 
+<!--
+
 <h3>The CVS version</h3>
 
-<p>I'm currently working on rsync 3.0.0, which is going to be a feature
-release that has a number of improvements.  There has already been work
-done to lower rsync's memory use, make recursive transfers start up
-more rapidly (due to an incremental recursive scan being added),
-to add ACL and xattr support, and more.  Upcoming changes include:
-filename charset-conversion support, renamed-file detection, improved
-performance for large files, and other changes yet to be decided.
-
-<p><b>Note:</b> protocol 30 is still in flux, but I have just added an
-automatic check to make sure that a pre-released version of rsync is
-talking to a compatible rsync -- the transfer will fall back to protocol
-29 if the two sides don't have the same idea of what protocol 30 should
-be.  This change will allow people to install a pre-release version with
-the confidence that rsync won't fail in strange ways as the release
-progresses.  (Aside:  if a newer CVS version is talking to an older CVS
-version that does NOT have this check, you can use the --protocol=29
-option to force them to talk in a common language.)
-
-<p>See also the <a href="/ftp/unpacked/rsync/NEWS">NEWS file from CVS</a>, the
+<p>If you're curious about the changes going into the next version of
+rsync, you can view the <a href="/ftp/unpacked/rsync/NEWS">NEWS file from
+CVS</a> to see a summary of the current changes.  Also available are the
 <a href="/ftp/rsync/nightly/rsync.html">rsync manpage from CVS</a> and the
-<a href="/ftp/rsync/nightly/rsyncd.conf.html">rsyncd.conf manpage from CVS</a>.
+<a href="/ftp/rsync/nightly/rsyncd.conf.html">rsyncd.conf manpage from
+CVS</a>.
+
+-->
+
+<h3>Rsync 3.0.0pre1 available for release testing</h3>
+
+<p><i style="color:#777777">October 4th, 2007</i>
+
+<p>Rsync version 3.0.0pre1 is now available for release testing. Please test it
+and send email to the rsync mailing list with any questions, comments, or bug
+reports.
+
+<p>You can read all about the latest improvements and bug-fixes in the
+<a href="/ftp/rsync/rsync-3.0.0pre1-NEWS">NEWS file</a>.
+The pre-release version of the manpages are also available for both
+<a href="/ftp/rsync/rsync.html">rsync</a> and
+<a href="/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
+
+<p>The source tar is available here:
+<b><a href="/ftp/rsync/rsync-3.0.0pre1.tar.gz">rsync-3.0.0pre1.tar.gz</a>
+(<a href="/ftp/rsync/rsync-3.0.0pre1.tar.gz.asc">signature</a>),</b>
+and the diffs from version 2.6.9 are available here:
+<b><a href="/ftp/rsync/rsync-2.6.9-3.0.0pre1.diffs.gz">rsync-2.6.9-3.0.0pre1.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-2.6.9-3.0.0pre1.diffs.gz.asc">signature</a>)</b>.
+Note that the diffs do not contain updates for the "patches" dir -- grab the tar
+file if you want the full release.
 
 <h3>Rsync version 2.6.9 released</h3>
 
