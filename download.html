@@ -24,9 +24,8 @@ related files in a variety of ways:
 </ul>
 
 <p>Also, an unpacked copy of the latest development version can be
-<a href="/ftp/unpacked/rsync/">browsed on the web</a>, or obtained via
-<i>anonymous rsync</i> from:
-<code><small>rsync://rsync.samba.org/ftp/unpacked/rsync/</small></code>
+<a href="/ftp/unpacked/rsync/">browsed on the web</a> or obtained via
+<i>anonymous rsync</i>, as described in the Source Repository section.
 
 <h2>Binaries</h2>
 
@@ -51,32 +50,39 @@ vouch for 3rd parties, so use a source that you trust):
 
 </ul>
 
-<h2>CVS</h2>
+<h2>Source Repository</h2>
 
 <p> The rsync development tree is publicly available by various methods so that
 you can try out the latest changes and give feedback to the developers.
 
-<p> <b>Note:</b> Since the "HEAD" source is a work in progress it may not
-compile, or may fail in various ways, though it's usually pretty good.
+<p> <b>Note:</b> Since the source repository is a work in progress it may, at
+times, not compile or fail in various ways, though it is usually pretty good.
 
-<p> Anyone may use anonymous CVS to follow development:
+<p> Anyone may use the git version-control system to follow development.  This
+command will check-out the latest version into a directory named "rsync":
 
-<blockquote>
-<p><code>cvs -d :pserver:cvs@pserver.samba.org:/cvsroot login</code>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>(Specify the password <b>cvs</b> when prompted.)</i>
-<p><code>cvs -d :pserver:cvs@pserver.samba.org:/cvsroot co rsync</code>
-</blockquote>
+<blockquote><code>git clone git://git.samba.org/rsync.git</code></blockquote>
 
-<p>You can also browse the <a href="http://cvs.samba.org/cgi-bin/cvsweb/rsync">development
-history through cvsweb</a>.
+<p>To update it with the latest source, run a "<code>git pull</code>" from
+inside the checked-out rsync directory.
 
-<h2>Nightly CVS Snapshots</h2>
+<p>You can also browse the <a href="http://git.samba.org/?p=rsync.git;a=summary">development
+history through gitweb</a>.
+
+<p>Those wanting to just obtain the latest source without the entire git
+repository can either use a nightly tar-file snapshot (see the next section)
+or use an <i>anonymous rsync</i> copy of the unpacked source files:
+
+<blockquote><code>rsync -av rsync://rsync.samba.org/ftp/unpacked/rsync /dest/dir/</code></blockquote>
+
+<h2>Nightly tar-file snapshots</h2>
 
 <p><a href="http://rsync.samba.org/ftp/rsync/nightly/">Nightly snapshots of the
 rsync source tree</a> are also available for people who want to try the latest
-development version.  If you want to track development, then CVS uses less
-bandwidth and can automatically merge your local changes with our version.
-However, if you just want a one-off download, or cannot use CVS because of
-firewall, network or software issues, then the snapshots might be helpful.
+development version.  If you want to track development, then using an anonymous
+rsync copy will not require as much bandwidth.  Or updating a git repository
+can automatically merge your local changes with our version.  However, if you
+just want a one-off download, or cannot use rsync or git because of firewall,
+network, or software issues, then the snapshots might be helpful.
 
 <!--#include virtual="footer.html" -->
