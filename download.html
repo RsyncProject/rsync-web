@@ -63,8 +63,14 @@ command will check-out the latest version into a directory named "rsync":
 
 <blockquote><code>git clone git://git.samba.org/rsync.git</code></blockquote>
 
-<p>To update it with the latest source, run a "<code>git pull</code>" from
-inside the checked-out rsync directory.
+I also recommend running this after the clone (which sets each file's
+last-modified time based on its last commit):
+
+<blockquote><code>cd rsync
+support/git-set-file-times</code></blockquote>
+
+<p>To update your checkout with the latest source, run a "<code>git pull</code>"
+from inside the checked-out hierarchy.
 
 <p>You can also browse the <a href="http://git.samba.org/?p=rsync.git;a=summary">development
 history through gitweb</a>.
