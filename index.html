@@ -2,6 +2,11 @@
 <HTML>
 <HEAD>
 <TITLE>rsync</TITLE>
+<style>
+.security { color: red; }
+h3 { margin-bottom: 0px; }
+.date { color: #D25A0B; }
+</style>
 </HEAD>
 <!--#include virtual="header.html" -->
 
@@ -13,10 +18,13 @@ available under the <A HREF="GPL.html">GNU General Public
 License</A> and is currently being maintained by
 <a href="http://opencoder.net/">Wayne Davison</a>.
 
-<p><i>(If you're using a version of rsync older than 2.6.3, see below for some security advisories.)</i>
+<p><i>If you are running a writable rsync daemon of any version or using a
+version of rsync older than 2.6.6, see the <a href="security.html" class=security>rsync
+security advisory page</a>.</i>
 
 <!--
 
+<p><hr>
 <h3>The latest development version</h3>
 
 <p>If you're curious about the changes going into the next version of rsync,
@@ -29,11 +37,13 @@ on grabbing the development version.
 
 -->
 
-<h3>Rsync 3.0.0pre5 available for release testing</h3>
+<p><hr>
+<h3>Rsync 3.0.0pre6 available for release testing</h3>
+<i class=date>November 8th, 2007</i>
 
-<p><i style="color:#777777">November 8th, 2007</i>
-
-<p>Rsync version 3.0.0pre5 is now available for release testing.
+<p>Rsync version 3.0.0pre6 is now available for release testing.  This version
+contains a <a href="security.html#s3_0_0">security fix</a> for some daemon
+mode problems.
 
 <p>The version number is getting such a large bump due to the addition of an
 incremental recursion scan (which helps a lot with large transfers) and the
@@ -44,14 +54,20 @@ attribute support, filename character-set conversion, etc.
 comments, or bug reports.
 
 <p>You can read all about the latest improvements and bug-fixes in the
-<a href="/ftp/rsync/rsync-3.0.0pre5-NEWS">NEWS file</a>.
+<a href="/ftp/rsync/rsync-3.0.0pre6-NEWS">NEWS file</a>.
 The pre-release version of the manpages are also available for both
 <a href="/ftp/rsync/rsync.html">rsync</a> and
 <a href="/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
 
 <p>The source tar is available here:
-<b><a href="/ftp/rsync/rsync-3.0.0pre5.tar.gz">rsync-3.0.0pre5.tar.gz</a>
-(<a href="/ftp/rsync/rsync-3.0.0pre5.tar.gz.asc">signature</a>),</b>
+<b><a href="/ftp/rsync/rsync-3.0.0pre6.tar.gz">rsync-3.0.0pre6.tar.gz</a>
+(<a href="/ftp/rsync/rsync-3.0.0pre6.tar.gz.asc">signature</a>),</b>
+with a tar file of the "patches" directory now released in a separate file:
+<b><a href="/ftp/rsync/rsync-patches-3.0.0pre6.tar.gz">rsync-patches-3.0.0pre6.tar.gz</a>
+(<a href="/ftp/rsync/rsync-patches-3.0.0pre6.tar.gz.asc">signature</a>),</b>
+the diffs from version 3.0.0pre5 are available here:
+<b><a href="/ftp/rsync/rsync-3.0.0pre5-3.0.0pre6.diffs.gz">rsync-3.0.0pre5-3.0.0pre6.diffs.gz</a>
+(<a href="/ftp/rsync/rsync-3.0.0pre5-3.0.0pre6.diffs.gz.asc">signature</a>)</b>.
 the diffs from version 3.0.0pre4 are available here:
 <b><a href="/ftp/rsync/rsync-3.0.0pre4-3.0.0pre5.diffs.gz">rsync-3.0.0pre4-3.0.0pre5.diffs.gz</a>
 (<a href="/ftp/rsync/rsync-3.0.0pre4-3.0.0pre5.diffs.gz.asc">signature</a>)</b>.
@@ -70,9 +86,9 @@ and the diffs from version 2.6.9 are available here:
 Note that the diffs do not contain updates for the "patches" dir -- grab the tar
 file if you want the full release.
 
+<p><hr>
 <h3>Rsync version 2.6.9 released</h3>
-
-<p><i style="color:#777777">November 6th, 2006</i>
+<i class=date>November 6th, 2006</i>
 
 <p>Rsync version 2.6.9 has been released.  This is primarily a bug-fix
 release with a few minor new features.
@@ -92,97 +108,79 @@ to grab the new version, or snag one of these:
 Note that the diffs do not contain updates for the "patches" dir -- grab the tar
 file if you want the full release.
 
+<p><hr>
 <h3>Rsync version 2.6.8 released</h3>
-
-<p><i style="color:#777777">April 22th, 2006</i>
+<i class=date>April 22th, 2006</i>
 
 <p>Rsync version 2.6.8 has been released.  This is a bug-fix release that
 primarily addresses an exclude problem that affected the --relative option,
-but also includes a security fix for the xattrs.diff patch (which is not an
+but also includes a <a href="security.html#s2_6_8" class=security>security fix</a> for
+the xattrs.diff patch (which is not an
 official part of rsync, but some packagers include it in their release).
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.8-NEWS">release NEWS</a> for the
-details of what changed since 2.6.7.
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.8-NEWS">release NEWS</a>
+for the details of what changed since 2.6.7.
 
+<p><hr>
 <h3>Rsync 2.6.7 released</h3>
-
-<p><i style="color:#777777">March 11th, 2006</i>
+<i class=date>March 11th, 2006</i>
 
 <p>Rsync version 2.6.7 has been released.  This release has both several new
 features and the usual accompaniment of bug fixes.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.7-NEWS">release NEWS</a> for the
-details of what changed since 2.6.6.
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.7-NEWS">release NEWS</a>
+for the details of what changed since 2.6.6.
 
+<p><hr>
 <h3>Rsync 2.6.6 released</h3>
-
-<p><i style="color:#777777">July 28th, 2005</i>
+<i class=date>July 28th, 2005</i>
 
 <p>Rsync version 2.6.6 has been released.  This release is a bug-fix release
+which contains a <a href="security.html#s2_6_6" class=security>security fix</a>
 to handle a null-pointer bug that turned up in rsync's version of zlib
 1.1.4 (this is not the recent zlib 1.2.2 security fix, which did not
 affect rsync) and to squash a few other minor bugs.  To deal with the
 zlib issue, rsync has been upgraded to include zlib 1.2.3.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.6-NEWS">release NEWS</a> for the
-details of what changed since 2.6.5.
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.6-NEWS">release NEWS</a>
+for the details of what changed since 2.6.5.
 
+<p><hr>
 <h3>Rsync 2.6.5 released</h3>
-
-<p><i style="color:#777777">June 1st, 2005</i>
+<i class=date>June 1st, 2005</i>
 
 <p>Rsync version 2.6.5 has been released.  This release is primarily a bug-fix
 release to squash some annoying problems that made it into the (feature-filled)
 release of 2.6.4, plus a few minor enhancements.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.5-NEWS">release NEWS</a> for the
-details of what changed since 2.6.4.
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.5-NEWS">release NEWS</a>
+for the details of what changed since 2.6.4.
 
+<p><hr>
 <h3>Rsync 2.6.4 released</h3>
-
-<p><i style="color:#777777">March 30th, 2005</i>
+<i class=date>March 30th, 2005</i>
 
 <p>Rsync version 2.6.4 has been released.  This release combines quite a
 few new features, some improved delete efficiency, and the usual array of
 bug fixes.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.4-NEWS">release NEWS</a> for the
-details of what changed since 2.6.3.
+<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.4-NEWS">release NEWS</a>
+for the details of what changed since 2.6.3.
 
-
+<p><hr>
 <h3>Rsync 2.6.3 released</h3>
-
-<p><i style="color:#777777">September 30th, 2004</i>
+<i class=date>September 30th, 2004</i>
 
 <p>Rsync version 2.6.3 has been released.  It contains several new features
-and quite a few bug fixes.
+and quite a few bug fixes, including a <a href="security.html#s2_6_3" class=security>security
+fix</a> for a patch-sanitizing bug in the daemon code.
 
 <p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.3-NEWS">release NEWS</a> for the
 details of what changed since 2.6.2.
 
-
-<a name="security_aug04"></a>
-<h3 style="color:red">August 2004 Security Advisory</h3>
-
-<p><i style="color:#777777">August 12th, 2004</i>
-
-<p>There is a path-sanitizing bug that affects daemon-mode in
-rsync versions through version 2.6.2, but only if chroot is disabled.  It
-does NOT affect the normal send/receive filenames that specify what
-files should be transferred (this is because these names happen to get
-sanitized twice, and thus the second call removes any lingering leading
-slash(es) that the first call left behind).  It does affect certain
-option paths that cause auxiliary files to be read or written.
-
-<p>This bug was fixed in version 2.6.3 of rsync.
-
-<p>One potential fix that doesn't require recompiling rsync is to set
-"use chroot = true" for all the modules in the rsyncd.conf file.
-
-
+<p><hr>
 <h3>Rsync 2.6.2 released</h3>
-
-<p><i style="color:#777777">April 30th, 2004</i>
+<i class=date>April 30th, 2004</i>
 
 <p>Rsync version 2.6.2 has been released.  It is a bugfix release that mainly
 fixes <b>a bug with the --relative option (-R) in 2.6.1</b>
@@ -193,34 +191,21 @@ first "cd /" and then copy from ".", it would not tickle the bug).
 <p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.2-NEWS">release NEWS</a> for the
 details of what else was fixed.
 
-
+<p><hr>
 <h3>Rsync 2.6.1 released</h3>
-
-<p><i style="color:#777777">April 26th, 2004</i>
+<i class=date>April 26th, 2004</i>
 
 <p>Rsync version 2.6.1 has been released.  It is primarily a performance
 release that requires less memory to run, makes fewer write calls to the socket
 (lowering the system CPU time), does less string copying (lowering the user CPU
 time), and also reduces the amount of data that is transmitted over the wire.
-There have also been quite a few bug fixes.  See the
+There have also been quite a few bug fixes, including a
+<a href="security.html#s2_6_1" class=security>security fix</a> for a daemon problem when chroot
+is not enabled.  See the
 <a href="/ftp/rsync/old-versions/rsync-2.6.1-NEWS">release NEWS</a> for the full
 details.
 
-
-<a name="security_apr04"></a>
-<h3 style="color:red">April 2004 Security Advisory</h3>
-
-<p><i style="color:#777777">April 26th, 2004</i>
-
-<p>There is a security problem in all versions prior to 2.6.1 that affects only
-people running a read/write daemon WITHOUT using chroot.  If the user privs
-that such an rsync daemon is using is anything above "nobody", you are at risk
-of someone crafting an attack that could write a file outside of the module's
-"path" setting (where all its files should be stored).  Please either enable
-chroot or upgrade to 2.6.1.  People not running a daemon, running a read-only
-daemon, or running a chrooted daemon are totally unaffected.
-
-
+<p><hr>
 <h3>One Cygwin hang-problem resolved</h3>
 
 <p>The problem with rsync hanging at the end of the transfer on
@@ -231,11 +216,9 @@ DLL removes the hang-at-end-of-transfer problem for their existing rsync executa
 (Note that this doesn't solve a hang that some folks see in the middle of a
 transfer -- using daemon mode instead of ssh can work around that one.)
 
-
-<a name="two_six"></a>
+<p><hr>
 <h3>Rsync 2.6.0 released</h3>
-
-<p><i style="color:#777777">January 1st, 2004</i>
+<i class=date>January 1st, 2004</i>
 
 <P> Two important things to note in the new release:
 
@@ -264,17 +247,5 @@ for more details.
 
 <p>For a full list of changes in version 2.6.0, see the
 <a href="/ftp/rsync/old-versions/rsync-2.6.0-NEWS">release NEWS</a>.
-
-<a name="security_dec03"></a>
-<h3 style="color:red">December 2003 Security Advisory</h3>
-
-<p><i style="color:#777777">December 4th, 2003</i>
-
-<p>Rsync version 2.5.6 and earlier contains a heap overflow vulnerability that
-could be used to remotely run arbitrary code, but this only affects the use of
-rsync as an "rsync daemon" (where rsync handles incoming socket connections,
-typically on port 873).
-
-<p>This bug was fixed in rsync 2.5.7.
 
 <!--#include virtual="footer.html" -->
