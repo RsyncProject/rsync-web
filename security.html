@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>rsync</TITLE>
+<style>
+.security { color: red; }
+h3 { margin-bottom: 0px; }
+.date { color: #D25A0B; }
+</style>
+</HEAD>
+<!--#include virtual="header.html" -->
+
+<H2 align="center">Rsync Security Advisories</H2>
+
+<p><a name="s3_0_0"></a><hr>
+<h3>Daemon security fixes in 3.0.0pre6 with a patch for 2.6.9</h3>
+<i class=date>November 27th, 2007</i>
+
+<p>There are two security advisories for people who run a writable rsync
+daemon.  One affects only those with "use chroot = no" (which is not a
+very safe combination in general), and one affects a daemon that has
+daemon-excluded files that are being hidden in a module's hierarchy.
+Included are simple config-change suggestions that should help you to
+avoid the security issues.  These advisories affect all rsync versions.
+
+<h4>Daemon advisory for "use chroot = no"</h4>
+
+<p>If you are running a writable rsync daemon with "use chroot = no", there
+is at least one way for someone to trick rsync into creating a symlink
+that points outside of the module's hierarchy.
+
+<p>This means that if you are allowing access from users who you don't
+trust, that you should either figure out a way to turn on "use chroot",
+or configure the daemon to refuse the --links option (see "refuse
+options" in the rsyncd.conf manpage) which will disable the ability of
+the rsync module to receive symlinks.  After doing so, you should also
+check that any existing symlinks in the daemon hierarchy are safe.
+
+<p>Starting with the 3.0.0-pre6 release, there will be a new daemon option
+available: "munge symlinks".  This will allow an rsync daemon to accept
+symlinks and return them intact (with even a leading slash still there,
+which is new for a non-chroot daemon), but will not allow the symlinks
+to be used while they are in the daemon's hierarchy.  For those running
+2.6.9, there is
+<a href="http://rsync.samba.org/ftp/rsync/munge-symlinks-2.6.9.diff">a
+patch to implement this option</a>.
+
+<p>Any admin applying that patch should read the "munge symlinks" section
+of the modified rsyncd.conf manpage for more information.  You can also
+read about this option in the
+<a href="http://rsync.samba.org/ftp/rsync/nightly/rsyncd.conf.html">latest
+manpage from the dev version</a>.
+
+<h4>Daemon advisory for daemon excludes</h4>
+
+<p>If you are running a writable rsync daemon that is using one of the
+"exclude", "exclude from", or "filter" options in the rsyncd.conf file
+to hide data from your users, you should be aware that there are tricks
+that a user can play with symlinks and/or certain options that can allow
+a user that knows the name of a hidden file to access it or overwrite it
+(if file permissions allow that).
+
+<p>You can avoid the symlink problem using the suggestions in the advisory
+above.
+
+<p>You can avoid the problems with other options by putting the following
+"refuse options" setting into your rsyncd.conf file:
+
+<blockquote><pre>refuse options = --*-dest --partial-dir --backup-dir</pre></blockquote>
+
+<p>An upcoming release of rsync 3.0.0 will hopefully fix the daemon-exclude
+validation of these options to make this unnecessary, but this has not
+yet been implemented.
+
+<p>If you combine the above refuse options with the prior suggestion to
+refuse --links, that would give you this list of options (included here
+for easier copy/pasting):
+
+<blockquote><pre>refuse options = --links --*-dest --partial-dir --backup-dir</pre></blockquote>
+
+<p><a name="s2_6_8"></a><hr>
+<h3>Xattr security fix in 2.6.8</h3>
+<i class=date>April 22th, 2006</i>
+
+<p>If you're using a version of rsync prior to 2.6.8 that was patched to
+include extended attribute (xattr) support, you should upgrade to 2.6.8 or
+later to avoid a potential buffer overflow problem.
+
+<p><a name="s2_6_6"></a><hr>
+<h3>Zlib security fix in 2.6.6</h3>
+<i class=date>July 28th, 2005</i>
+
+<p>If you're using a version of rsync prior to 2.6.6, there is a potential
+null-pointer security bug in the zlib code.  You can avoid its affect in an
+rsync daemon situation by configuring rsync to refuse the --compress option.
+
+<p><a name="s2_6_3"></a><hr>
+<h3>Daemon path-sanitizing fix in 2.6.3</h3>
+<i class=date>August 12th, 2004</i>
+
+<p>There is a path-sanitizing bug that affects daemon-mode in
+rsync versions through version 2.6.2, but only if chroot is disabled.  It
+does NOT affect the normal send/receive filenames that specify what
+files should be transferred (this is because these names happen to get
+sanitized twice, and thus the second call removes any lingering leading
+slash(es) that the first call left behind).  It does affect certain
+option paths that cause auxiliary files to be read or written.
+
+<p>One potential fix that doesn't require recompiling rsync is to set
+"use chroot = true" for all the modules in the rsyncd.conf file.
+
+<p><a name="s2_6_1"></a><hr>
+<h3>Daemon security fix in 2.6.1</h3>
+<i class=date>April 26th, 2004</i>
+
+<p>There is a security problem in all versions prior to 2.6.1 that affects only
+people running a read/write daemon WITHOUT using chroot.  If the user privs
+that such an rsync daemon is using is anything above "nobody", you are at risk
+of someone crafting an attack that could write a file outside of the module's
+"path" setting (where all its files should be stored).  Please either enable
+chroot or upgrade to 2.6.1.  People not running a daemon, running a read-only
+daemon, or running a chrooted daemon are totally unaffected.
+
+<p><a name="s2_5_7"></a><hr>
+<h3>Memory overflow fix in 2.5.7</h3>
+<i class=date>December 4th, 2003</i>
+
+<p>Rsync version 2.5.6 and earlier contains a heap overflow vulnerability that
+could be used to remotely run arbitrary code, but this only affects the use of
+rsync as an "rsync daemon" (where rsync handles incoming socket connections,
+typically on port 873).
+
+<!--#include virtual="footer.html" -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
