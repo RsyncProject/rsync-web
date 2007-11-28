@@ -7,7 +7,7 @@
 
 <h2 align="center">rsync download</h2>
 
-<h2>Source Code</h2>
+<h2>Source-code releases (tar files)</h2>
 
 <p>You can grab the latest source code tar file, its gpg signature, and other
 related files in a variety of ways:
@@ -30,7 +30,7 @@ related files in a variety of ways:
 <h2>Binaries</h2>
 
 <p>Precompiled binaries are available in most modern OS distributions, so
-you might want to first check if you can install an rsync package via your
+you should first check if you can install an rsync package via your
 standard package-install tools for your OS.
 
 <p>There are also packages available from some <b>3rd-parties</b> (note that we cannot
@@ -46,59 +46,7 @@ vouch for 3rd parties, so use a source that you trust):
 
 <li><p><a href="http://itefix.no/cwrsync/">cwRsync</a> is a packaging of rsync for MS Windows.
 
-<li><p>More to come...
-
 </ul>
-
-<h2>Source Repository</h2>
-
-<p> The rsync development tree is publicly available by various methods so that
-you can try out the latest changes and give feedback to the developers.
-
-<p> <b>Note:</b> Since the source repository is a work in progress it may, at
-times, not compile or fail in various ways, though it is usually pretty good.
-
-<p> Anyone may use the git version-control system to follow development.  This
-command will check-out the latest version into a directory named "rsync":
-
-<blockquote><code>git clone git://git.samba.org/rsync.git</code></blockquote>
-
-I also recommend running this after the clone (which sets each file's
-last-modified time based on its last commit):
-
-<blockquote><code>cd rsync
-support/git-set-file-times</code></blockquote>
-
-<p>To update your checkout with the latest source, run a "<code>git pull</code>"
-from inside the checked-out hierarchy.
-
-<p>You can also browse the <a href="http://git.samba.org/?p=rsync.git;a=summary">development
-history through gitweb</a>.
-
-<p>Those wanting to just obtain the latest source without the entire git
-repository can either use a nightly tar-file snapshot (see the next section)
-or use an <i>anonymous rsync</i> copy of the unpacked source files:
-
-<blockquote><code>rsync -av rsync://rsync.samba.org/ftp/unpacked/rsync /dest/dir/</code></blockquote>
-
-<p>There are also various patch/* branches in the git repository that represent
-either work-in-progress features or features that are considered to be a little
-too much on the fringe for the main release.  You can see these items as
-<a href="http://rsync.samba.org/ftp/rsync/patches/">patch files</a> for the dev
-release, or checkout a branch using git.  For instance, this command set will
-list all the patch/* branches available on the origin repository:
-
-<blockquote><code>git branch -r | fgrep patch/</code></blockquote>
-
-This command will checkout one branch as a local branch that can be locally
-modified while still tracking the remote branch:
-
-<blockquote><code>git checkout --track -b patch/acls origin/patch/acls</code></blockquote>
-
-And this command will checkout the remote branch in a way that can be build, but
-not modified (unless you create a local branch later):
-
-<blockquote><code>git checkout origin/patch/acls</code></blockquote>
 
 <h2>Nightly tar-file snapshots</h2>
 
@@ -109,5 +57,61 @@ rsync copy will not require as much bandwidth.  Or updating a git repository
 can automatically merge your local changes with our version.  However, if you
 just want a one-off download, or cannot use rsync or git because of firewall,
 network, or software issues, then the snapshots might be helpful.
+
+<h2>Source repository</h2>
+
+<p> The rsync development tree is publicly available by various methods so that
+you can try out the latest changes and give feedback to the developers.
+
+<p> <b>Note:</b> Since the source repository is a work in progress it may, at
+times, not compile or fail in various ways, though it is usually pretty good.
+
+<p>Anyone can browse the development history through
+<a href="http://git.samba.org/?p=rsync.git;a=summary">gitweb</a>.
+
+<p>You may also use the git version-control system to check out the latest
+development version, especially if you want to make local changes.  The
+following command will check-out the latest version into a directory named
+"rsync":
+
+<blockquote><pre>git clone git://git.samba.org/rsync.git</pre></blockquote>
+
+After the initial clone, I also recommend running the following perl script to
+set each file's last-modified time based on its last commit (don't run this
+script again after that unless you do a "make distclean"):
+
+<blockquote><pre>cd rsync
+support/git-set-file-times</pre></blockquote>
+
+<p>Updating your git checkout with the latest source is very easy:
+
+<blockquote><pre>git pull</pre></blockquote>
+
+<p>Those wanting to just obtain the latest source without the entire git
+repository can either use a nightly tar-file snapshot (see above)
+or use an <i>anonymous rsync</i> copy of the unpacked source files:
+
+<blockquote><pre>rsync -av --exclude=.git/ rsync://rsync.samba.org/ftp/unpacked/rsync /dest/dir/</pre></blockquote>
+
+<h2>Source repository patch branches</h2>
+
+<p>There are also various patch/* branches in the git repository that represent
+either work-in-progress features or features that are considered to be a little
+too fringe-interest for the main release.  You can see these items as
+<a href="http://rsync.samba.org/ftp/rsync/patches/">patch files</a> for the dev
+release, or checkout a branch using git.  For instance, the following command set will
+list all the patch/* branches available on the remote (origin) repository:
+
+<blockquote><pre>git branch -r | fgrep origin/patch/</pre></blockquote>
+
+<p>To checkout one branch as a local branch that can be locally modified while
+still tracking the remote branch, run this:
+
+<blockquote><pre>git checkout --track -b patch/acls origin/patch/acls</pre></blockquote>
+
+<p>Finally, you can checkout a remote branch in a way that can be built, but
+local changes cannot be committed (unless you create a local branch later):
+
+<blockquote><pre>git checkout origin/patch/acls</pre></blockquote>
 
 <!--#include virtual="footer.html" -->
