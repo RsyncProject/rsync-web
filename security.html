@@ -13,17 +13,17 @@ h3 { margin-bottom: 0px; }
 <H2 align="center">Rsync Security Advisories</H2>
 
 <p><a name="s3_0_0"></a><hr>
-<h3>Daemon security fixes in 3.0.0pre6 with a patch for 2.6.9</h3>
+<h3>Daemon security fix in 3.0.0pre6 (with a patch for 2.6.9) + one more advisory</h3>
 <i class=date>November 27th, 2007</i>
 
-<p>There are two security advisories for people who run a writable rsync
-daemon.  One affects only those with "use chroot = no" (which is not a
-very safe combination in general), and one affects a daemon that has
+<p>Two security advisories affect people who run a writable rsync
+daemon:  The first affects only those with "use chroot = no" (which is not a
+very safe combination in general), and the second affects a daemon that has
 daemon-excluded files that are being hidden in a module's hierarchy.
 Included are simple config-change suggestions that should help you to
 avoid the security issues.  These advisories affect all rsync versions.
 
-<h4>Daemon advisory for "use chroot = no"</h4>
+<h4>1. Daemon advisory for "use chroot = no"</h4>
 
 <p>If you are running a writable rsync daemon with "use chroot = no", there
 is at least one way for someone to trick rsync into creating a symlink
@@ -36,8 +36,8 @@ options" in the rsyncd.conf manpage) which will disable the ability of
 the rsync module to receive symlinks.  After doing so, you should also
 check that any existing symlinks in the daemon hierarchy are safe.
 
-<p>Starting with the 3.0.0-pre6 release, there will be a new daemon option
-available: "munge symlinks".  This will allow an rsync daemon to accept
+<p>Starting with the 3.0.0-pre6 release, there is a new daemon option
+available: "munge symlinks".  This allows an rsync daemon to accept
 symlinks and return them intact (with even a leading slash still there,
 which is new for a non-chroot daemon), but will not allow the symlinks
 to be used while they are in the daemon's hierarchy.  For those running
@@ -48,10 +48,10 @@ patch to implement this option</a>.
 <p>Any admin applying that patch should read the "munge symlinks" section
 of the modified rsyncd.conf manpage for more information.  You can also
 read about this option in the
-<a href="http://rsync.samba.org/ftp/rsync/nightly/rsyncd.conf.html">latest
-manpage from the dev version</a>.
+<a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf
+manpage from the 3.0.0pre6 release</a>.
 
-<h4>Daemon advisory for daemon excludes</h4>
+<h4>2. Daemon advisory for daemon excludes</h4>
 
 <p>If you are running a writable rsync daemon that is using one of the
 "exclude", "exclude from", or "filter" options in the rsyncd.conf file
