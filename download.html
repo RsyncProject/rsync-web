@@ -53,10 +53,10 @@ vouch for 3rd parties, so use a source that you trust):
 <p><a href="http://rsync.samba.org/ftp/rsync/nightly/">Nightly snapshots of the
 rsync source tree</a> are also available for people who want to try the latest
 development version.  If you want to track development, then using an anonymous
-rsync copy will not require as much bandwidth.  Or updating a git repository
+rsync copy will not require as much bandwidth (see below).  Or, updating a git repository
 can automatically merge your local changes with our version.  However, if you
-just want a one-off download, or cannot use rsync or git because of firewall,
-network, or software issues, then the snapshots might be helpful.
+just want a one-off download, or you cannot use rsync or git because of firewall,
+network, or software issues, then the snapshots can be helpful.
 
 <h2>Source repository</h2>
 
@@ -76,12 +76,16 @@ following command will check-out the latest version into a directory named
 
 <blockquote><pre>git clone git://git.samba.org/rsync.git</pre></blockquote>
 
-After the initial clone, I also recommend running the following perl script to
-set each file's last-modified time based on its last commit (don't run this
-script again after that unless you do a "make distclean"):
+<p>After the initial clone, I also recommend running the git-set-file-times
+script to set each file's last-modified time based on its last commit (don't
+run it again after that unless you do a "make distclean").  You'll also need
+autoconf and autoheader installed for the "prepare-source" command to succeed:
 
 <blockquote><pre>cd rsync
-support/git-set-file-times</pre></blockquote>
+support/git-set-file-times &nbsp; &nbsp; &nbsp; &nbsp; # optional
+./prepare-source</pre></blockquote>
+
+<p>
 
 <p>Updating your git checkout with the latest source is very easy:
 
@@ -104,14 +108,14 @@ list all the patch/* branches available on the remote (origin) repository:
 
 <blockquote><pre>git branch -r | fgrep origin/patch/</pre></blockquote>
 
-<p>To checkout one branch as a local branch that can be locally modified while
-still tracking the remote branch, run this:
+<p>To checkout one branch&mdash;let's say "foo"&mdash;as a local branch that
+can be locally modified while still tracking the remote branch, run this:
 
-<blockquote><pre>git checkout --track -b patch/acls origin/patch/acls</pre></blockquote>
+<blockquote><pre>git checkout --track -b patch/foo origin/patch/foo</pre></blockquote>
 
 <p>Finally, you can checkout a remote branch in a way that can be built, but
 local changes cannot be committed (unless you create a local branch later):
 
-<blockquote><pre>git checkout origin/patch/acls</pre></blockquote>
+<blockquote><pre>git checkout origin/patch/foo</pre></blockquote>
 
 <!--#include virtual="footer.html" -->
