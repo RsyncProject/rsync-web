@@ -81,6 +81,25 @@ or use an <i>anonymous rsync</i> copy of the unpacked source files:
 
 <blockquote><code>rsync -av rsync://rsync.samba.org/ftp/unpacked/rsync /dest/dir/</code></blockquote>
 
+<p>There are also various patch/* branches in the git repository that represent
+either work-in-progress features or features that are considered to be a little
+too much on the fringe for the main release.  You can see these items as
+<a href="http://rsync.samba.org/ftp/rsync/patches/">patch files</a> for the dev
+release, or checkout a branch using git.  For instance, this command set will
+list all the patch/* branches available on the origin repository:
+
+<blockquote><code>git branch -r | fgrep patch/</code></blockquote>
+
+This command will checkout one branch as a local branch that can be locally
+modified while still tracking the remote branch:
+
+<blockquote><code>git checkout --track -b patch/acls origin/patch/acls</code></blockquote>
+
+And this command will checkout the remote branch in a way that can be build, but
+not modified (unless you create a local branch later):
+
+<blockquote><code>git checkout origin/patch/acls</code></blockquote>
+
 <h2>Nightly tar-file snapshots</h2>
 
 <p><a href="http://rsync.samba.org/ftp/rsync/nightly/">Nightly snapshots of the
