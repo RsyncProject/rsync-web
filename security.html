@@ -14,7 +14,7 @@ h3 { margin-bottom: 0px; }
 
 <p><a name="s3_0_0"></a><hr>
 <h3>Daemon security fix in 3.0.0pre6 (with a patch for 2.6.9) + one more advisory</h3>
-<i class=date>November 27th, 2007</i>
+<i class=date>November 28th, 2007</i>
 
 <p>Two security advisories affect people who run a writable rsync
 daemon:  The first affects only those with "use chroot = no" (which is not a
@@ -99,8 +99,8 @@ rsync daemon situation by configuring rsync to refuse the --compress option.
 <i class=date>August 12th, 2004</i>
 
 <p>There is a path-sanitizing bug that affects daemon-mode in
-rsync versions through version 2.6.2, but only if chroot is disabled.  It
-does NOT affect the normal send/receive filenames that specify what
+rsync versions prior to 2.6.3, but only if "use chroot" is disabled.  It
+does <b>not</b> affect the normal send/receive filenames that specify what
 files should be transferred (this is because these names happen to get
 sanitized twice, and thus the second call removes any lingering leading
 slash(es) that the first call left behind).  It does affect certain
@@ -114,8 +114,8 @@ option paths that cause auxiliary files to be read or written.
 <i class=date>April 26th, 2004</i>
 
 <p>There is a security problem in all versions prior to 2.6.1 that affects only
-people running a read/write daemon WITHOUT using chroot.  If the user privs
-that such an rsync daemon is using is anything above "nobody", you are at risk
+people running a read/write daemon with "use chroot" disabled.  If the user privs
+of a module in the daemon config is anything above "nobody", you are at risk
 of someone crafting an attack that could write a file outside of the module's
 "path" setting (where all its files should be stored).  Please either enable
 chroot or upgrade to 2.6.1.  People not running a daemon, running a read-only
@@ -125,7 +125,7 @@ daemon, or running a chrooted daemon are totally unaffected.
 <h3>Memory overflow fix in 2.5.7</h3>
 <i class=date>December 4th, 2003</i>
 
-<p>Rsync version 2.5.6 and earlier contains a heap overflow vulnerability that
+<p>Rsync versions prior to 2.5.7 contain a heap overflow vulnerability that
 could be used to remotely run arbitrary code, but this only affects the use of
 rsync as an "rsync daemon" (where rsync handles incoming socket connections,
 typically on port 873).
