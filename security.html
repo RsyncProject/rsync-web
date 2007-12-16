@@ -13,8 +13,8 @@ h3 { margin-bottom: 0px; }
 <H2 align="center">Rsync Security Advisories</H2>
 
 <p><a name="s3_0_0"></a><hr>
-<h3>Daemon security fix in 3.0.0pre6 (with a patch for 2.6.9) + one more advisory</h3>
-<i class=date>November 28th, 2007</i>
+<h3>Daemon security fixes in 3.0.0pre7 (with patches for 2.6.9)</h3>
+<i class=date>December 16th, 2007</i>
 
 <p>Two security advisories affect people who run a writable rsync
 daemon:  The first affects only those with "use chroot = no" (which is not a
@@ -43,13 +43,13 @@ which is new for a non-chroot daemon), but will not allow the symlinks
 to be used while they are in the daemon's hierarchy.  For those running
 2.6.9, there is
 <a href="http://rsync.samba.org/ftp/rsync/munge-symlinks-2.6.9.diff">a
-patch to implement this option</a>.
+patch for 2.6.9 to implement this option</a>.
 
 <p>Any admin applying that patch should read the "munge symlinks" section
 of the modified rsyncd.conf manpage for more information.  You can also
 read about this option in the
 <a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf
-manpage from the 3.0.0pre6 release</a>.
+manpage from the development release</a>.
 
 <h4>2. Daemon advisory for daemon excludes</h4>
 
@@ -63,20 +63,24 @@ a user that knows the name of a hidden file to access it or overwrite it
 <p>You can avoid the symlink problem using the suggestions in the advisory
 above.
 
-<p>You can avoid the problems with other options by putting the following
-"refuse options" setting into your rsyncd.conf file:
+<p>When a daemon has "use chroot = no" set , there was some buggy
+exclude-checking for these options: <b>--compare-dest</b>, <b>--link-dest</b>,
+<b>--copy-dest</b>, <b>--partial-dir</b>, <b>--backup-dir</b>,
+<b>--temp-dir</b>, and <b>--files-from</b>.  These are all fixed in the
+3.0.0pre7 release.  For those running 2.6.9, there is
+<a href="http://rsync.samba.org/ftp/rsync/daemon-exclude-2.6.9.diff">a
+patch for 2.6.9 to fix these checks</a>.
 
-<blockquote><pre>refuse options = --*-dest --partial-dir --backup-dir</pre></blockquote>
+<p>You can also avoid the problems with other options by putting the
+following "refuse options" setting into your rsyncd.conf file:
 
-<p>An upcoming release of rsync 3.0.0 will hopefully fix the daemon-exclude
-validation of these options to make this unnecessary, but this has not
-yet been implemented.
+<blockquote><pre>refuse options = --*-dest --*-dir --files-from</pre></blockquote>
 
 <p>If you combine the above refuse options with the prior suggestion to
 refuse --links, that would give you this list of options (included here
 for easier copy/pasting):
 
-<blockquote><pre>refuse options = --links --*-dest --partial-dir --backup-dir</pre></blockquote>
+<blockquote><pre>refuse options = --links --*-dest --*-dir --files-from</pre></blockquote>
 
 <p><a name="s2_6_8"></a><hr>
 <h3>Xattr security fix in 2.6.8</h3>
