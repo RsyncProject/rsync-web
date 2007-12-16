@@ -53,10 +53,12 @@ vouch for 3rd parties, so use a source that you trust):
 <p><a href="http://rsync.samba.org/ftp/rsync/nightly/">Nightly snapshots of the
 rsync source tree</a> are also available for people who want to try the latest
 development version.  If you want to track development, then using an anonymous
-rsync copy will not require as much bandwidth (see below).  Or, updating a git repository
-can automatically merge your local changes with our version.  However, if you
-just want a one-off download, or you cannot use rsync or git because of firewall,
-network, or software issues, then the snapshots can be helpful.
+rsync copy will not require as much bandwidth (see below).  Or, updating a git
+repository can automatically merge your local changes with our version.
+However, one thing the tar file has going for it is that it contains several
+generated files that are not present in the source repository (such as
+configure.sh, config.h.in, etc.).  It can also be helpful if you cannot use
+rsync or git because of firewall, network, or software issues.
 
 <h2>Source repository</h2>
 
@@ -79,7 +81,9 @@ following command will check-out the latest version into a directory named
 <p>After the initial clone, I also recommend running the git-set-file-times
 script to set each file's last-modified time based on its last commit (don't
 run it again after that unless you do a "make distclean").  You'll also need
-autoconf and autoheader installed for the "prepare-source" command to succeed:
+autoconf and autoheader installed for the "prepare-source" command to succeed
+unless you use either the "fetch" or "fetchall" option (these options can only
+fetch the most recent generated file that goes with the latest git version):
 
 <blockquote><pre>cd rsync
 support/git-set-file-times &nbsp; &nbsp; &nbsp; &nbsp; # optional
