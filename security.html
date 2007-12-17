@@ -13,8 +13,8 @@ h3 { margin-bottom: 0px; }
 <H2 align="center">Rsync Security Advisories</H2>
 
 <p><a name="s3_0_0"></a><hr>
-<h3>Daemon security fixes in 3.0.0pre7 (with patches for 2.6.9)</h3>
-<i class=date>December 16th, 2007</i>
+<h3>Daemon security fixes in 3.0.0 (with patches for 2.6.9)</h3>
+<i class=date>November 28th, 2007 (updated December 16th, 2007)</i>
 
 <p>Two security advisories affect people who run a writable rsync
 daemon:  The first affects only those with "use chroot = no" (which is not a
@@ -64,23 +64,28 @@ a user that knows the name of a hidden file to access it or overwrite it
 above.
 
 <p>When a daemon has "use chroot = no" set , there was some buggy
-exclude-checking for these options: <b>--compare-dest</b>, <b>--link-dest</b>,
-<b>--copy-dest</b>, <b>--partial-dir</b>, <b>--backup-dir</b>,
-<b>--temp-dir</b>, and <b>--files-from</b>.  These are all fixed in the
-3.0.0pre7 release.  For those running 2.6.9, there is
-<a href="http://rsync.samba.org/ftp/rsync/daemon-exclude-2.6.9.diff">a
-patch for 2.6.9 to fix these checks</a>.
+exclude-checking for these options: <code>--compare-dest</code>,
+<code>--link-dest</code>, <code>--copy-dest</code>, <code>--partial-dir</code>,
+<code>--backup-dir</code>, <code>--temp-dir</code>, and
+<code>--files-from</code>.  These are fixed in the 3.0.0pre7 release.  For
+those running 2.6.9, there is <a
+href="http://rsync.samba.org/ftp/rsync/daemon-exclude-2.6.9.diff">a patch for
+2.6.9 to fix these checks</a>.
 
-<p>You can also avoid the problems with other options by putting the
-following "refuse options" setting into your rsyncd.conf file:
+<p>Some of the above options can still cause problems if an excluded
+sub-directory or filename is inside the option's directory hierarchy and the
+names of a transferred file clashes with it.  The affected options are the
+various <code>--*-dest</code> options (which shouldn't cause you any problems,
+since they only supply extra basis information for the transfer),
+<code>--backup-dir</code>, and <code>--partial-dir</code>.
 
-<blockquote><pre>refuse options = --*-dest --*-dir --files-from</pre></blockquote>
+<p>You can avoid these sub-path problems by putting the following "refuse
+options" setting into your rsyncd.conf file:
 
-<p>If you combine the above refuse options with the prior suggestion to
-refuse --links, that would give you this list of options (included here
-for easier copy/pasting):
+<blockquote><pre>refuse options = --backup-dir --partial-dir</pre></blockquote>
 
-<blockquote><pre>refuse options = --links --*-dest --*-dir --files-from</pre></blockquote>
+<p>Those who aren't using an rsync with the latest exclude fixes may want to add
+some of the other affected options as well.
 
 <p><a name="s2_6_8"></a><hr>
 <h3>Xattr security fix in 2.6.8</h3>
