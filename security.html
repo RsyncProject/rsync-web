@@ -14,8 +14,8 @@ h3 { margin-bottom: 0px; }
 
 <p><a name="s3_0_0"></a><hr>
 <h3>Daemon security fixes in 3.0.0 (with patches for 2.6.9)</h3>
-<i class=date>First published on November 28th, 2007;
-Updated on December 16th, 2007;
+<i class=date>First published on November 28th, 2007;<br>
+Updated on December 16th, 2007;<br>
 Item 3 added on February 15th, 2008</i>
 
 <p>Three security advisories affect people who run a <b>writable</b> rsync
@@ -99,8 +99,8 @@ some of the other affected options as well.
 should take care that users cannot upload their own library files and attempt
 to load them.
 
-<p>Beginning with rsync 3.0.0, you can specify an inside-chroot path that makes
-the top of the transfer a subdirectory inside the chroot area, and that
+<p>Beginning with rsync 3.0.0pre10, you can specify an inside-chroot path that
+makes the top of the transfer a subdirectory inside the chroot area, and that
 automatically makes library loading occur outside the transfer area (assuming
 you didn't pick an unwise subdirectory name for the transfer area and you
 don't have symlinks that point outside the transfer area).
@@ -121,8 +121,8 @@ perform an action, such as translating a username.  You can feel free to put
 trusted libraries that you want rsync to access in the protected hierarchies,
 as desired.
 
-<p>Also available in rsync 3.0.0 is a new daemon parameter that allows you to
-avoid the accessing of user/group-name translation libraries by a chrooted
+<p>Also available in rsync 3.0.0pre10 is a new daemon parameter that allows you
+to avoid the accessing of user/group-name translation libraries by a chrooted
 rsync:  the "numeric ids" daemon parameter lets you turn on a forced
 numeric-only mode.  The default for a chroot module is to enable this
 parameter, while the default for a non-chroot module is to disable it.
