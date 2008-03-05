@@ -51,20 +51,20 @@ official arrival of several other new features, including ACL support, extended
 attribute support, filename character-set conversion, etc. 
 
 <p>You can read all about the latest improvements and bug-fixes in the
-<a href="/ftp/rsync/rsync-3.0.0-NEWS">release NEWS</a>.
+<a href="/ftp/rsync/src/rsync-3.0.0-NEWS">release NEWS</a>.
 The latest version of each manpage is also available:
 <a href="/ftp/rsync/rsync.html">rsync</a> and
 <a href="/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
 
 <p>The source tar is available here:
-<b><a href="/ftp/rsync/rsync-3.0.0.tar.gz">rsync-3.0.0.tar.gz</a>
-(<a href="/ftp/rsync/rsync-3.0.0.tar.gz.asc">signature</a>),</b>
+<b><a href="/ftp/rsync/src/rsync-3.0.0.tar.gz">rsync-3.0.0.tar.gz</a>
+(<a href="/ftp/rsync/src/rsync-3.0.0.tar.gz.asc">signature</a>),</b>
 with a tar file of the "patches" directory now released in a separate file:
-<b><a href="/ftp/rsync/rsync-patches-3.0.0.tar.gz">rsync-patches-3.0.0.tar.gz</a>
-(<a href="/ftp/rsync/rsync-patches-3.0.0.tar.gz.asc">signature</a>),</b>
+<b><a href="/ftp/rsync/src/rsync-patches-3.0.0.tar.gz">rsync-patches-3.0.0.tar.gz</a>
+(<a href="/ftp/rsync/src/rsync-patches-3.0.0.tar.gz.asc">signature</a>),</b>
 and the diffs from version 2.6.9 are available here:
-<b><a href="/ftp/rsync/rsync-2.6.9-3.0.0.diffs.gz">rsync-2.6.9-3.0.0.diffs.gz</a>
-(<a href="/ftp/rsync/rsync-2.6.9-3.0.0.diffs.gz.asc">signature</a>)</b>.
+<b><a href="/ftp/rsync/src-diffs/rsync-2.6.9-3.0.0.diffs.gz">rsync-2.6.9-3.0.0.diffs.gz</a>
+(<a href="/ftp/rsync/src-diffs/rsync-2.6.9-3.0.0.diffs.gz.asc">signature</a>)</b>.
 
 <p><hr>
 <h3>Rsync version 2.6.9 released</h3>
@@ -73,7 +73,7 @@ and the diffs from version 2.6.9 are available here:
 <p>Rsync version 2.6.9 has been released.  This is primarily a bug-fix
 release with a few minor new features.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.9-NEWS">release NEWS</a>
+<p>See the <a href="/ftp/rsync/src/rsync-2.6.9-NEWS">release NEWS</a>
 for the details of what changed since 2.6.8.
 
 <p><hr>
@@ -86,7 +86,7 @@ but also includes a <a href="security.html#s2_6_8" class=security>security fix</
 the xattrs.diff patch (which is not an
 official part of rsync, but some packagers include it in their release).
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.8-NEWS">release NEWS</a>
+<p>See the <a href="/ftp/rsync/src/rsync-2.6.8-NEWS">release NEWS</a>
 for the details of what changed since 2.6.7.
 
 <p><hr>
@@ -96,7 +96,7 @@ for the details of what changed since 2.6.7.
 <p>Rsync version 2.6.7 has been released.  This release has both several new
 features and the usual accompaniment of bug fixes.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.7-NEWS">release NEWS</a>
+<p>See the <a href="/ftp/rsync/src/rsync-2.6.7-NEWS">release NEWS</a>
 for the details of what changed since 2.6.6.
 
 <p><hr>
@@ -110,7 +110,7 @@ to handle a null-pointer bug that turned up in rsync's version of zlib
 affect rsync) and to squash a few other minor bugs.  To deal with the
 zlib issue, rsync has been upgraded to include zlib 1.2.3.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.6-NEWS">release NEWS</a>
+<p>See the <a href="/ftp/rsync/src/rsync-2.6.6-NEWS">release NEWS</a>
 for the details of what changed since 2.6.5.
 
 <p><hr>
@@ -121,7 +121,7 @@ for the details of what changed since 2.6.5.
 release to squash some annoying problems that made it into the (feature-filled)
 release of 2.6.4, plus a few minor enhancements.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.5-NEWS">release NEWS</a>
+<p>See the <a href="/ftp/rsync/src/rsync-2.6.5-NEWS">release NEWS</a>
 for the details of what changed since 2.6.4.
 
 <p><hr>
@@ -132,7 +132,7 @@ for the details of what changed since 2.6.4.
 few new features, some improved delete efficiency, and the usual array of
 bug fixes.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.4-NEWS">release NEWS</a>
+<p>See the <a href="/ftp/rsync/src/rsync-2.6.4-NEWS">release NEWS</a>
 for the details of what changed since 2.6.3.
 
 <p><hr>
@@ -143,7 +143,7 @@ for the details of what changed since 2.6.3.
 and quite a few bug fixes, including a <a href="security.html#s2_6_3" class=security>security
 fix</a> for a patch-sanitizing bug in the daemon code.
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.3-NEWS">release NEWS</a> for the
+<p>See the <a href="/ftp/rsync/src/rsync-2.6.3-NEWS">release NEWS</a> for the
 details of what changed since 2.6.2.
 
 <p><hr>
@@ -156,7 +156,7 @@ that could cause files to be transferred incorrectly.  This only affected a
 source right at the root of the filesystem, such as "/" or "/*" (if you
 first "cd /" and then copy from ".", it would not tickle the bug).
 
-<p>See the <a href="/ftp/rsync/old-versions/rsync-2.6.2-NEWS">release NEWS</a> for the
+<p>See the <a href="/ftp/rsync/src/rsync-2.6.2-NEWS">release NEWS</a> for the
 details of what else was fixed.
 
 <p><hr>
@@ -170,7 +170,7 @@ time), and also reduces the amount of data that is transmitted over the wire.
 There have also been quite a few bug fixes, including a
 <a href="security.html#s2_6_1" class=security>security fix</a> for a daemon problem when chroot
 is not enabled.  See the
-<a href="/ftp/rsync/old-versions/rsync-2.6.1-NEWS">release NEWS</a> for the full
+<a href="/ftp/rsync/src/rsync-2.6.1-NEWS">release NEWS</a> for the full
 details.
 
 <p><hr>
@@ -198,7 +198,7 @@ make something else the default.
 <li>Some bug fixes in the include/exclude code, while making things work
 properly, have resulted in some user-visible changes for certain wildcard
 strings.  Read the BUG FIXES section in the
-<a href="/ftp/rsync/old-versions/rsync-2.6.0-NEWS">NEWS file</a> to see if
+<a href="/ftp/rsync/src/rsync-2.6.0-NEWS">NEWS file</a> to see if
 any of these changes apply to you.
 (Most people should be unaffected.)
 
@@ -214,6 +214,6 @@ files, for example.  See the <a href="/ftp/rsync/rsync.html">rsync man page</a>
 for more details.
 
 <p>For a full list of changes in version 2.6.0, see the
-<a href="/ftp/rsync/old-versions/rsync-2.6.0-NEWS">release NEWS</a>.
+<a href="/ftp/rsync/src/rsync-2.6.0-NEWS">release NEWS</a>.
 
 <!--#include virtual="footer.html" -->
