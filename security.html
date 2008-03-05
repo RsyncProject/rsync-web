@@ -48,7 +48,7 @@ to be used while they are in the daemon's hierarchy.
 
 <p>For those running
 2.6.9, there is
-<a href="http://rsync.samba.org/ftp/rsync/security/munge-symlinks-2.6.9.diff">a
+<a href="http://rsync.samba.org/ftp/rsync/security/rsync-2.6.9-munge-symlinks.diff">a
 patch for 2.6.9 to implement this parameter</a>.
 
 <p>Any admin applying that patch should read the "munge symlinks" section
@@ -75,7 +75,7 @@ exclude-checking for these options: <code>--compare-dest</code>,
 <code>--backup-dir</code>, <code>--temp-dir</code>, and
 <code>--files-from</code>.  These are fixed in the 3.0.0pre7 release.  For
 those running 2.6.9, there is <a
-href="http://rsync.samba.org/ftp/rsync/security/daemon-exclude-2.6.9.diff">a patch for
+href="http://rsync.samba.org/ftp/rsync/security/rsync-2.6.9-daemon-exclude.diff">a patch for
 2.6.9</a> to fix these checks.
 
 <p>Some of the above options can still cause problems if an excluded
@@ -128,7 +128,7 @@ numeric-only mode.  The default for a chroot module is to enable this
 parameter, while the default for a non-chroot module is to disable it.
 
 <p>For those running 2.6.9, there is <a
-href="http://rsync.samba.org/ftp/rsync/security/daemon-ids-2.6.9.diff">a patch for
+href="http://rsync.samba.org/ftp/rsync/security/rsync-2.6.9-daemon-ids.diff">a patch for
 2.6.9</a> to add the "numeric ids" daemon config parameter.  (The patch will
 only apply cleanly if you've already applied the munge-symlinks diff mentioned
 above.)
