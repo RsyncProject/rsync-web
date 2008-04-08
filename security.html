@@ -24,9 +24,17 @@ but version 2.6.9 had to be patched for this support.  You can run the command
 "rsync --version" and look for the string "xattrs" (as long as it is not
 "no&nbsp;xattrs") to see if your rsync is affected.
 
-<p>For those running affected versions, there is also
+<p>For those running affected versions, there is
 <a href="http://rsync.samba.org/ftp/rsync/security/rsync-3.0.1-xattr-alloc.diff">a
 patch with the fix available</a>.
+
+<p>Those running a writable rsync daemon can opt to refuse the "xattrs" option
+as a way to avoid the problem without an upgrade:
+
+<blockquote><pre>refuse options = xattrs</pre></blockquote>
+
+<p>(If you already refuse options, be sure to append "xattrs" to your existing
+config parameter rather than adding another refuse directive.)
 
 <p><a name="s3_0_0"></a><hr>
 <h3>Daemon security fixes in 3.0.0 (with patches for 2.6.9)</h3>
@@ -51,7 +59,7 @@ that points outside of the module's hierarchy.
 
 <p>This means that if you are allowing access from users who you don't
 trust, that you should either figure out a way to turn on "use chroot",
-or configure the daemon to refuse the --links option (see "refuse
+or configure the daemon to refuse the "links" option (see "refuse
 options" in the rsyncd.conf manpage) which will disable the ability of
 the rsync module to receive symlinks.  After doing so, you should also
 check that any existing symlinks in the daemon hierarchy are safe.
@@ -104,7 +112,7 @@ is particularly worrisome),
 <p>You can avoid these sub-path problems by putting the following "refuse
 options" setting into your rsyncd.conf file:
 
-<blockquote><pre>refuse options = --link-dest --backup-dir --partial-dir</pre></blockquote>
+<blockquote><pre>refuse options = link-dest backup-dir partial-dir</pre></blockquote>
 
 <p>Those who aren't using an rsync with the latest exclude fixes may want to add
 some of the other affected options as well.
@@ -163,7 +171,7 @@ later to avoid a potential buffer overflow problem.
 
 <p>If you're using a version of rsync prior to 2.6.6, there is a potential
 null-pointer security bug in the zlib code.  You can avoid its affect in an
-rsync daemon situation by configuring rsync to refuse the --compress option.
+rsync daemon situation by configuring rsync to refuse the "compress" option.
 
 <p><a name="s2_6_3"></a><hr>
 <h3>Daemon path-sanitizing fix in 2.6.3</h3>
