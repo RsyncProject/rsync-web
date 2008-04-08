@@ -12,6 +12,22 @@ h3 { margin-bottom: 0px; }
 
 <H2 align="center">Rsync Security Advisories</H2>
 
+<p><a name="s3_0_2"></a><hr>
+<h3>Xattr security fix in 3.0.2</h3>
+<i class=date>April 8th, 2008</i>
+
+<p>If you're using a version of rsync from 2.6.9 to 3.0.1 that has extended
+attribute (xattr) support enabled, you should upgrade to 3.0.2 to avoid a
+potential buffer overflow problem.  All 3.x versions have the potential to
+support xattrs (depending on OS availability and the configure options used),
+but version 2.6.9 had to be patched for this support.  You can run the command
+"rsync --version" and look for the string "xattrs" (as long as it is not
+"no&nbsp;xattrs") to see if your rsync is affected.
+
+<p>For those running affected versions, there is also
+<a href="http://rsync.samba.org/ftp/rsync/security/rsync-3.0.1-xattr-alloc.diff">a
+patch with the fix available</a>.
+
 <p><a name="s3_0_0"></a><hr>
 <h3>Daemon security fixes in 3.0.0 (with patches for 2.6.9)</h3>
 <i class=date>First published on November 28th, 2007;<br>
@@ -55,7 +71,7 @@ patch for 2.6.9 to implement this parameter</a>.
 of the modified rsyncd.conf manpage for more information.  You can also
 read about this parameter in the
 <a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf
-manpage from the development release</a>.
+manpage from a 3.x version</a>.
 
 <h4>2. Daemon advisory for daemon excludes</h4>
 

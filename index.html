@@ -18,8 +18,10 @@ available under the <A HREF="GPL.html">GNU General Public
 License</A> and is currently being maintained by
 <a href="http://opencoder.net/">Wayne Davison</a>.
 
-<p><i>If you are (1) running a writable rsync daemon of <b>any</b>
-version or (2) using a version of rsync older than 2.6.6, see the
+<p><i>If you are running
+(1) an xattr-enabled rsync older than 3.0.2,
+(2) a writable rsync daemon older than 3.0.0,
+or (3) a version of rsync older than 2.6.6, please see the
 <a href="security.html" class=security>rsync security advisory page</a>.</i>
 
 <!--
@@ -38,6 +40,30 @@ on grabbing the development version.
 -->
 
 <p><hr>
+<h3>Rsync version 3.0.2 released</h3>
+<i class=date>April 8th, 2008</i>
+
+<p>Rsync version 3.0.2 has been released.  This is a 
+<a href="security.html#s3_0_2" class=security>security release</a>
+that fixes a potential buffer-overflow issue.
+
+<p>You can read about all the changes in the
+<a href="/ftp/rsync/src/rsync-3.0.2-NEWS">NEWS file</a>.
+The latest released version of the manpages are also available for both
+<a href="/ftp/rsync/rsync.html">rsync</a> and
+<a href="/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
+
+<p>The source tar is available here:
+<b><a href="/ftp/rsync/src/rsync-3.0.2.tar.gz">rsync-3.0.2.tar.gz</a>
+(<a href="/ftp/rsync/src/rsync-3.0.2.tar.gz.asc">signature</a>),</b>
+with a tar file of the "patches" directory now released in a separate file:
+<b><a href="/ftp/rsync/src/rsync-patches-3.0.2.tar.gz">rsync-patches-3.0.2.tar.gz</a>
+(<a href="/ftp/rsync/src/rsync-patches-3.0.2.tar.gz.asc">signature</a>),</b>
+and the diffs from version 3.0.1 are available here:
+<b><a href="/ftp/rsync/src-diffs/rsync-3.0.1-3.0.2.diffs.gz">rsync-3.0.1-3.0.2.diffs.gz</a>
+(<a href="/ftp/rsync/src-diffs/rsync-3.0.1-3.0.2.diffs.gz.asc">signature</a>)</b>.
+
+<p><hr>
 <h3>Rsync version 3.0.1 released</h3>
 <i class=date>April 3rd, 2008</i>
 
@@ -46,19 +72,6 @@ includes fixes/improvements for several issues in the daemon-exclude code.
 
 <p>You can read all about the latest improvements and bug-fixes in the
 <a href="/ftp/rsync/src/rsync-3.0.1-NEWS">NEWS file</a>.
-The pre-release version of the manpages are also available for both
-<a href="/ftp/rsync/rsync.html">rsync</a> and
-<a href="/ftp/rsync/rsyncd.conf.html">rsyncd.conf</a>.
-
-<p>The source tar is available here:
-<b><a href="/ftp/rsync/src/rsync-3.0.1.tar.gz">rsync-3.0.1.tar.gz</a>
-(<a href="/ftp/rsync/src/rsync-3.0.1.tar.gz.asc">signature</a>),</b>
-with a tar file of the "patches" directory now released in a separate file:
-<b><a href="/ftp/rsync/src/rsync-patches-3.0.1.tar.gz">rsync-patches-3.0.1.tar.gz</a>
-(<a href="/ftp/rsync/src/rsync-patches-3.0.1.tar.gz.asc">signature</a>),</b>
-and the diffs from version 3.0.0 are available here:
-<b><a href="/ftp/rsync/src-diffs/rsync-3.0.0-3.0.1.diffs.gz">rsync-3.0.0-3.0.1.diffs.gz</a>
-(<a href="/ftp/rsync/src-diffs/rsync-3.0.0-3.0.1.diffs.gz.asc">signature</a>)</b>.
 
 <p><hr>
 <h3>Rsync version 3.0.0 released</h3>
