@@ -110,25 +110,15 @@ or use an <i>anonymous rsync</i> copy of the unpacked source files:
 
 <blockquote><pre>rsync -av --exclude=.git/ rsync://rsync.samba.org/ftp/unpacked/rsync /dest/dir/</pre></blockquote>
 
-<h2>Source repository patch branches</h2>
+<h2>Source repository patches</h2>
 
-<p>There are also various patch/* branches in the git repository that represent
-either work-in-progress features or features that are considered to be a little
-too fringe-interest for the main release.  You can see these items as
-<a href="/ftp/rsync/dev/patches/">patch files</a> for the dev
-release, or checkout a branch using git.  For instance, the following command set will
-list all the patch/* branches available on the remote (origin) repository:
-
-<blockquote><pre>git branch -r | fgrep origin/patch/</pre></blockquote>
-
-<p>To checkout one branch&mdash;let's say "foo"&mdash;as a local branch that
-can be locally modified while still tracking the remote branch, run this:
-
-<blockquote><pre>git checkout --track -b patch/foo origin/patch/foo</pre></blockquote>
-
-<p>Finally, you can checkout a remote branch in a way that can be built, but
-local changes cannot be committed (unless you create a local branch later):
-
-<blockquote><pre>git checkout origin/patch/foo</pre></blockquote>
+<p>There are also various patch files in the "patches" branch of the git
+repository that represent either some work-in-progress features or features
+that are considered to be a little too fringe-interest for the main release.
+You can <a href="/ftp/rsync/dev/patches/">browse the latest patches</a>, which
+is a collection that applies to the development sources.  The patches are also
+available in the git repository in the "patches" branch, where you can find
+older version.  There are also the rsync-patches tar files that are paired
+with each source tar file.
 
 <!--#include virtual="footer.html" -->
