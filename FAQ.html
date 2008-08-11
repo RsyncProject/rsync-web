@@ -119,29 +119,30 @@ remotesystem to try and find the problem.
 <hr>
 <h3><a name=4>memory usage</a></h3>
 
-<p>Yes, rsync uses a lot of memory. The majority of the memory is used to
-hold the list of files being transferred. This takes about 100 bytes per
-file, so if you are transferring 800,000 files then rsync will consume
-about 80M of memory. It will be higher if you use -H or --delete.
+<p>Rsync versions before 3.0.0 always build the entire list of files to be
+transferred at the beginning and hold it in memory for the entire run.  Rsync
+needs about 100 bytes to store all the relevant information for one file,
+so (for example) a run with 800,000 files would consume about 80M of
+memory.  -H and --delete increase the memory usage further.
 
-<p>To fix this requires a major rewrite of rsync, which my or may not
-happen.
+<p>Version 3.0.0 slightly reduced the memory used per file by not storing fields
+not needed for a particular file.  It also introduced an incremental recursion
+mode that builds the file list in chunks and holds each chunk in memory only as
+long as it is needed.  This mode dramatically reduces memory usage, but it
+only works provided that both sides are 3.0.0 or newer and certain options that
+rsync currently can't handle in this mode are not being used.
 
 <hr>
 <h3><a name=5>out of memory</a></h3>
 
 <p>The usual reason for "out of memory" when running rsync is that you are
 transferring a _very_ large number of files.  The size of the files doesn't
-matter, only the total number of files.
-
-<p>As a rule of thumb you should expect rsync to consume about 100 bytes
-per file in the file list. This happens because rsync builds a internal
-file list structure containing all the vital details of each file.  rsync
-needs to hold structure in memory because it is being constantly traversed.
-
-<p>A future version of rsync could be built with an improved protocol that
-transfers files in a more incremental fashion, which would require a lot
-less memory.  Unfortunately, such an rsync does not yet exist.
+matter, only the total number of files.  If memory is a problem, first try to
+use the incremental recursion mode: upgrade both sides to rsync 3.0.0 or
+newer and avoid options that disable incremental recursion (e.g., use
+<tt>--delete-delay</tt> instead of <tt>--delete-after</tt>).  If this is not
+possible, you can break the rsync run into smaller chunks operating on
+individual subdirectories using <tt>--relative</tt> and/or exclude rules.
 
 <hr>
 <h3><a name=6>rsync through a firewall</a></h3>
