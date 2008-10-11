@@ -67,7 +67,9 @@ figure out is <b>why</b>, and that can involve some investigative work.
 
 <p>If the remote rsync is a daemon, your first step should be to look at
 the daemon's log file to see if it logged an error explaining why it
-aborted the transfer.
+aborted the transfer.  Also double-check to ensure that the log file is
+setup right, as a wrong "log files" setting in your rsyncd.conf file can
+also cause this problem.
 
 <p>Beginning with version 2.6.3, rsync now does a better job of retreiving
 the error from the remote
