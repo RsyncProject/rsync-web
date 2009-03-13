@@ -78,7 +78,7 @@ you can try out the latest changes and give feedback to the developers.
 times, not compile or fail in various ways, though it is usually pretty good.
 
 <p>Anyone can browse the development history through
-<a href="http://git.samba.org/?p=rsync.git;a=summary">gitweb</a>.
+<a href="http://gitweb.samba.org/?p=rsync.git">gitweb</a>.
 
 <p>You may also use the git version-control system to check out the latest
 development version, especially if you want to make local changes.  The
@@ -112,13 +112,16 @@ or use an <i>anonymous rsync</i> copy of the unpacked source files:
 
 <h2>Source repository patches</h2>
 
-<p>There are also various patch files in the "patches" branch of the git
-repository that represent either some work-in-progress features or features
-that are considered to be a little too fringe-interest for the main release.
-You can <a href="/ftp/rsync/dev/patches/">browse the latest patches</a>, which
-is a collection that applies to the development sources.  The patches are also
-available in the git repository in the "patches" branch, where you can find
-older version.  There are also the rsync-patches tar files that are paired
-with each source tar file.
+<p>There are also various patch files in the "patches.git" repository that
+represent either some work-in-progress features or features that are considered
+to be a little too fringe-interest for the main release.  You can can use
+gitweb to <a href="http://gitweb.samba.org/?p=rsync.git/patches.git">browse the
+latest patches</a>.  Each branch in the patches repository matches the branch
+of the same name in the <a href="http://gitweb.samba.org/?p=rsync.git">main
+repository</a>, so "master" matches "master", and "b3.0.x" matches "b3.0.x".
+Gitweb even supports the downloading of a tar file of the patches for a
+particular branch, but if you're grabbing the patches for a released version,
+just grab the rsync-patches-VERSION.tar.gz file that is paired with each
+release tar.
 
 <!--#include virtual="footer.html" -->
