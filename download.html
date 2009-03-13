@@ -119,9 +119,15 @@ gitweb to <a href="http://gitweb.samba.org/?p=rsync.git/patches.git">browse the
 latest patches</a>.  Each branch in the patches repository matches the branch
 of the same name in the <a href="http://gitweb.samba.org/?p=rsync.git">main
 repository</a>, so "master" matches "master", and "b3.0.x" matches "b3.0.x".
-Gitweb even supports the downloading of a tar file of the patches for a
-particular branch, but if you're grabbing the patches for a released version,
-just grab the rsync-patches-VERSION.tar.gz file that is paired with each
-release tar.
+
+<p>Use the
+<a href="http://gitweb.samba.org/?p=rsync.git/patches.git;a=tree;h=refs/heads/master;hb=master">tree
+view of the master branch</a> or the
+<a href="http://gitweb.samba.org/?p=rsync.git/patches.git;a=tree;h=refs/heads/b3.0.x;hb=refs/heads/b3.0.x">tree
+view of the b3.0.x branch</a> to get to the contents of individual files (i.e. click
+on the "raw" link for the file you want).
+
+<p>Each release of rsync also has an associated sync-patches-VERSION.tar.gz
+file with the patches as they existed at the time of the release.
 
 <!--#include virtual="footer.html" -->
