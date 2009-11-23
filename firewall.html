@@ -31,7 +31,7 @@ the target system to succeed (when the username remains the same).
 However, this may not be a desirable setup.
 
 <p>A better method that works with ssh (and is very safe) is to setup an ssh
-key (see the ssh-key manpage) and ensure that ssh-agent forwarding is turned
+key (see the ssh-keygen manpage) and ensure that ssh-agent forwarding is turned
 on in your ssh client config (e.g. "ForwardAgent&nbsp;yes").  You would put
 the public version of your key onto the middle and target systems (in the
 ~/.ssh/authorized_keys file), and the private key on your local system (which
