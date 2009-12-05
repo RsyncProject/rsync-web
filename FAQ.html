@@ -20,6 +20,7 @@
 <li><a href="#9">spaces in filenames</a><br>
 <li><a href="#10">ignore "vanished files" warning</a><br>
 <li><a href="#11">read-only file system</a><br>
+<li><a href="#12">multiplexing overflow 101:7104843</a><br>
 </ul></td></tr></table>
 
 <hr>
@@ -258,6 +259,16 @@ exit $e</pre></blockquote>
 
 <p>If you get "Read-only file system" as an error when sending to a rsync
 daemon then you probably forgot to set "read only = no" for that module.
+
+<hr>
+<h3><a name=12>multiplexing overflow 101:7104843</a></h3>
+
+<p>This mysterious error, or the similar "invalid message 101:7104843", can
+happen if one of the rsync processes is killed for some reason and a message
+beginning with the four characters "Kill" gets inserted into the protocol
+stream as a result.  To solve the problem, you'll need to figure out why rsync
+is being killed.
+See <a href="https://bugzilla.samba.org/show_bug.cgi?id=5727">this bug report</a>.
 
 <hr>
 
