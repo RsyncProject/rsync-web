@@ -14,13 +14,14 @@
 <li><a href="#4">memory usage</a><br>
 <li><a href="#5">out of memory</a><br>
 <li><a href="#6">rsync through a firewall</a><br>
-</ul></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><ul>
 <li><a href="#7">rsync and cron</a><br>
+</ul></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><ul>
 <li><a href="#8">rsync: Command not found</a><br>
 <li><a href="#9">spaces in filenames</a><br>
 <li><a href="#10">ignore "vanished files" warning</a><br>
 <li><a href="#11">read-only file system</a><br>
 <li><a href="#12">multiplexing overflow 101:7104843</a><br>
+<li><a href="#13">inflate (token) returned -5</a><br>
 </ul></td></tr></table>
 
 <hr>
@@ -271,7 +272,14 @@ is being killed.
 See <a href="https://bugzilla.samba.org/show_bug.cgi?id=5727">this bug report</a>.
 
 <hr>
+<h3><a name=13>inflate (token) returned -5</a></h3>
 
+This error means that rsync failed to handle an expected error from the
+compression code for a file that happened to be transferred with a block size
+of 32816 bytes.  You can avoid this issue for the affected file by transferring
+it with a manually-set block size (e.g. --block-size=33000), or by upgrading
+the receiving side to rsync 3.0.7.
 
+<hr>
 
 <!--#include virtual="footer.html" -->
