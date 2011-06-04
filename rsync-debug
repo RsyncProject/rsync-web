@@ -4,4 +4,5 @@ ulimit -c unlimited
 
 # Some systems have "truss" or "tusc" instead of "strace".
 # The -f option tells strace to follow children too.
-strace -f rsync "${@}" 2>/tmp/rsync-$$.out
+# The -o option tells strace where to send its output.
+strace -f -o /tmp/rsync-$$.out rsync "${@}"
