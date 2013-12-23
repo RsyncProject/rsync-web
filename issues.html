@@ -127,7 +127,7 @@ system-call tracing utility such as <i>strace</i>, <i>truss</i>, or
 tells strace to follow the child processes too):
 
 <pre>ulimit -c unlimited
-strace -f rsync --daemon --no-detach 2&gt;/tmp/rsync-$$.out
+strace -f -t -s 1024 -o /tmp/rsync-$$.out rsync --daemon --no-detach
 </pre>
 
 <p>Then, use a separate window to actually run the failing transfer, after
@@ -155,15 +155,6 @@ links are not supported by the server), or some other failure (such as
 trying to send data to a read-only module).  Upgrading the version of rsync
 that is running as a daemon to at least 2.6.3 will allow these errors to
 get returned to all rsync clients, old or new alike.
-
-<li><p><b>Q:</b>
-
-Why doesn't --dry-run (-n) show all the changed directories?
-
-<p><b>A:</b>
-
-This was a bug in versions prior to 2.6.4.  Upgrade both rsync versions (or at
-least the receiving side).
 
 <li><p><b>Q:</b>
 
