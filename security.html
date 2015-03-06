@@ -25,7 +25,7 @@ but version 2.6.9 had to be patched for this support.  You can run the command
 "no&nbsp;xattrs") to see if your rsync is affected.
 
 <p>For those running affected versions, there is
-<a href="http://rsync.samba.org/ftp/rsync/security/rsync-3.0.1-xattr-alloc.diff">a
+<a href="https://download.samba.org/pub/rsync/security/rsync-3.0.1-xattr-alloc.diff">a
 patch with the fix available</a>.
 
 <p>Those running a writable rsync daemon can opt to refuse the "xattrs" option
@@ -72,13 +72,13 @@ to be used while they are in the daemon's hierarchy.
 
 <p>For those running
 2.6.9, there is
-<a href="http://rsync.samba.org/ftp/rsync/security/rsync-2.6.9-munge-symlinks.diff">a
+<a href="https://download.samba.org/pub/rsync/security/rsync-2.6.9-munge-symlinks.diff">a
 patch for 2.6.9 to implement this parameter</a>.
 
 <p>Any admin applying that patch should read the "munge symlinks" section
 of the modified rsyncd.conf manpage for more information.  You can also
 read about this parameter in the
-<a href="http://rsync.samba.org/ftp/rsync/rsyncd.conf.html">rsyncd.conf
+<a href="https://download.samba.org/pub/rsync/rsyncd.conf.html">rsyncd.conf
 manpage from a 3.x version</a>.
 
 <h4>2. Daemon advisory for daemon excludes</h4>
@@ -99,7 +99,7 @@ exclude-checking for these options: <code>--compare-dest</code>,
 <code>--backup-dir</code>, <code>--temp-dir</code>, and
 <code>--files-from</code>.  These are fixed in the 3.0.0pre7 release.  For
 those running 2.6.9, there is <a
-href="http://rsync.samba.org/ftp/rsync/security/rsync-2.6.9-daemon-exclude.diff">a patch for
+href="https://download.samba.org/pub/rsync/security/rsync-2.6.9-daemon-exclude.diff">a patch for
 2.6.9</a> to fix these checks.
 
 <p>Some of the above options can still cause problems if an excluded
@@ -152,7 +152,7 @@ numeric-only mode.  The default for a chroot module is to enable this
 parameter, while the default for a non-chroot module is to disable it.
 
 <p>For those running 2.6.9, there is <a
-href="http://rsync.samba.org/ftp/rsync/security/rsync-2.6.9-daemon-ids.diff">a patch for
+href="https://download.samba.org/pub/rsync/security/rsync-2.6.9-daemon-ids.diff">a patch for
 2.6.9</a> to add the "numeric ids" daemon config parameter.  (The patch will
 only apply cleanly if you've already applied the munge-symlinks diff mentioned
 above.)
