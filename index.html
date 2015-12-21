@@ -19,9 +19,10 @@ License</A> and is currently being maintained by
 <a href="http://opencoder.net/">Wayne Davison</a>.
 
 <p><i>If you are running
-(1) an xattr-enabled rsync older than 3.0.2,
-(2) a writable rsync daemon older than 3.0.0,
-or (3) a version of rsync older than 2.6.6, please see the
+(1) an rsync client older than 3.1.2 to an not-fully-trusted sender,
+(2) an xattr-enabled rsync older than 3.0.2,
+(3) a writable rsync daemon older than 3.0.0,
+or (4) a version of rsync older than 2.6.6, please see the
 <a href="security.html" class=security>rsync security advisory page</a>.</i>
 
 <!--
@@ -44,6 +45,8 @@ on grabbing the development version.
 <i class=date>December 21st, 2015</i>
 
 <p>Rsync version 3.1.2 has been released.  This is a bug-fix release.
+It includes a <a href="security.html#s3_1_2" class=security>security fix</a>
+for a transfer from a sender that you don't fully trust.
 
 <p>See the <a href="https://download.samba.org/pub/rsync/src/rsync-3.1.2-NEWS">release NEWS</a>
 for the details of what changed since 3.1.1.

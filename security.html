@@ -12,6 +12,16 @@ h3 { margin-bottom: 0px; }
 
 <H2 align="center">Rsync Security Advisories</H2>
 
+<p><a name="s3_1_2"></a><hr>
+<h3>File-list validation in 3.1.2</h3>
+<i class=date>December 21st, 2015</i>
+
+<p>If you're using a version of rsync older than 3.1.2 as a client and
+receiving files from an rsync server that you might not fully trust, this
+version adds extra checking to the file list to prevent the sender from
+tweaking the paths and/or the transfer requests in a way that could cause
+a file to be received outside the transfer destination.
+
 <p><a name="s3_0_2"></a><hr>
 <h3>Xattr security fix in 3.0.2</h3>
 <i class=date>April 8th, 2008</i>
