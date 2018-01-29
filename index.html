@@ -19,10 +19,9 @@ License</A> and is currently being maintained by
 <a href="http://opencoder.net/">Wayne Davison</a>.
 
 <p><i>If you are running
-(1) an rsync client older than 3.1.2 to an not-fully-trusted sender,
-(2) an xattr-enabled rsync older than 3.0.2,
-(3) a writable rsync daemon older than 3.0.0,
-or (4) a version of rsync older than 2.6.6, please see the
+(1) an rsync client older than 3.1.3 with --xattrs enabled,
+(2) a writable rsync daemon older than 3.1.3,
+or (3) a version of rsync older than 2.6.6, please see the
 <a href="security.html" class=security>rsync security advisory page</a>.</i>
 
 <!--
@@ -41,28 +40,29 @@ on grabbing the development version.
 -->
 
 <p><hr>
-<h3>Rsync version 3.1.3pre1 released</h3>
-<i class=date>January 14th, 2018</i>
+<h3>Rsync version 3.1.3 released</h3>
+<i class=date>January 28th, 2018</i>
 
-<p>Rsync version 3.1.3pre1 is now available for release testing.  This is a
-bug-fix release with a couple security fixes for good measure.
-If no blocking issues are found, this will be released as 3.1.3 soon.
+<p>Rsync version 3.1.3 has been released.
+This release has a
+<a href="security.html#s3_1_3" class=security>couple security fixes</a>,
+a few new features, and various bug fixes.
 
-<p>For a full list of what changed since 3.1.2, see the
-<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.1.3pre1-NEWS">NEWS file</a>.
+<p>See the <a href="https://download.samba.org/pub/rsync/src/rsync-3.1.3-NEWS">release NEWS</a>
+for the details of what changed since 3.1.2.
 The latest manpages are also available for both
 <a href="https://download.samba.org/pub/rsync/rsync.html">rsync</a> and
 <a href="https://download.samba.org/pub/rsync/rsyncd.conf.html">rsyncd.conf</a>.
 
 <p>The source tar is available here:
-<b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.1.3pre1.tar.gz">rsync-3.1.3pre1.tar.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.1.3pre1.tar.gz.asc">signature</a>),</b>
+<b><a href="https://download.samba.org/pub/rsync/src/rsync-3.1.3.tar.gz">rsync-3.1.3.tar.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src/rsync-3.1.3.tar.gz.asc">signature</a>),</b>
 with a tar file of the "patches" directory now released in a separate file:
-<b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-patches-3.1.3pre1.tar.gz">rsync-patches-3.1.3pre1.tar.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-patches-3.1.3pre1.tar.gz.asc">signature</a>),</b>
+<b><a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.1.3.tar.gz">rsync-patches-3.1.3.tar.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.1.3.tar.gz.asc">signature</a>),</b>
 and the diffs from version 3.1.2 are available here:
-<b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.1.2-3.1.3pre1.diffs.gz">rsync-3.1.2-3.1.3pre1.diffs.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.1.2-3.1.3pre1.diffs.gz.asc">signature</a>)</b>.
+<b><a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.1.2-3.1.3.diffs.gz">rsync-3.1.2-3.1.3.diffs.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.1.2-3.1.3.diffs.gz.asc">signature</a>)</b>.
 
 <p><hr>
 <h3>Rsync version 3.1.2 released</h3>
@@ -74,19 +74,6 @@ for a transfer from a sender that you don't fully trust.
 
 <p>See the <a href="https://download.samba.org/pub/rsync/src/rsync-3.1.2-NEWS">release NEWS</a>
 for the details of what changed since 3.1.1.
-The latest manpages are also available for both
-<a href="https://download.samba.org/pub/rsync/rsync.html">rsync</a> and
-<a href="https://download.samba.org/pub/rsync/rsyncd.conf.html">rsyncd.conf</a>.
-
-<p>The source tar is available here:
-<b><a href="https://download.samba.org/pub/rsync/src/rsync-3.1.2.tar.gz">rsync-3.1.2.tar.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src/rsync-3.1.2.tar.gz.asc">signature</a>),</b>
-with a tar file of the "patches" directory now released in a separate file:
-<b><a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.1.2.tar.gz">rsync-patches-3.1.2.tar.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.1.2.tar.gz.asc">signature</a>),</b>
-and the diffs from version 3.1.1 are available here:
-<b><a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.1.1-3.1.2.diffs.gz">rsync-3.1.1-3.1.2.diffs.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.1.1-3.1.2.diffs.gz.asc">signature</a>)</b>.
 
 <p><hr>
 <h3>Rsync version 3.1.1 released</h3>
