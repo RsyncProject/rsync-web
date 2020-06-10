@@ -12,11 +12,11 @@ h3 { margin-bottom: 0px; }
 
 <H2 align="center">Welcome to the rsync web pages</H2>
 
-rsync is an <A HREF="http://www.opensource.org/">open source</A>
+rsync is an <A HREF="https://www.opensource.org/">open source</A>
 utility that provides fast incremental file transfer. rsync is freely
 available under the <A HREF="GPL.html">GNU General Public
 License</A> and is currently being maintained by
-<a href="http://opencoder.net/">Wayne Davison</a>.
+<a href="https://opencoder.net/">Wayne Davison</a>.
 
 <p><i>If you are running
 (1) an rsync client older than 3.1.3 with --xattrs enabled,
@@ -30,10 +30,10 @@ or (3) a version of rsync older than 2.6.6, please see the
 <h3>The latest development version</h3>
 
 <p>If you're curious about the changes going into the next version of rsync,
-you can view the <a href="https://download.samba.org/pub/unpacked/rsync/NEWS">NEWS file from the source
+you can view the <a href="https://download.samba.org/pub/unpacked/rsync/NEWS.md">NEWS file from the source
 repository</a> to see a summary of the current changes.  Also available are the
-<a href="https://download.samba.org/pub/rsync/nightly/rsync.html">repository's rsync manpage</a> and the
-<a href="https://download.samba.org/pub/rsync/nightly/rsyncd.conf.html">repository's rsyncd.conf
+<a href="https://download.samba.org/pub/rsync/nightly/rsync.1.html">repository's rsync manpage</a> and the
+<a href="https://download.samba.org/pub/rsync/nightly/rsyncd.conf.5.html">repository's rsyncd.conf
 manpage</a>.  See the <a href="/download.html">download page</a> for more info
 on grabbing the development version.
 
@@ -51,8 +51,8 @@ a few new features, and various bug fixes.
 <p>See the <a href="https://download.samba.org/pub/rsync/src/rsync-3.1.3-NEWS">release NEWS</a>
 for the details of what changed since 3.1.2.
 The latest manpages are also available for both
-<a href="https://download.samba.org/pub/rsync/rsync.html">rsync</a> and
-<a href="https://download.samba.org/pub/rsync/rsyncd.conf.html">rsyncd.conf</a>.
+<a href="https://download.samba.org/pub/rsync/rsync.1.html">rsync</a> and
+<a href="https://download.samba.org/pub/rsync/rsyncd.conf.5.html">rsyncd.conf</a>.
 
 <p>The source tar is available here:
 <b><a href="https://download.samba.org/pub/rsync/src/rsync-3.1.3.tar.gz">rsync-3.1.3.tar.gz</a>
@@ -310,7 +310,7 @@ details.
 <h3>One Cygwin hang-problem resolved</h3>
 
 <p>The problem with rsync hanging at the end of the transfer on
-<a href="http://www.cygwin.com/">Cygwin</a> had been previously traced to a
+<a href="https://www.cygwin.com/">Cygwin</a> had been previously traced to a
 signal-handling bug in their compatibility DLL.  This bug appears to now be
 fixed in DLL version 1.5.7-1, and Cygwin users are reporting that upgrading the
 DLL removes the hang-at-end-of-transfer problem for their existing rsync executable.
@@ -343,7 +343,7 @@ be much more efficient than a recursive descent using include/exclude
 statements (if you know in advance what files you want to transfer).  The list
 of files can come from either side of the connection, so it is possible for a
 server to provide the file-list that lets someone grab a server-specified set of
-files, for example.  See the <a href="https://download.samba.org/pub/rsync/rsync.html">rsync man page</a>
+files, for example.  See the <a href="https://download.samba.org/pub/rsync/rsync.1.html">rsync man page</a>
 for more details.
 
 <p>For a full list of changes in version 2.6.0, see the
