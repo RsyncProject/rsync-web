@@ -12,28 +12,35 @@
 <img src="https://github.com/WayneD/rsync/workflows/C%20CI/badge.svg">
 </a></div>
 
-<h2>Source-code releases (tar files)</h2>
+<h2>Source-code releases</h2>
 
-<p>You can grab the latest source code tar file, its gpg signature, and other
-related files in a variety of ways:
+<p>You can grab the latest source code and other related files in a variety of ways:
 
 <ul>
 
-<li><p>via <a href="https://download.samba.org/pub/rsync/">http</a> (the standard web-browser protocol)
+<li><p>The latest version is linked on the <a href="https://rsync.samba.org/">main page</a>.
 
-<li><p>via <i>anonymous rsync</i> from:
-<code><small>rsync://download.samba.org/rsyncftp/</small></code> (though this now requires an SSL helper script)
+<li><p>A directory listing of these latest files and various historical release and diff files
+are available via <a href="https://download.samba.org/pub/rsync/">this web page</a> and
+via <i>anonymous SSL rsync</i> using this command:
+<p><code><small>rsync-ssl rsync://download.samba.org/rsyncftp/</small></code></p>
 
-</ul>
+<li><p>You can also get .zip and .tar.gz versions of the various git repo's release
+tags via the <a href="https://github.com/WayneD/rsync/releases">rsync GitHub releases page</a>
+and the associated patches via the
+<a href="https://github.com/WayneD/rsync-patches/releases">rsync-patches GitHub releases page</a>.
+Keep in mind that these git-derived files do NOT come with the extra generated files that are included
+in the official release tar files.
 
-<p>Also, an unpacked copy of the latest development version can be
-<a href="https://download.samba.org/pub/unpacked/rsync/">browsed on the web</a> or obtained via
-<i>anonymous rsync</i>, as described in the Source Repository section.
+<li><p>You can browse the very latest source files, clone the source using git, or download a .zip file of the latest
+master branch from <a href="https://github.com/WayneD/rsync">rsync's GitHub page</a>.
+
+<li><p>The <a href="https://git.samba.org/?p=rsync.git">Samba git repo</a> is also available,
+though it might lag behind the GitHub repo every now and then.
 
 <h2>The GPG Signing Key</h2>
 
-The GPG signing key that is used to sign the release files and the postings to
-the rsync-announce mailing list is available from the public pgp key-server
+The GPG signing key that is used to sign the release files is available from the public pgp key-server
 network.  If you have automatic key-fetching enabled, just running a normal
 "gpg&nbsp;--verify" will grab my key automatically.
 Or, feel free to grab <a href="https://opencoder.net/WayneDavison.key">the gpp
@@ -56,72 +63,27 @@ vouch for 3rd parties, so use a source that you trust):
 
 </ul>
 
-<h2>The latest version via GitHub</h2>
+<h2>Git source vs Release files</h2>
 
-<p>Rsync's <a href="https://github.com/WayneD/rsync">GitHub page</a> has an
-easy way to grab the very latest source as a zip file (via the green button).
-Or, updating a git repository can automatically merge your local changes with
-our version.  However, keep in mind that the git version does not come with
-various generated files that are present in a release tar file, such as the man
-pages, configure.sh, etc. <b>but</b> there is a way to fetch them if you can't
-generate them (see below).
-
-<h2>Source repository</h2>
-
-<p> The rsync development tree is publicly available by various methods so that
-you can try out the latest changes and give feedback to the developers.
+The release tar files come with a few generated files that are not checked in to git.
+These mainly include the man pages and the configure related files.  To make use of
+the git-derived files you will need autoconf, autoheader, and a version of python3
+that has the commonmark lib (OR cmarkgfm).  If you have trouble with setting up the
+those required files, you can try running "./prepare-source fetchgen" to grab the
+very latest generated files that were created from the latest commit into the master
+branch.
 
 <p> <b>Note:</b> Since the source repository is a work in progress it may, at
 times, not compile or fail in various ways, though it is usually pretty good.
 
-<p>Anyone can browse the development history through
-<a href="https://gitweb.samba.org/?p=rsync.git">the Samba-hosted gitweb</a>
-page or on its <a href="https://github.com/WayneD/rsync">GitHub home</a>.
-
-<p>You may also use the git version-control system to check out the latest
-development version, especially if you want to make local changes.  The
-following command will check-out the latest version into a directory named
-"rsync":
-
-<blockquote><pre>git clone git://git.samba.org/rsync.git
-git clone https://github.com/WayneD/rsync.git</pre></blockquote>
-
-<p>You'll also need
-autoconf and autoheader installed for the "prepare-source" command to succeed
-unless you use either the "fetch" or "fetchgen" option (these options can only
-fetch the most recent generated file that goes with the latest git version):
-
-<blockquote><pre>cd rsync
-./prepare-source    # might need fetch or fetchgen arg</pre></blockquote>
-
-<p>Updating your git checkout with the latest source is very easy:
-
-<blockquote><pre>git pull</pre></blockquote>
-
-<p>Those wanting to just obtain the latest source without the entire git
-repository can either use a zip (see above)
-or use an <i>anonymous rsync</i> copy of the unpacked source files:
-
-<blockquote><pre>rsync-ssl -av --exclude=.git/ rsync://download.samba.org/ftp/unpacked/rsync /dest/dir/</pre></blockquote>
-
 <h2>Source repository patches</h2>
 
-<p>There are also various patch files in the "rsync-patches.git" repository that
+<p>There are also various patch files in the "rsync-patches" repository that
 represent either some work-in-progress features or features that are considered
-to be a little too fringe-interest for the main release.  You can use
-gitweb to <a href="https://gitweb.samba.org/?p=rsync-patches.git">browse the
-latest patches</a>.  Each branch in the patches repository matches the branch
-of the same name in the <a href="https://gitweb.samba.org/?p=rsync.git">main
-repository</a>, so "master" matches "master", and "b3.0.x" matches "b3.0.x".
-
-<p>Use the
-<a href="https://gitweb.samba.org/?p=rsync-patches.git;a=tree;h=refs/heads/master;hb=master">tree
-view of the master branch</a> or the
-<a href="https://gitweb.samba.org/?p=rsync-patches.git;a=tree;h=refs/heads/b3.0.x;hb=refs/heads/b3.0.x">tree
-view of the b3.0.x branch</a> to get to the contents of individual files (i.e. click
-on the "raw" link for the file you want).
-
-<p>Each release of rsync also has an associated sync-patches-VERSION.tar.gz
-file with the patches as they existed at the time of the release.
+to be a little too fringe-interest for the main release.  See the github link
+above for how to look around at what is available, or snag a release tar file.
+The maintainer like to put the rsync-patches dir into his rsync checkout as a
+directory named "patches" and has some helper scripts for how to use local git
+branches to test and update the diffs.
 
 <!--#include virtual="footer.html" -->
