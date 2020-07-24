@@ -38,6 +38,12 @@ master branch from <a href="https://github.com/WayneD/rsync">rsync's GitHub page
 <li><p>The <a href="https://git.samba.org/?p=rsync.git">Samba git repo</a> is also available,
 though it might lag behind the GitHub repo every now and then.
 
+</ul>
+
+Once you have the source, read the <a
+href="https://download.samba.org/pub/rsync/INSTALL">INSTALL.md</a> file for
+details on some development libraries that you will need to build it.
+
 <h2>The GPG Signing Key</h2>
 
 The GPG signing key that is used to sign the release files is available from the public pgp key-server
@@ -52,16 +58,28 @@ key for Wayne Davison</a> manually.
 you should first check if you can install an rsync package via your
 standard package-install tools for your OS.
 
-<p>There are also some <a href="https://download.samba.org/pub/rsync/binaries/">binary tar files</a> that are created in the process of testing rsync on various build machines. These may not have all the latest compression and checksum libraries, but theey are the latest version in git or the indicated release version. The rsync binary is <b>not</b> statically linked (for license reasons), so install whatever OS lib packages you need to get it to run.
+<p>There are also some <a
+href="https://download.samba.org/pub/rsync/binaries/">binary tar files</a> that
+are created in the process of testing rsync on various build machines. These
+may not have all the latest compression and checksum libraries, but they are
+the latest version in git or the indicated release version. The rsync binary is
+<b>not</b> statically linked (for license reasons), so install whatever OS lib
+packages you need to get it to run (see the <a
+href="https://download.samba.org/pub/rsync/INSTALL">INSTALL.md</a> file for
+some package name hints, though you won't need the devel version of the various
+packages).
 
-<p>There are also packages available from some <b>3rd-parties</b> (note that we cannot
-vouch for 3rd parties, so use a source that you trust):
+<p>There are also packages available from some <b>3rd-parties</b> (note that we
+cannot vouch for 3rd parties, so use a source that you trust):
 
 <ul>
 
-<li><p><a href="https://www.cygwin.com/">Cygwin</a> is a Posix runtime for MS Windows that includes rsync among their many packages.</p></li>
+<li><p><a href="https://www.cygwin.com/">Cygwin</a> is a Posix runtime for MS
+Windows that includes rsync among their many packages.</p></li>
 
-<li><p><a href="https://www.itefix.net/cwrsync">cwRsync</a> is a native packaging of rsync for MS Windows (they appear to only provide paid releases, though).</p></li>
+<li><p><a href="https://www.itefix.net/cwrsync">cwRsync</a> is a native
+packaging of rsync for MS Windows (they appear to only provide paid releases,
+though).</p></li>
 
 </ul>
 
