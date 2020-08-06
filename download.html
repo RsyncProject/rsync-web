@@ -58,16 +58,26 @@ key for Wayne Davison</a> manually.
 you should first check if you can install an rsync package via your
 standard package-install tools for your OS.
 
+<p>The <a href="https://github.com/WayneD/rsync/actions">GitHub Actions
+page</a> has build events that each generate a few binary artifact zip files
+(just click through via the build's title to see them).  The actions page is
+also linked via the various green build-status icons on the web pages here.
+These builds use the newest libraries, such as xxhash checksums and zstd
+compression, and are dynamically linked, so you may need to install some
+official library packages for your distribution.  If you're curious how the
+build was done, you can look at the build rules in the "Workflow file" tab.
+See the <a href="https://download.samba.org/pub/rsync/INSTALL">INSTALL.md</a>
+file for some package name hints, though you can use the non-devel versions of
+the various lib packages and ignore the gcc/autoconf/awk packages.
+
 <p>There are also some <a
 href="https://download.samba.org/pub/rsync/binaries/">binary tar files</a> that
 are created in the process of testing rsync on various build machines. These
 may not have all the latest compression and checksum libraries, but they are
-the latest version in git or the indicated release version. The rsync binary is
-<b>not</b> statically linked (for license reasons), so install whatever OS lib
-packages you need to get it to run (see the <a
-href="https://download.samba.org/pub/rsync/INSTALL">INSTALL.md</a> file for
-some package name hints, though you won't need the devel version of the various
-packages).
+based on the latest code in git or the indicated release version (you can see
+exactly what version or git commit was used via "rsync --version").  The rsync
+binary is dynamically linked with various OS lib packages that you may need to
+install to use the binary.
 
 <p>There are also packages available from some <b>3rd-parties</b> (note that we
 cannot vouch for 3rd parties, so use a source that you trust):
