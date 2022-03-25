@@ -99,6 +99,19 @@ figure out is <b>why</b>, and that can involve some investigative work.
 the top of this page to get rsync to output any errors it encounters to stderr
 instead of trying to write them down the failing pipeline.
 
+<p>If the connection is via ssh (or other remote-shell command) then you should
+run some tests to make sure that you can actually run the remote rsync and that
+your shell isn't injecting extraneous output into the rsync stream.  For instance,
+try running these two commands using whatever HOST (and user) options you need:
+
+<blockquote><pre><code>
+echo hi | ssh HOST cat
+ssh HOST rsync --version
+</code></pre></blockquote>
+
+<p>The first command should output just the string "hi" and nothing else. The
+second command should successfully start the remote rsync and report its version.
+
 <p>If the remote rsync is a daemon, your first step should be to look at the
 daemon's log file to see if it logged an error explaining why it aborted the
 transfer.  Also double-check to ensure that the log file is setup right, as a
