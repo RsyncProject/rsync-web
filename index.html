@@ -19,9 +19,10 @@ License</A> and is currently being maintained by
 <a href="https://opencoder.net/">Wayne Davison</a>.
 
 <p><i>If you are running
-(1) an rsync client older than 3.1.3 with --xattrs enabled,
-(2) a writable rsync daemon older than 3.1.3,
-or (3) a version of rsync older than 2.6.6, please see the
+(1) an rsync older than 3.2.4 that uses the bundled zlib,
+(2) an rsync client older than 3.1.3 with --xattrs enabled,
+(3) a writable rsync daemon older than 3.1.3,
+or (4) a version of rsync older than 2.6.6, please see the
 <a href="security.html" class=security>rsync security advisory page</a>.</i>
 
 <p>A full changelog of all the releases, including upcoming releases, is in the
@@ -33,15 +34,15 @@ or (3) a version of rsync older than 2.6.6, please see the
 </a></div>
 
 <p><hr>
-<h3>Rsync version 3.2.4pre4 released</h3>
-<i class=date>March 27th, 2022</i>
+<h3>Rsync version 3.2.4 released</h3>
+<i class=date>April 15th, 2022</i>
 
-<p>Rsync version 3.2.4pre4 is now available for release testing. This is planned to be the final pre-release before 3.2.4.
-It contains some configuration improvements for the optimization features, some bug fixes, and the addition of --copy-devices.
+<p>Rsync version 3.2.4 has been released.
+Another typical release with both bug fixes and some few enhancements. It also contains a security fix for the bundled zlib 1.2.8, which may or may not be used in your particular build configuration.
 
 <p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.4">3.2.4 NEWS</a>
 for a detailed changelog.
-The latest manpages are also available for:<ul>
+The latest manpages are also available for<ul>
 <li><a href="https://download.samba.org/pub/rsync/rsync.1"><b>rsync</b>(1)</a>
 <li><a href="https://download.samba.org/pub/rsync/rsync-ssl.1"><b>rsync-ssl</b>(1)</a>
 <li><a href="https://download.samba.org/pub/rsync/rsyncd.conf.5"><b>rsyncd.conf</b>(5)</a>
@@ -49,21 +50,14 @@ The latest manpages are also available for:<ul>
 </ul>
 
 <p>The source tar is available here:
-<b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.4pre4.tar.gz">rsync-3.2.4pre4.tar.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.4pre4.tar.gz.asc">signature</a>)</b>,
+<b><a href="https://download.samba.org/pub/rsync/src/rsync-3.2.4.tar.gz">rsync-3.2.4.tar.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src/rsync-3.2.4.tar.gz.asc">signature</a>)</b>,
 with a tar file of the "patches" directory released in a separate file:
-<b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-patches-3.2.4pre4.tar.gz">rsync-patches-3.2.4pre4.tar.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-patches-3.2.4pre4.tar.gz.asc">signature</a>)</b>,
-and the diffs that take us from version 3.2.3 to 3.2.4pre4 are:<ul>
-<li><b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.3-3.2.4pre1.diffs.gz">rsync-3.2.3-3.2.4pre1.diffs.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.3-3.2.4pre1.diffs.gz.asc">signature</a>)</b>
-<li><b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.4pre1-3.2.4pre2.diffs.gz">rsync-3.2.4pre1-3.2.4pre2.diffs.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.4pre1-3.2.4pre2.diffs.gz.asc">signature</a>)</b>
-<li><b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.4pre2-3.2.4pre3.diffs.gz">rsync-3.2.4pre2-3.2.4pre3.diffs.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.4pre2-3.2.4pre3.diffs.gz.asc">signature</a>)</b>
-<li><b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.4pre3-3.2.4pre4.diffs.gz">rsync-3.2.4pre3-3.2.4pre4.diffs.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.4pre3-3.2.4pre4.diffs.gz.asc">signature</a>)</b>
-</ul>
+<b><a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.2.4.tar.gz">rsync-patches-3.2.4.tar.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.2.4.tar.gz.asc">signature</a>)</b>,
+and the diffs from version 3.2.2 are available here:
+<b><a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.2.3-3.2.4.diffs.gz">rsync-3.2.3-3.2.4.diffs.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.2.3-3.2.4.diffs.gz.asc">signature</a>)</b>.
 
 <p><hr>
 <h3>Rsync version 3.2.3 released</h3>
@@ -74,10 +68,6 @@ It contains a smattering of bug fixes and various enhancements.
 
 <p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.3">3.2.3 NEWS</a>
 for a detailed changelog.
-The latest manpages are also available for
-<a href="https://download.samba.org/pub/rsync/rsync.1">rsync</a>,
-<a href="https://download.samba.org/pub/rsync/rsync-ssl.1">rsync-ssl</a> and
-<a href="https://download.samba.org/pub/rsync/rsyncd.conf.5">rsyncd.conf</a>.
 
 <p>The source tar is available here:
 <b><a href="https://download.samba.org/pub/rsync/src/rsync-3.2.3.tar.gz">rsync-3.2.3.tar.gz</a>
