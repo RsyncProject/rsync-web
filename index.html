@@ -42,6 +42,12 @@ Another typical release with both bug fixes and some enhancements. It also conta
 <a href="security.html#s3_2_4" class=security>security fix</a>
 for the bundled zlib 1.2.8, which may or may not be used in your particular build configuration.
 
+<p><b>NOTE:</b> a <a href="https://download.samba.org/pub/rsync/rsync-schar-fix-3.2.4.diff">patch is now available</a>
+that fixes the configure check for "signed char" when "-pedantic-errors" is in effect.
+This is for systems where a "char" defaults to "unsigned char" (such as ARM systems)
+and returns the rsync algorithm back to full efficiency (without the patch, the transfer
+sends more literal data instead of finding matched local data).</p>
+
 <p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.4">3.2.4 NEWS</a>
 for a detailed changelog.
 The latest manpages are also available for:<ul>
