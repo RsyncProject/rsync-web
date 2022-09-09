@@ -27,13 +27,13 @@ License</A> and is currently being maintained by
 </a></div>
 
 <p><hr>
-<h3>Rsync version 3.2.5 released</h3>
-<i class=date>August 14th, 2022</i>
+<h3>Rsync version 3.2.6 released</h3>
+<i class=date>September 9th, 2022</i>
 
-<p>Rsync version 3.2.5 has been released.
-This is a bug-fix and <a href="security.html" class=security>security</a> release.
+<p>Rsync version 3.2.6 has been released.
+This is a bug-fix release.
 
-<p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.5">3.2.5 NEWS</a> for a detailed changelog.
+<p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.6">3.2.6 NEWS</a> for a detailed changelog.
 The latest manpages are also available for:<ul>
 <li><a href="https://download.samba.org/pub/rsync/rsync.1"><b>rsync</b>(1)</a>
 <li><a href="https://download.samba.org/pub/rsync/rsync-ssl.1"><b>rsync-ssl</b>(1)</a>
@@ -42,14 +42,23 @@ The latest manpages are also available for:<ul>
 </ul>
 
 <p>The source tar is available here:
-<b><a href="https://download.samba.org/pub/rsync/src/rsync-3.2.5.tar.gz">rsync-3.2.5.tar.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src/rsync-3.2.5.tar.gz.asc">signature</a>)</b>,
+<b><a href="https://download.samba.org/pub/rsync/src/rsync-3.2.6.tar.gz">rsync-3.2.6.tar.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src/rsync-3.2.6.tar.gz.asc">signature</a>)</b>,
 with a tar file of the "patches" directory released in a separate file:
-<b><a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.2.5.tar.gz">rsync-patches-3.2.5.tar.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.2.5.tar.gz.asc">signature</a>)</b>,
+<b><a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.2.6.tar.gz">rsync-patches-3.2.6.tar.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.2.6.tar.gz.asc">signature</a>)</b>,
 and the diffs from version 3.2.2 are available here:
-<b><a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.2.4-3.2.5.diffs.gz">rsync-3.2.4-3.2.5.diffs.gz</a>
-(<a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.2.4-3.2.5.diffs.gz.asc">signature</a>)</b>.
+<b><a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.2.5-3.2.6.diffs.gz">rsync-3.2.5-3.2.6.diffs.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src-diffs/rsync-3.2.5-3.2.6.diffs.gz.asc">signature</a>)</b>.
+
+<p><hr>
+<h3>Rsync version 3.2.5 released</h3>
+<i class=date>August 14th, 2022</i>
+
+<p>Rsync version 3.2.5 has been released.
+This is a bug-fix and <a href="security.html" class=security>security</a> release.
+
+<p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.5">3.2.5 NEWS</a> for a detailed changelog.
 
 <p><hr>
 <h3>Rsync version 3.2.4 released</h3>
@@ -59,12 +68,6 @@ and the diffs from version 3.2.2 are available here:
 Another typical release with both bug fixes and some enhancements. It also contains a 
 <a href="security.html#s3_2_4" class=security>security fix</a>
 for the bundled zlib 1.2.8, which may or may not be used in your particular build configuration.
-
-<p><b>NOTE:</b> a <a href="https://download.samba.org/pub/rsync/rsync-schar-fix-3.2.4.diff">patch is now available</a>
-that fixes the configure check for "signed char" when "-pedantic-errors" is in effect.
-This is for systems where a "char" defaults to "unsigned char" (such as ARM systems)
-and returns the rsync algorithm back to full efficiency (without the patch, the transfer
-sends more literal data instead of finding matched local data).</p>
 
 <p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.4">3.2.4 NEWS</a>
 for a detailed changelog.
