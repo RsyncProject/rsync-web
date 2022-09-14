@@ -72,12 +72,13 @@ the various lib packages and ignore the gcc/autoconf/awk packages.
 
 <p>There are also some <a
 href="https://download.samba.org/pub/rsync/binaries/">binary tar files</a> that
-are created in the process of testing rsync on various build machines. These
-may not have all the latest compression and checksum libraries, but they are
-based on the latest code in git or the indicated release version (you can see
-exactly what version or git commit was used via "rsync --version").  The rsync
-binary is dynamically linked with various OS lib packages that you may need to
-install to use the binary.
+are created in the process of testing rsync on various build machines. Most of
+these still have the latest compression and checksum features, but since I
+don't have root on any of the machines, I may have statically linked in a
+library that isn't installed on the host.  Some of the tar files are from a
+particular release, and the "latest.tar.gz" file is periodically built from the
+very latest git source.  Run "./rsync --version" on the extracted binary to see
+how recent it is.
 
 <p>There are also packages available from some <b>3rd-parties</b> (note that we
 cannot vouch for 3rd parties, so use a source that you trust):
