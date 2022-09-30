@@ -27,13 +27,14 @@ License</A> and is currently being maintained by
 </a></div>
 
 <p><hr>
-<h3>Rsync version 3.2.6 released</h3>
-<i class=date>September 9th, 2022</i>
+<h3>Rsync version 3.2.7pre1 released</h3>
+<i class=date>September 30th, 2022</i>
 
-<p>Rsync version 3.2.6 has been released.
-This is a bug-fix release.
+<p>Rsync version 3.2.7pre1 is now available for release testing.  This has a
+few new features and continues in the fixing of the extra validation of args
+&amp; filter rules.
 
-<p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.6">3.2.6 NEWS</a> for a detailed changelog.
+<p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.7">3.2.7 NEWS</a> for a detailed changelog.
 The latest manpages are also available for:<ul>
 <li><a href="https://download.samba.org/pub/rsync/rsync.1"><b>rsync</b>(1)</a>
 <li><a href="https://download.samba.org/pub/rsync/rsync-ssl.1"><b>rsync-ssl</b>(1)</a>
@@ -42,9 +43,28 @@ The latest manpages are also available for:<ul>
 </ul>
 
 <p>The source tar is available here:
+<b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.7pre1.tar.gz">rsync-3.2.7pre1.tar.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.7pre1.tar.gz.asc">signature</a>),</b>
+with a tar file of the "rsync-patches" repository released in a separate file:
+<b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-patches-3.2.7pre1.tar.gz">rsync-patches-3.2.7pre1.tar.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-patches-3.2.7pre1.tar.gz.asc">signature</a>),</b>
+and the diffs from version 3.2.4 are available here:
+<b><a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.6-3.2.7pre1.diffs.gz">rsync-3.2.6-3.2.7pre1.diffs.gz</a>
+(<a href="https://download.samba.org/pub/rsync/src-previews/rsync-3.2.6-3.2.7pre1.diffs.gz.asc">signature</a>)</b>
+
+<p><hr>
+<h3>Rsync version 3.2.6 released</h3>
+<i class=date>September 9th, 2022</i>
+
+<p>Rsync version 3.2.6 has been released.
+This is a bug-fix release.
+
+<p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.2.6">3.2.6 NEWS</a> for a detailed changelog.
+
+<p>The source tar is available here:
 <b><a href="https://download.samba.org/pub/rsync/src/rsync-3.2.6.tar.gz">rsync-3.2.6.tar.gz</a>
 (<a href="https://download.samba.org/pub/rsync/src/rsync-3.2.6.tar.gz.asc">signature</a>)</b>,
-with a tar file of the "patches" directory released in a separate file:
+with a tar file of the "rsync-patches" repository released in a separate file:
 <b><a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.2.6.tar.gz">rsync-patches-3.2.6.tar.gz</a>
 (<a href="https://download.samba.org/pub/rsync/src/rsync-patches-3.2.6.tar.gz.asc">signature</a>)</b>,
 and the diffs from version 3.2.2 are available here:
@@ -65,7 +85,7 @@ This is a bug-fix and <a href="security.html" class=security>security</a> releas
 <i class=date>April 15th, 2022</i>
 
 <p>Rsync version 3.2.4 has been released.
-Another typical release with both bug fixes and some enhancements. It also contains a 
+Another typical release with both bug fixes and some enhancements. It also contains a
 <a href="security.html#s3_2_4" class=security>security fix</a>
 for the bundled zlib 1.2.8, which may or may not be used in your particular build configuration.
 
@@ -228,7 +248,7 @@ for a detailed changelog.
 <h3>Rsync version 3.0.2 released</h3>
 <i class=date>April 8th, 2008</i>
 
-<p>Rsync version 3.0.2 has been released.  This is a 
+<p>Rsync version 3.0.2 has been released.  This is a
 <a href="security.html#s3_0_2" class=security>security release</a>
 that fixes a potential buffer-overflow issue.
 
@@ -256,7 +276,7 @@ also includes quite a few bug fixes.
 addition of an
 incremental recursion scan (which helps a lot with large transfers) and the
 official arrival of several other new features, including ACL support, extended
-attribute support, filename character-set conversion, etc. 
+attribute support, filename character-set conversion, etc.
 
 <p>See the <a href="https://download.samba.org/pub/rsync/NEWS#3.0.0">3.0.0 NEWS</a>
 for a detailed changelog.
