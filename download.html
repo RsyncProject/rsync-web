@@ -61,6 +61,20 @@ Tridgell. Please fetch the key for andrew@tridgell.net from https://keys.openpgp
 you should first check if you can install an rsync package via your
 standard package-install tools for your OS.
 
+<h3>Ubuntu</h3>
+
+<p>The rsync project maintains a Launchpad PPA that tracks upstream stable
+releases for the currently supported Ubuntu series (jammy 22.04 LTS,
+noble 24.04 LTS, questing 25.10, resolute 26.04 LTS).  This is the
+fastest way to get the latest upstream rsync on Ubuntu without waiting
+for the distro to update its packaged version:
+
+<p><code><small>sudo add-apt-repository ppa:rsyncproject/rsync<br>
+sudo apt update &amp;&amp; sudo apt install rsync</small></code>
+
+<p>See the <a href="https://launchpad.net/~rsyncproject/+archive/ubuntu/rsync">PPA page on Launchpad</a>
+for build status across architectures.
+
 <p>The <a href="https://github.com/RsyncProject/rsync/actions">GitHub Actions
 page</a> has build events that each generate a few binary artifact zip files
 (just click through via the build's title to see them).  The actions page is
